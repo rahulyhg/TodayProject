@@ -65,7 +65,7 @@ var NavigatorGuidePages = React.createClass({
     showLeftButton: function(){
         navigationBarRouteMapper.LeftButton = function(){
             return (
-                <global.YrcnApp.components.NavigatorLeftBtnView text={"<"} onPress={this._onPressLeftButton}/>
+                <global.YrcnApp.components.NavigatorLeftBtnView text={"<返回"} onPress={this._onPressLeftButton}/>
             );
         }
     },

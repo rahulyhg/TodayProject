@@ -157,7 +157,7 @@ var ScrollViewToday = React.createClass({
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f7f7f2',
         marginTop: 44,
     },
 });

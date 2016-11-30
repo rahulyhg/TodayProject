@@ -38,7 +38,7 @@ var navigationBarRouteMapper = {
     _onPressLeftButton: function(){
     },
     _onPressRightButton: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
     },
 }
 //

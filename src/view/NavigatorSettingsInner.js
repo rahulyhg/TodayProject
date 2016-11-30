@@ -46,7 +46,7 @@ var navigationBarRouteMapper = {
     },
     LeftButton: function(){
         return (
-            <global.YrcnApp.components.NavigatorLeftBtnView text={"<"}/>
+            <global.YrcnApp.components.NavigatorLeftBtnView text={"<返回"}/>
         );
     },
     RightButton: function(){
@@ -60,11 +60,11 @@ var navigationBarRouteMapper = {
     },
 }
 //
-var NavigatorBookSettings_01 = React.createClass({
+var NavigatorSettingsInner = React.createClass({
     showLeftButton: function(){
         navigationBarRouteMapper.LeftButton = function(){
             return (
-                <global.YrcnApp.components.NavigatorLeftBtnView onPress={this._onPressLeftButton} text={"<"}/>
+                <global.YrcnApp.components.NavigatorLeftBtnView onPress={this._onPressLeftButton} text={"<返回"}/>
             );
         }
     },
@@ -171,4 +171,4 @@ var styles = StyleSheet.create({
     }
 });
 //
-module.exports = NavigatorBookSettings_01;
+module.exports = NavigatorSettingsInner;

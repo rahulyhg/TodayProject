@@ -18,7 +18,7 @@ var RNUtils = require('../common/RNUtils.js');
 var NavigatorBookDesk = require('./NavigatorBookDesk.js');
 var NavigatorBookShelf = require('./NavigatorBookShelf.js');
 var NavigatorBookRoom = require('./NavigatorBookRoom.js');
-var NavigatorBookSettings = require('./NavigatorBookSettings.js');
+var NavigatorBookSettings = require('./NavigatorSettings.js');
 var NavigatorBookLibrary = require('./NavigatorBookLibrary.js');
 //
 var TabBarIndex = React.createClass({

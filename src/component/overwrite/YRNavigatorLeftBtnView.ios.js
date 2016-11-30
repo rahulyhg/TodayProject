@@ -24,7 +24,7 @@ var YRNavigatorLeftBtnView = React.createClass({
         //
         return (
             <TouchableOpacity style={{top:7,width:40}} onPress={this.props.onPress}>
-                <Text style={{fontSize:13,color: '#ffffff',fontWeight:'700',textAlign:'center'}}>{this.props.text}</Text>
+                <Text style={{fontSize:14,color: '#ffffff',fontWeight:'900',textAlign:'center'}}>{this.props.text}</Text>
             </TouchableOpacity>
         );
     }

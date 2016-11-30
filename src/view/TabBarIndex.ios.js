@@ -17,7 +17,7 @@ var RNUtils = require('../common/RNUtils.js');
 var NavigatorToday = require('./NavigatorToday.js');
 var NavigatorYesterday = require('./NavigatorYesterday.js');
 var NavigatorLlg = require('./NavigatorLlg.js');
-var NavigatorBookSettings = require('./NavigatorBookSettings.js');
+var NavigatorSettings = require('./NavigatorSettings.js');
 //
 var TabBarIndex = React.createClass({
     getInitialState: function(){
@@ -63,7 +63,7 @@ var TabBarIndex = React.createClass({
                     selected={this.state.selectedTab === 'myLife'}
                     onPress={()=>{this.setState({selectedTab: 'myLife'})}}
                     title="设置">
-                    <NavigatorBookSettings
+                    <NavigatorSettings
                         NavigatorRoot_route={this.props.NavigatorRoot_route}
                         NavigatorRoot_navigator={this.props.NavigatorRoot_navigator}/>
                 </TabBarIOS.Item>

@@ -19,14 +19,8 @@ var RNUtilsModule = global.YrcnApp.native.RNUtilsModule;
 var RNUtils = global.YrcnApp.utils;
 var RNAllService = global.YrcnApp.services;
 var TabBarIndex = require('./TabBarIndex');//选项卡首页
-var NavigatorHerLifeInner = require('./NavigatorHerLifeInner.js');//
-var NavigatorMyLifeInner = require('./NavigatorMyLifeInner.js');//
-var NavigatorAccountPwdInner = require('./NavigatorAccountPwdInner');//
-var NavigatorCardPwdInner = require('./NavigatorCardPwdInner');//
-var LifeHerSearchView = require('./LifeHerSearchView.js');
-var LoginView = require('./LoginView.js');
 var NavigatorGuidePages = require('./NavigatorGuidePages.js');
-var NavigatorBookSettings_01 = require('./NavigatorBookSettings_01.js');
+var NavigatorSettingsInner = require('./NavigatorSettingsInner.js');
 var NavigatorTodayInner = require('./NavigatorTodayInner.js');
 var NavigatorYesterdayInner = require('./NavigatorYesterdayInner.js');
 var ViewNewFunc = require('../view/ViewNewFunc.js');
@@ -131,23 +125,8 @@ var NavigatorRoot = React.createClass({
         var Component = null;
         var props = route || {};
         switch (route.name){
-            case "NavigatorHerLifeInner": //
-                Component = NavigatorHerLifeInner;
-                break;
-            case "NavigatorMyLifeInner": //
-                Component = NavigatorMyLifeInner;
-                break;
-            case "NavigatorAccountPwdInner": //
-                Component = NavigatorAccountPwdInner;
-                break;
-            case "NavigatorCardPwdInner": //
-                Component = NavigatorCardPwdInner;
-                break;
-            case "LifeHerSearchView": //
-                Component = LifeHerSearchView;
-                break;
-            case "NavigatorBookSettings_01": //
-                Component = NavigatorBookSettings_01;
+            case "NavigatorSettingsInner": //
+                Component = NavigatorSettingsInner;
                 break;
             case "TabBarIndex": //
                 Component = TabBarIndex;

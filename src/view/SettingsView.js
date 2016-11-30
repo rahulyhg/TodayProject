@@ -125,22 +125,22 @@ var SettingsView = React.createClass({
         );
     },
     _onPressSpecialStatement: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"SpecialStatementView",indexTitle:'特别声明'});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"SpecialStatementView",indexTitle:'特别声明'});
     },
     _onPressUseHelp: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"UseHelpView",indexTitle:'使用帮助'});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"UseHelpView",indexTitle:'使用帮助'});
     },
     _onPressClearCache: function(){
 
     },
     _onPressTypeShow: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
     },
     _onPressMarkScore: function(){
         RNUtilsModule.appUpgrade([global.YrcnApp.configs.IOS_APP_URL]);
     },
     _onPressTimeShow: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"ViewTime",indexTitle:'智能提醒'});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"ViewTime",indexTitle:'智能提醒'});
     }
 });
 //
