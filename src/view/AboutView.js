@@ -69,7 +69,7 @@ var AboutView = React.createClass({
                     <ListViewLi title="给我评分"/>
                 </View>
                 <View style={styles.bottomView}>
-                    <Text style={styles.bottomText}>©怡然城南工作室</Text>
+                    <Text style={styles.bottomText}>©怡然城南</Text>
                 </View>
             </View>
         );

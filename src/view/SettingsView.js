@@ -64,6 +64,12 @@ var SettingsView = React.createClass({
                     }
                 },
                 {
+                    title:"智能提醒",
+                    onPressFn: function(){
+                        _this._onPressTimeShow();
+                    }
+                },
+                {
                     title:"给我评分",
                     onPressFn: function(){
                         _this._onPressMarkScore();
@@ -105,7 +111,7 @@ var SettingsView = React.createClass({
                     name="">
                 </ListView>
                 <View style={styles.bottomView}>
-                    <Text style={styles.bottomText}>©怡然城南工作室</Text>
+                    <Text style={styles.bottomText}>©怡然城南</Text>
                 </View>
             </View>
         );
@@ -132,6 +138,9 @@ var SettingsView = React.createClass({
     },
     _onPressMarkScore: function(){
         RNUtilsModule.appUpgrade([global.YrcnApp.configs.IOS_APP_URL]);
+    },
+    _onPressTimeShow: function(){
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"ViewTime",indexTitle:'智能提醒'});
     }
 });
 //

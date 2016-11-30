@@ -147,6 +147,44 @@ RCT_EXPORT_METHOD(appBundleUpgrade:(NSArray *) params)
       [self performSelectorOnMainThread:@selector(reloadRootView) withObject:nil waitUntilDone:NO];
     }];
 }
+#pragma mark +++++++++++++++++++++++++++++++++++++++
+#pragma mark appNotification
+RCT_EXPORT_METHOD(appNotification:(NSArray *) params)
+{
+  NSLog(@"appNotification=%@",params);
+  NSString * onOrOff = params[0];
+  NSString * time = params[1];
+  NSString * alertBody = params[2];
+  if([onOrOff isEqualToString:@"1"]){
+    NSLog(@"打开appNotification");
+    //
+    UILocalNotification * notification=[[UILocalNotification alloc] init];
+    NSDateFormatter *formattr=[[NSDateFormatter alloc] init];
+    //格式化时间
+    [formattr setDateFormat:@"HH:mm"];
+    NSDate *fireDate=[formattr dateFromString:[NSString stringWithFormat:@"%@",time]];
+    //使用本地时区
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.fireDate = fireDate;
+    //
+    //
+    notification.repeatInterval = kCFCalendarUnitDay;//设置重复间隔
+    notification.soundName=UILocalNotificationDefaultSoundName;//通知提示音 使用默认的
+    //
+    notification.alertBody = alertBody;//设置提醒的文字内容
+    notification.alertAction=@"今天做了啥";//
+//    notification.applicationIconBadgeNumber++;//设置应用程序右上角的提醒个数
+    //
+    //  NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
+    //  aUserInfo[kLocalNotificationID] = @"LocalNotificationID";
+    //  notification.userInfo = aUserInfo;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    //  [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+  }else{
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+  }
+}
 
 -(void) reloadRootView{
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];

@@ -32,12 +32,13 @@ var navigationBarRouteMapper = {
     },
     RightButton: function(){
         return (
-            <global.YrcnApp.components.NavigatorRightBtnView text={""}/>
+            <global.YrcnApp.components.NavigatorRightBtnView text={"显设"} onPress={this._onPressRightButton}/>
         );
     },
     _onPressLeftButton: function(){
     },
     _onPressRightButton: function(){
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorBookSettings_01",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
     },
 }
 //
@@ -67,7 +68,7 @@ var NavigatorToday = React.createClass({
     showRightButton: function(){
         navigationBarRouteMapper.RightButton = function(){
             return (
-                <global.YrcnApp.components.NavigatorRightBtnView text={""}/>
+                <global.YrcnApp.components.NavigatorRightBtnView text={"显设"}/>
             );
         }
         this.setState({

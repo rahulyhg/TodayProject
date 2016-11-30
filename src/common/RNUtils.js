@@ -54,6 +54,7 @@ const AS_KEY_ACCOUNT_PWD = "AS_012";//存储系统 账号类密码
 const AS_KEY_CARD_PWD = "AS_013";//存储系统 卡类密码
 const AS_KEY_TODAY_CONTENT_PREV = "AS_014_";//存储系统 Today内容前缀
 const AS_KEY_TODAY_CONTENT_TYPES = "AS_015";//存储系统 Today内容类型
+const AS_KEY_NEW_FUNC_PREV = "AS_016_";//存储系统 新功能展示
 
 const BOOKDESK_BOOKS_NUM = 12;
 
@@ -1062,6 +1063,14 @@ class RNUtils{
                 });
                 succCallbackFn(keysArr);
             })
+    }
+    //获取新功能
+    static getJsonNewFunc(funcName,succCallbackFn){
+        RNUtils.AsyncStorage_getItem(AS_KEY_NEW_FUNC_PREV+funcName,succCallbackFn);
+    }
+    //设置新功能
+    static setJsonNewFunc(funcName,succCallbackFn){
+        RNUtils.AsyncStorage_setItem(AS_KEY_NEW_FUNC_PREV+funcName,"1",succCallbackFn);
     }
 }
 module.exports = RNUtils;

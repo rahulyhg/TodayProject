@@ -85,6 +85,13 @@ var ScrollViewToday = React.createClass({
         YrcnApp.services.getJson_today_getContentInfo({day:YrcnApp.utils.nowDate()},function(getJson_today_getContentInfoObj){
 
         })
+        //
+        RNUtils.getJsonNewFunc("xian_she",function(value){
+            if(value && value == "1"){
+            }else{
+                global.YrcnApp.now.$NavigatorRoot.renderNewFunc();
+            }
+        })
     },
     render: function(){
         var _this = this;
@@ -151,7 +158,7 @@ var ScrollViewToday = React.createClass({
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        marginTop: 44
+        marginTop: 44,
     },
 });
 //

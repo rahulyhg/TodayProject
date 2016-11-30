@@ -29,6 +29,7 @@ var NavigatorGuidePages = require('./NavigatorGuidePages.js');
 var NavigatorBookSettings_01 = require('./NavigatorBookSettings_01.js');
 var NavigatorTodayInner = require('./NavigatorTodayInner.js');
 var NavigatorYesterdayInner = require('./NavigatorYesterdayInner.js');
+var ViewNewFunc = require('../view/ViewNewFunc.js');
 
 //
 var NavigatorRoot = React.createClass({
@@ -39,7 +40,8 @@ var NavigatorRoot = React.createClass({
             appUpgradeVersion: "",
             appBundleUpgradeVersion: "",
             appUpgradeDesp: "",
-            contentBottomText: "下载升级"
+            contentBottomText: "下载升级",
+            isShowNewFunc: false
         });
     },
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
@@ -80,6 +82,7 @@ var NavigatorRoot = React.createClass({
     render: function(){
         //
         var _this = this;
+        global.YrcnApp.now.$NavigatorRoot = this;
         return (
             <View style={[global.YrcnApp.styles.common.container]}>
                 <Navigator
@@ -110,6 +113,11 @@ var NavigatorRoot = React.createClass({
                                 </TouchableOpacity>
                             </View>
                         </View>
+                    );
+                }():function(){}()}
+                {(this.state.isShowNewFunc)?function(){
+                    return (
+                        <ViewNewFunc onPress={_this._onPressNewFunc}/>
                     );
                 }():function(){}()}
             </View>
@@ -182,6 +190,17 @@ var NavigatorRoot = React.createClass({
             }
         }
     },
+    renderNewFunc: function(){
+        this.setState({
+            isShowNewFunc: true
+        });
+    },
+    _onPressNewFunc: function(){
+        RNUtils.setJsonNewFunc("xian_she");
+        this.setState({
+            isShowNewFunc: false
+        });
+    }
 });
 //
 var styles = StyleSheet.create({

@@ -85,11 +85,12 @@ var styles = StyleSheet.create({
     container:{
         borderBottomWidth: 0,
         borderBottomColor: '#efefef',
-        marginLeft:0,
+        marginLeft: 0,
         marginBottom: 10,
         paddingTop: 10,
     },
     textInput:{
         width: Dimensions.get('window').width-50,
+        color:'#ffffff'
     }
 });

@@ -134,6 +134,10 @@ var ScrollViewToday = React.createClass({
                 selectedArray.push(item);
             }
         }
+        if(typeArray.length == selectedArray.length){
+            RNUtils.alert("请至少保留一项吧")
+            return;
+        }
         if(selectedArray.length == 0){
             RNUtils.alert("请至少选择一项")
             return;

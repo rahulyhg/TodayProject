@@ -35,6 +35,7 @@ var PersonalInfoView = require('./PersonalInfoView.js');//忘记密码
 var ScrollViewSettingTodayType = require('./ScrollViewSettingTodayType.js');//事件显示
 var ScrollViewAddTodayType = require('./ScrollViewAddTodayType.js');//事件新增
 var ScrollViewUpdTodayType = require('./ScrollViewUpdTodayType.js');//事件编辑
+var ViewTime = require('./ViewTime.js');//事件编辑
 //
 var navigationBarRouteMapper = {
     titleStr: "书房",
@@ -114,6 +115,9 @@ var NavigatorBookSettings_01 = React.createClass({
                 break;
             case "UseHelpView": //使用帮助
                 Component = UseHelpView;
+                break;
+            case "ViewTime": //智能提醒
+                Component = ViewTime;
                 break;
             case "ReadingStatisticsView": //阅读统计
                 Component = ReadingStatisticsView;

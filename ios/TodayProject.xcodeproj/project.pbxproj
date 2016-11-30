@@ -20,7 +20,6 @@
 		816882F51DD1AC25000E72ED /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 816882F41DD1AC25000E72ED /* libWeChatSDK.a */; };
 		816882F71DD1AC67000E72ED /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 816882F61DD1AC67000E72ED /* libc++.tbd */; };
 		816882F91DD1AC7F000E72ED /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816882F81DD1AC7F000E72ED /* CoreTelephony.framework */; };
-		816882FD1DD1AF7D000E72ED /* OpenSDK1.7.4 in Resources */ = {isa = PBXBuildFile; fileRef = 816882FC1DD1AF7D000E72ED /* OpenSDK1.7.4 */; };
 		81766B101D9CB2AA006B7401 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81766AE81D9CB2AA006B7401 /* AppDelegate.m */; };
 		81766B1F1D9CB2AA006B7401 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81766B001D9CB2AA006B7401 /* LaunchScreen.xib */; };
 		81766B201D9CB2AA006B7401 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81766B021D9CB2AA006B7401 /* Images.xcassets */; };
@@ -153,7 +152,6 @@
 		816882F41DD1AC25000E72ED /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = OpenSDK1.7.4/libWeChatSDK.a; sourceTree = "<group>"; };
 		816882F61DD1AC67000E72ED /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		816882F81DD1AC7F000E72ED /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		816882FC1DD1AF7D000E72ED /* OpenSDK1.7.4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OpenSDK1.7.4; sourceTree = "<group>"; };
 		81766AE71D9CB2AA006B7401 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81766AE81D9CB2AA006B7401 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81766B011D9CB2AA006B7401 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -476,7 +474,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				816882FC1DD1AF7D000E72ED /* OpenSDK1.7.4 */,
 				81766AE61D9CB2AA006B7401 /* SrcProject */,
 				81DC31FC1D8CD58D008870FE /* AFNetworking */,
 				81DC31DE1D8CD572008870FE /* Reachability */,
@@ -676,7 +673,6 @@
 				81766B271D9CB2AA006B7401 /* LaunchScreen.strings in Resources */,
 				81B2FA341D69893400C8C742 /* Info.plist in Resources */,
 				81766B201D9CB2AA006B7401 /* Images.xcassets in Resources */,
-				816882FD1DD1AF7D000E72ED /* OpenSDK1.7.4 in Resources */,
 				81766B1F1D9CB2AA006B7401 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
