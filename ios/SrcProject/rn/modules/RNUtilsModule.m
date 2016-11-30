@@ -93,6 +93,14 @@ RCT_EXPORT_METHOD(getAppInfo:(NSArray *) params callback:(RCTResponseSenderBlock
     NSString *appCurName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     [appInfo setValue:appCurName forKey:@"appCurName"];
     //
+  if ([[UIApplication sharedApplication]currentUserNotificationSettings].types!=UIUserNotificationTypeNone) {
+    NSLog(@"取得通知授权");
+    [appInfo setValue:@"1" forKey:@"isOpenNotification"];
+  }else{
+    NSLog(@"未取得通知授权");
+    [appInfo setValue:@"0" forKey:@"isOpenNotification"];
+  }
+    //
     callback(@[@[appInfo]]);
 }
 #pragma mark +++++++++++++++++++++++++++++++++++++++
@@ -183,6 +191,17 @@ RCT_EXPORT_METHOD(appNotification:(NSArray *) params)
     //  [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
   }else{
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+  }
+}
+#pragma mark +++++++++++++++++++++++++++++++++++++++
+#pragma mark gotoAppSystemSetting
+RCT_EXPORT_METHOD(gotoAppSystemSetting:(NSArray *) params)
+{
+  NSLog(@"gotoAppSystemSetting=%@",params);
+  NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+  if([[UIApplication sharedApplication] canOpenURL:url]) {
+    NSURL*url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    [[UIApplication sharedApplication] openURL:url];
   }
 }
 

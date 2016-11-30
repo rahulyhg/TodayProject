@@ -46,7 +46,7 @@ var ViewTime = React.createClass({
     componentDidMount: function(){
         var userLogin = global.YrcnApp.loginUser.userLogin;
         //console.log(userLogin)
-        if(userLogin.appNotificationTime){
+        if(global.YrcnApp.appInfo.isOpenNotification == "1" && userLogin.appNotificationTime){
             var hour = userLogin.appNotificationTime.split(":")[0];
             var minute = userLogin.appNotificationTime.split(":")[1];
             var date = moment();
@@ -97,6 +97,13 @@ var ViewTime = React.createClass({
                     minuteInterval={1}
                     style={[styles.DatePickerIOS]}
                     />
+                {
+                    global.YrcnApp.appInfo.isOpenNotification == "0"?(
+                        <View style={[styles.tipsView]}>
+                            <Text style={[styles.tipsText]}>如需开启，请在iPhone的【设置】-【通知】中，找到【{YrcnApp.configs.AppName}】打开提醒样式。</Text>
+                        </View>
+                    ):(null)
+                }
             </View>
         );
     },
@@ -111,17 +118,42 @@ var ViewTime = React.createClass({
         var time = moment(this.state.date).format("HH:mm");
         console.log(time);
         if(value){//开启智能提醒
-            var userLogin = global.YrcnApp.loginUser.userLogin;
-            userLogin.appNotificationTime = time;
-            YrcnApp.utils.pushLoginInfo(global.YrcnApp.loginUser);
-            global.YrcnApp.native.RNUtilsModule.appNotification(["1",time,todayNofifications["Time"+time.split(":")[0]].content]);
+            if(global.YrcnApp.appInfo.isOpenNotification == "0"){
+                //
+                YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
+                    var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
+                    global.YrcnApp.appInfo = appInfo;
+                    YrcnApp.utils.setAppInfo(appInfo);
+                    //
+                    if(global.YrcnApp.appInfo.isOpenNotification == "0"){
+                        YrcnApp.utils.confirm("请允许"+YrcnApp.configs.AppName+"向您发送【通知】",function(){
+                            global.YrcnApp.native.RNUtilsModule.gotoAppSystemSetting([]);
+                        });
+                        return;
+                    }else{
+                        innerFunc();
+                        this.setState({falseSwitchIsOn: value});
+                    }
+                });
+                return;
+            }else{
+                innerFunc();
+                this.setState({falseSwitchIsOn: value});
+            }
         }else{//取消智能提醒
             var userLogin = global.YrcnApp.loginUser.userLogin;
             userLogin.appNotificationTime = "";
             YrcnApp.utils.pushLoginInfo(global.YrcnApp.loginUser);
             global.YrcnApp.native.RNUtilsModule.appNotification(["0",time,""]);
+            //
+            this.setState({falseSwitchIsOn: value});
         }
-        this.setState({falseSwitchIsOn: value});
+        function innerFunc(){
+            var userLogin = global.YrcnApp.loginUser.userLogin;
+            userLogin.appNotificationTime = time;
+            YrcnApp.utils.pushLoginInfo(global.YrcnApp.loginUser);
+            global.YrcnApp.native.RNUtilsModule.appNotification(["1",time,todayNofifications["Time"+time.split(":")[0]].content]);
+        }
     }
 });
 //
@@ -158,5 +190,19 @@ var styles = StyleSheet.create({
         alignSelf: 'flex-end',
     },
     DatePickerIOS:{
+    },
+    tipsView:{
+        width:Dimensions.get('window').width,
+        backgroundColor: '#ffffff',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 15,
+        paddingBottom: 15,
+        marginTop: 20,
+    },
+    tipsText:{
+        color: '#444444',
+        lineHeight: 20,
+        fontSize: 13,
     }
 });

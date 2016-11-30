@@ -51,8 +51,9 @@
   //
   //如果已经得到授权，就直接添加本地通知，否则申请询问授权
   if ([[UIApplication sharedApplication]currentUserNotificationSettings].types!=UIUserNotificationTypeNone) {
-    
+    NSLog(@"取得通知授权");
   }else{
+    NSLog(@"未取得通知授权");
     [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound  categories:nil]];
   }
   //
