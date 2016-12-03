@@ -46,7 +46,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
         var _this = this;
         //
         return {
-            isShowLoadingView: true,
+            isShowLoadingView: "-1",
             fontSize: 13,
             lineHeight: 10,
             paragraphBackgroundColor: '#ffffff',
@@ -128,7 +128,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
         var _this = this;
         this.props.parent.hideRightButton();
         return (
-            _this.state.isShowLoadingView?
+            _this.state.isShowLoadingView=="-1"?
                 (<ACViewBox />):
                 (_this.state.isShowLoadingView=="0"?
                     (<NoRecordViewBox />):
