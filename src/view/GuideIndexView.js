@@ -82,14 +82,14 @@ var GuideIndexView = React.createClass({
                             if(_this.state.isLogined == "1"){
                                 return (
                                     <ButtonsBox marginBottom={0}>
-                                        <ButtonsBox.Button btnText={"欢迎回来"} onPress={_this._onPressWelcome} isPressing={_this.state.isPressingWelcome}/>
+                                        <ButtonsBox.Button btnText={"欢迎回来，"+global.YrcnApp.loginUser.userInfo.niCheng} onPress={_this._onPressWelcome} isPressing={_this.state.isPressingWelcome}/>
                                     </ButtonsBox>
                                 );
                             }else if(_this.state.isLogined == "2"){
                                 return (
                                     <View>
                                         <ButtonsBox marginBottom={0}>
-                                            <ButtonsBox.Button btnText={"开始"} onPress={_this._onPressStart} isPressing={_this.state.isPressingStart}/>
+                                            <ButtonsBox.Button btnText={"注册"} onPress={_this._onPressStart} isPressing={_this.state.isPressingStart}/>
                                         </ButtonsBox>
                                         <ButtonsBox marginTop={0}>
                                             <ButtonsBox.Button btnText={"已注册？登录"} onPress={_this._onPressLogin} isPressing={_this.state.isPressingLogin}/>
@@ -107,7 +107,8 @@ var GuideIndexView = React.createClass({
         global.YrcnApp.now.rootNavigator.replace({name:'TabBarIndex'});
     },
     _onPressStart: function () {
-        this.props.parent_navigator.push({name:'GuideProfessionView',title:'Today'});
+        //this.props.parent_navigator.push({name:'GuideProfessionView',title:'Today'});
+        this.props.parent_navigator.push({name:'RegisterIndexView',title:'Today'});
     },
     _onPressLogin: function () {
         this.props.parent_navigator.push({name:'LoginIndexView',title:"Today"});

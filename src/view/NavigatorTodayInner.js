@@ -28,7 +28,7 @@ var navigationBarRouteMapper = {
     },
     LeftButton: function(){
         return (
-            <global.YrcnApp.components.NavigatorLeftBtnView text={"返回"} onPress={this._onPressLeftButton}/>
+            <global.YrcnApp.components.NavigatorLeftBtnView text={"<返回"} onPress={this._onPressLeftButton}/>
         );
     },
     RightButton: function(){
@@ -60,7 +60,7 @@ var NavigatorTodayInner = React.createClass({
     showLeftButton: function(){
         navigationBarRouteMapper.LeftButton = function(){
             return (
-                <global.YrcnApp.components.NavigatorLeftBtnView text={"返回"} onPress={this._onPressLeftButton}/>
+                <global.YrcnApp.components.NavigatorLeftBtnView text={"<返回"} onPress={this._onPressLeftButton}/>
             );
         }
     },

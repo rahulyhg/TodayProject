@@ -30,6 +30,7 @@ var ACViewBox = require('../component/ACViewBox.js');
 var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
+var NoRecordViewBox = require('../component/NoRecordViewBox.js');
 //
 /**
  */
@@ -72,6 +73,11 @@ var ScrollViewLlg = React.createClass({
                 </LineButtonsBox>
                 {
                     function(){
+                        if(_this.state.keys.length == 0){
+                            return (
+                                <NoRecordViewBox backgroundColor={'#f7f7f2'} height={100}/>
+                            );
+                        }
                         return _this.state.keys.map(function(d,i){
                             return (
                                 <ListViewLi title={d} onPress={function(){_this._onPressLi(i)}} key={i} color={'#000000'}/>

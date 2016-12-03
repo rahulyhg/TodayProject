@@ -151,9 +151,9 @@ var RegisterEmailView = React.createClass({
         param.address = "";
         param.email = param.userName;
         param.requestFlag = "0";
-        param.profession = encodeURI(encodeURI(global.YrcnApp.now.profession));
-        param.sex = global.YrcnApp.now.sex;
-        param.age = global.YrcnApp.now.age;
+        param.profession = encodeURI(encodeURI(global.YrcnApp.now.profession||''));
+        param.sex = global.YrcnApp.now.sex||'1';
+        param.age = global.YrcnApp.now.age||'0';
         _this.setState({
             isPressingRegister: true,
         });
