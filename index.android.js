@@ -13,9 +13,10 @@ var YrcnApp = require('./src/common/YrcnApp.js');
 global.YrcnApp = YrcnApp;
 //
 YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
-  var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
-  //console.log(appInfo)
-  YrcnApp.utils.setAppInfo(appInfo);
+    var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
+    global.YrcnApp.appInfo = appInfo;
+    //console.log(appInfo)
+    YrcnApp.utils.setAppInfo(appInfo);
 });
 //所有的页面都在顶级导航之内
 var NavigatorRoot = require('./src/view/NavigatorRoot.js');//顶级导航

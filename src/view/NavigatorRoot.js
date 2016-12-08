@@ -23,7 +23,7 @@ var NavigatorGuidePages = require('./NavigatorGuidePages.js');
 var NavigatorSettingsInner = require('./NavigatorSettingsInner.js');
 var NavigatorTodayInner = require('./NavigatorTodayInner.js');
 var NavigatorYesterdayInner = require('./NavigatorYesterdayInner.js');
-var ViewNewFunc = require('../view/ViewNewFunc.js');
+var ViewNewFunc = require('../view/ViewNewFunc');
 
 //
 var NavigatorRoot = React.createClass({

@@ -19,7 +19,7 @@ var ScrollViewHerLife = require('./ScrollViewHerLife.js');
 var ScrollViewHerLifeAnswer = require('./ScrollViewHerLifeAnswer.js');
 var ListViewSearchHerLifes = require('./ListViewSearchHerLifes.js');
 var WebViewEditTodayContent = require('./WebViewEditTodayContent.js');
-var ViewEditTodayContent = require('./ViewEditTodayContent.js');
+var ViewEditTodayContent = require('./ViewEditTodayContent');
 //
 var navigationBarRouteMapper = {
     titleStr: "",

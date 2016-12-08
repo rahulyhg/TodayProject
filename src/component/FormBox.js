@@ -16,9 +16,9 @@ import {
 //
 var RNUtils = require('../common/RNUtils.js');
 var globalStyles = RNUtils.getGlobalStyles();
-var FormBoxInput = require('./FormBoxInput.js');
-var FormBoxPassword = require('./FormBoxPassword.js');
-var FormBoxInputImage = require('./FormBoxInputImage.js');
+var FormBoxInput = require('./FormBoxInput');
+var FormBoxPassword = require('./FormBoxPassword');
+var FormBoxInputImage = require('./FormBoxInputImage');
 var FormBoxSwitch = require('./FormBoxSwitch.js');
 var FormBoxRadio = require('./FormBoxRadio.js');
 //

@@ -15,7 +15,7 @@ import {
     View,
 } from 'react-native';
 //
-var ViewEditTodayContent = require('./ViewEditTodayContent.js');
+var ViewEditTodayContent = require('./ViewEditTodayContent');
 var ScrollViewShowTodayContent = require('./ScrollViewShowTodayContent.js');
 var ScrollViewShowTodayLlgBetweenContent = require('./ScrollViewShowTodayLlgBetweenContent.js');
 //

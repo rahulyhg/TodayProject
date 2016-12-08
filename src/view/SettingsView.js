@@ -39,43 +39,33 @@ var SettingsView = React.createClass({
         var _this = this;
         //
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        //console.log(this.props.bookDesk);
+        //
+        var dsArray = [
+            {
+                title:"特别声明",onPressFn: function(){_this._onPressSpecialStatement();}
+            },
+            {
+                title:"使用帮助",onPressFn: function(){_this._onPressUseHelp();}
+            },
+            {
+                title:"显示设置",onPressFn: function(){_this._onPressTypeShow();}
+            }
+        ];
+        if(YrcnApp.Platform.OS == "ios"){
+            dsArray.concat([
+                {
+                    title:"智能提醒",onPressFn: function(){_this._onPressTimeShow();}
+                },
+                {
+                    title:"给我评分",onPressFn: function(){_this._onPressMarkScore();}
+                }
+            ]);
+        }
         //
         return {
             //数据源
             ds: ds,
-            dataSource: ds.cloneWithRows([
-                {
-                    title:"特别声明",
-                    onPressFn: function(){
-                        _this._onPressSpecialStatement();
-                    }
-                },
-                {
-                    title:"使用帮助",
-                    onPressFn: function(){
-                        _this._onPressUseHelp();
-                    }
-                },
-                {
-                    title:"显示设置",
-                    onPressFn: function(){
-                        _this._onPressTypeShow();
-                    }
-                },
-                {
-                    title:"智能提醒",
-                    onPressFn: function(){
-                        _this._onPressTimeShow();
-                    }
-                },
-                {
-                    title:"给我评分",
-                    onPressFn: function(){
-                        _this._onPressMarkScore();
-                    }
-                },
-            ]),
+            dataSource: ds.cloneWithRows(dsArray),
             appBundleV: "",
         };
     },

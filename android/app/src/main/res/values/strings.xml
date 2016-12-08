@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">微笑阅读</string>
+    <string name="app_name">今天做了啥</string>
     <string name="soft_update_no">已经是最新版本</string>
     <string name="soft_update_title">软件更新</string>
     <string name="soft_update_info">检测到新版本，立即更新吗</string>

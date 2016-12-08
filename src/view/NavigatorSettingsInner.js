@@ -35,7 +35,7 @@ var PersonalInfoView = require('./PersonalInfoView.js');//忘记密码
 var ScrollViewSettingTodayType = require('./ScrollViewSettingTodayType.js');//事件显示
 var ScrollViewAddTodayType = require('./ScrollViewAddTodayType.js');//事件新增
 var ScrollViewUpdTodayType = require('./ScrollViewUpdTodayType.js');//事件编辑
-var ViewTime = require('./ViewTime.js');//事件编辑
+var ViewTime = require('./ViewTime');//事件编辑
 //
 var navigationBarRouteMapper = {
     titleStr: "书房",

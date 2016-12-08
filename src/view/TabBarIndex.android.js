@@ -15,17 +15,16 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 //
 var RNUtils = require('../common/RNUtils.js');
-var NavigatorBookDesk = require('./NavigatorBookDesk.js');
-var NavigatorBookShelf = require('./NavigatorBookShelf.js');
-var NavigatorBookRoom = require('./NavigatorBookRoom.js');
-var NavigatorBookSettings = require('./NavigatorSettings.js');
-var NavigatorBookLibrary = require('./NavigatorBookLibrary.js');
+var NavigatorToday = require('./NavigatorToday.js');
+var NavigatorYesterday = require('./NavigatorYesterday.js');
+var NavigatorLlg = require('./NavigatorLlg.js');
+var NavigatorSettings = require('./NavigatorSettings.js');
 //
 var TabBarIndex = React.createClass({
     getInitialState: function(){
         var _this = this;
         return {
-            selectedTab: 'bookDesk',
+            selectedTab: 'todayIcon',
         };
     },
     render: function(){
@@ -34,54 +33,45 @@ var TabBarIndex = React.createClass({
             <TabNavigator tabBarStyle={{ height: 50, overflow: 'hidden',paddingBottom:0}}
                           sceneStyle={{ }}>
                 <TabNavigator.Item
-                    selected={this.state.selectedTab === 'bookDesk'}
-                    title="书桌"
+                    selected={this.state.selectedTab === 'todayIcon'}
+                    title="今天"
                     titleStyle={{color:'#444444'}}
                     selectedTitleStyle={{color:'#4ab854'}}
                     tabStyle={{}}
-                    renderIcon={() => <Image source={require('../images/bookDesk.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../images/bookDeskSelected.png')} />}
-                    onPress={(item)=>{this._onPressTabItem('bookDesk')}}>
-                    <NavigatorBookDesk
-                        bookDesk={this.state.bookDesk}
-                        NavigatorRoot_route={this.props.NavigatorRoot_route}
-                        NavigatorRoot_navigator={this.props.NavigatorRoot_navigator}/>
+                    renderIcon={() => <Image source={require('../images/hotLife.png')} />}
+                    renderSelectedIcon={() => <Image source={require('../images/hotLife.png')} />}
+                    onPress={(item)=>{this._onPressTabItem('todayIcon')}}>
+                    <NavigatorToday />
                 </TabNavigator.Item>
                 <TabNavigator.Item
-                    selected={this.state.selectedTab === 'bookShelf'}
-                    title="书架"
+                    selected={this.state.selectedTab === 'yesterdayIcon'}
+                    title="昨天"
                     titleStyle={{color:'#444444'}}
                     selectedTitleStyle={{color:'#4ab854'}}
-                    renderIcon={() => <Image source={require('../images/bookShelf.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../images/bookShelfSelected.png')} />}
-                    onPress={(item)=>{this._onPressTabItem('bookShelf')}}>
-                    <NavigatorBookShelf
-                        NavigatorRoot_route={this.props.NavigatorRoot_route}
-                        NavigatorRoot_navigator={this.props.NavigatorRoot_navigator}/>
+                    renderIcon={() => <Image source={require('../images/yesterdayIcon.png')} />}
+                    renderSelectedIcon={() => <Image source={require('../images/yesterdayIcon.png')} />}
+                    onPress={(item)=>{this._onPressTabItem('yesterdayIcon')}}>
+                    <NavigatorYesterday />
                 </TabNavigator.Item>
                 <TabNavigator.Item
-                    selected={this.state.selectedTab === 'bookSettings'}
+                    selected={this.state.selectedTab === 'llgIcon'}
+                    title="以前"
+                    titleStyle={{color:'#444444'}}
+                    selectedTitleStyle={{color:'#4ab854'}}
+                    renderIcon={() => <Image source={require('../images/llgIcon.png')} />}
+                    renderSelectedIcon={() => <Image source={require('../images/llgIcon.png')} />}
+                    onPress={(item)=>{this._onPressTabItem('llgIcon')}}>
+                    <NavigatorLlg />
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'myLife'}
                     title="设置"
                     titleStyle={{color:'#444444'}}
                     selectedTitleStyle={{color:'#4ab854'}}
-                    renderIcon={() => <Image source={require('../images/bookRoom.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../images/bookRoomSelected.png')} />}
-                    onPress={(item)=>{this._onPressTabItem('bookSettings')}}>
-                    <NavigatorBookSettings
-                        NavigatorRoot_route={this.props.NavigatorRoot_route}
-                        NavigatorRoot_navigator={this.props.NavigatorRoot_navigator}/>
-                </TabNavigator.Item>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'bookLibrary'}
-                    title="书库"
-                    titleStyle={{color:'#444444'}}
-                    selectedTitleStyle={{color:'#4ab854'}}
-                    renderIcon={() => <Image source={require('../images/bookLibrary.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../images/bookLibrarySelected.png')} />}
-                    onPress={(item)=>{this._onPressTabItem('bookLibrary')}}>
-                    <NavigatorBookLibrary
-                        NavigatorRoot_route={this.props.NavigatorRoot_route}
-                        NavigatorRoot_navigator={this.props.NavigatorRoot_navigator}/>
+                    renderIcon={() => <Image source={require('../images/myLife.png')} />}
+                    renderSelectedIcon={() => <Image source={require('../images/myLife.png')} />}
+                    onPress={(item)=>{this._onPressTabItem('myLife')}}>
+                    <NavigatorSettings />
                 </TabNavigator.Item>
             </TabNavigator>
         );

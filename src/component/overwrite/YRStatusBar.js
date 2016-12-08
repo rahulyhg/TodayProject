@@ -17,7 +17,7 @@ var YRStatusBar = {
             StatusBar.setBarStyle(style, animated);
         }else{
             StatusBar.setTranslucent(true);
-            StatusBar.setBackgroundColor("#4ab854",true);
+            StatusBar.setBackgroundColor("#01bbfc",true);
         }
     },
     setHidden: function(isHidden,type){

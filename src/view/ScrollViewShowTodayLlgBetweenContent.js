@@ -172,7 +172,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
                 </View>
                 <Text style={{
                         fontSize: _this.state.fontSize,
-                        lineHeight: _this.state.fontSize+_this.state.lineHeight,
+                        lineHeight: _this.state.fontSize+_this.state.lineHeight+5,
                         textAlignVertical: 'bottom',//android专用
                         marginTop: this.state.fontSize+this.state.lineHeight+25,
                         textAlign: 'justify',
