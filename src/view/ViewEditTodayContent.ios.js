@@ -120,6 +120,10 @@ var WebViewEditTodayContent = React.createClass({
     _onPressImage: function(){
         var _this = this;
         //global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:"CameraRollView",indexTitle:"CameraRollView"});
+        if(_this.state.oneImages && _this.state.oneImages.length >= 9){
+            RNUtils.alert("对不起，最多只支持9个图片...");
+            return;
+        }
         var options = {
             storageOptions: {
                 skipBackup: true,

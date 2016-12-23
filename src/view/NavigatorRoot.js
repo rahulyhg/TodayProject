@@ -185,7 +185,7 @@ var NavigatorRoot = React.createClass({
                         if(_this.state.lookImage){
                             return (
                                 <View style={styles.lookView}>
-                                    <Image source={_this.state.lookImage} style={styles.lookImage} resizeMode="cover" {..._this._panResponder.panHandlers}/>
+                                    <Image source={_this.state.lookImage} style={styles.lookImage} resizeMode="contain" {..._this._panResponder.panHandlers}/>
                                     <View style={styles.lookImageBottomContainer}>
                                         <TouchableOpacity style={styles.lookImageBottomBack} onPress={_this._onPressLookImageBack}>
                                             <Text style={styles.btnText}>返回</Text>
@@ -385,6 +385,7 @@ var styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: 0,
+        backgroundColor: '#000000'
     },
     lookImage:{
         width: Dimensions.get('window').width,
