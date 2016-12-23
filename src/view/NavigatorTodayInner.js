@@ -18,6 +18,9 @@ import {
 var ViewEditTodayContent = require('./ViewEditTodayContent');
 var ScrollViewShowTodayContent = require('./ScrollViewShowTodayContent.js');
 var ScrollViewShowTodayLlgBetweenContent = require('./ScrollViewShowTodayLlgBetweenContent.js');
+var ScrollViewSearchTodayContent = require('./ScrollViewSearchTodayContent.js');
+var ScrollViewShowTodaysContent = require('./ScrollViewShowTodaysContent.js');
+var CameraRollView = require('../component/CameraRollView.js');
 //
 var navigationBarRouteMapper = {
     titleStr: "",
@@ -37,7 +40,8 @@ var navigationBarRouteMapper = {
         );
     },
     _onPressLeftButton: function(){
-        global.YrcnApp.now.rootNavigator.pop();
+        //global.YrcnApp.now.rootNavigator.pop();
+        navigationBarRouteMapper.navigator.pop();
         if(navigationBarRouteMapper.route.name == "ViewEditTodayContent"){
             global.YrcnApp.now.scrollViewToday.refreshView();
         }
@@ -116,18 +120,36 @@ var NavigatorTodayInner = React.createClass({
                 props.type = this.props.type;
                 props.coreObj = this.props.coreObj;
                 Component = ViewEditTodayContent;
+                navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
                 break;
             case "ScrollViewShowTodayContent": //
                 props.indexName = this.props.indexName;
                 props.indexTitle = this.props.indexTitle;
                 props.day = this.props.day;
                 Component = ScrollViewShowTodayContent;
+                navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
                 break;
             case "ScrollViewShowTodayLlgBetweenContent": //
                 props.indexName = this.props.indexName;
                 props.indexTitle = this.props.indexTitle;
                 props.between = this.props.between;
                 Component = ScrollViewShowTodayLlgBetweenContent;
+                navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
+                break;
+            case "CameraRollView": //
+                props.indexName = this.props.indexName;
+                props.indexTitle = this.props.indexTitle;
+                Component = CameraRollView;
+                break;
+            case "ScrollViewSearchTodayContent": //
+                props.indexName = this.props.indexName;
+                props.indexTitle = this.props.indexTitle;
+                Component = ScrollViewSearchTodayContent;
+                navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
+                break;
+            case "ScrollViewShowTodaysContent": //
+                props.contentObjArray = route.contentObjArray;
+                Component = ScrollViewShowTodaysContent;
                 break;
         }
         //console.log(props);

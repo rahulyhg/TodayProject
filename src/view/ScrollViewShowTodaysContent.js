@@ -37,7 +37,7 @@ var NineImagesBox = require('../component/NineImagesBox.js');
 //
 /**
  */
-var ScrollViewShowTodayLlgBetweenContent = React.createClass({
+var ScrollViewShowTodaysContent = React.createClass({
     _vars:{
         contentObjArray: [],
         ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -46,91 +46,27 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
     getInitialState: function() {
         var _this = this;
         //
+        console.log("ScrollViewShowTodaysContent");
+        console.log(this.props.contentObjArray);
         return {
-            isShowLoadingView: "-1",
+            isShowLoadingView: "1",
             fontSize: 13,
             lineHeight: 10,
             paragraphBackgroundColor: '#ffffff',
             paragraphColor:'#444444',
-            dataSource: [],
+            dataSource: _this._vars.ds.cloneWithRows(this.props.contentObjArray),
+        };
+    },
+    //在组件类创建的时候调用一次，然后返回值被缓存下来。如果父组件没有指定 props 中的某个键，则此处返回的对象中的相应属性将会合并到 this.props （使用 in 检测属性）。
+    //该方法在任何实例创建之前调用，因此不能依赖于 this.props。另外，getDefaultProps() 返回的任何复杂对象将会在实例间共享，而不是每个实例拥有一份拷贝。
+    getDefaultProps: function(){
+        return {
         };
     },
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
     //如果想和其它 JavaScript 框架集成，使用 setTimeout 或者 setInterval 来设置定时器，或者发送 AJAX 请求，可以在该方法中执行这些操作。
     componentDidMount: function(){
         var _this = this;
-        this.setTimeout(function(){
-            //
-            var daysArray = [RNUtils.nowDate()];
-            if(this.props.between == "7"){
-                for(var i=1;i<7;i++){
-                    daysArray.push(moment().subtract(i, 'days').format("YYYY-MM-DD"));
-                }
-            }else if(this.props.between == "14"){
-                for(var i=1;i<14;i++){
-                    daysArray.push(moment().subtract(i, 'days').format("YYYY-MM-DD"));
-                }
-            }else if(this.props.between == "1"){
-                for(var i=1;i<30;i++){
-                    daysArray.push(moment().subtract(i, 'days').format("YYYY-MM-DD"));
-                }
-            }else if(this.props.between == "3"){
-                for(var i=1;i<90;i++){
-                    daysArray.push(moment().subtract(i, 'days').format("YYYY-MM-DD"));
-                }
-            }
-            console.log(daysArray)
-            var count = 0;
-            for(let d of daysArray){
-                RNUtils.getJsonTodayContent(d,function(contentObj){
-                    if(contentObj){
-                        //var day = d;
-                        //var content = "";
-                        var contentArray = [];
-                        for(var e in contentObj){
-                            //if(contentObj[e].content||contentObj[e].content!=''){
-                            //    content += contentObj[e].content+"\r\n";
-                            //}
-                            if(contentObj[e].content || (contentObj[e].oneImages && contentObj[e].oneImages.length > 0)){
-                                contentArray.push({
-                                    key: e,
-                                    value: contentObj[e]
-                                });
-                            }
-                        }
-                        //if(content && content!=''){
-                        //    _this._vars.contentObjArray.push({
-                        //        day: day,
-                        //        content: content
-                        //    });
-                        //}
-                        contentObj.day = d;
-                        contentObj.contentArray = contentArray;
-                        if(contentArray.length > 0){
-                            _this._vars.contentObjArray.push(contentObj);
-                        }
-                    }
-                    count++;
-                    innerFunc();
-                })
-            }
-            function innerFunc(){
-                //console.log(count)
-                if(daysArray.length == count){
-                    if(_this._vars.contentObjArray.length == 0){
-                        _this.setState({
-                            isShowLoadingView: "0",
-                            dataSource : _this._vars.ds.cloneWithRows(_this._vars.contentObjArray)
-                        });
-                    }else{
-                        _this.setState({
-                            isShowLoadingView: "1",
-                            dataSource : _this._vars.ds.cloneWithRows(_this._vars.contentObjArray)
-                        });
-                    }
-                }
-            }
-        },10);
     },
     //在组件从 DOM 中移除的时候立刻被调用。
     //在该方法中执行任何必要的清理，比如无效的定时器，或者清除在 componentDidMount 中创建的 DOM 元素。
@@ -174,14 +110,25 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
         console.log(contentObj);
         var _this = this;
         var key = Math.uuidFast();
-        var day = moment(contentObj.day);
+        //var day = moment(contentObj.day);
+        var day = null;
+        if(contentObj){
+            for(var key in contentObj){
+                if(contentObj[key] && contentObj[key].day){
+                    day = moment(contentObj[key].day);
+                }
+            }
+        }
+        if(!day){
+            return;
+        }
         return (
             <View key={key} style={styles.paragraphView}>
                 <View style={styles.paragraphViewWeek}>
                     <Text style={styles.paragraphViewWeekText}>{day.format("dddd")}</Text>
                 </View>
                 <View style={styles.paragraphViewDay}>
-                    <Text style={styles.paragraphViewDayText}>{contentObj.day}</Text>
+                    <Text style={styles.paragraphViewDayText}>{day.format('YYYY-MM-DD')}</Text>
                 </View>
                 {(function(){
                     console.log("aaaaaa"+contentObj.contentArray)
@@ -261,4 +208,4 @@ var styles = StyleSheet.create({
     }
 });
 //
-module.exports = ScrollViewShowTodayLlgBetweenContent;
+module.exports = ScrollViewShowTodaysContent;

@@ -70,6 +70,7 @@ var ScrollViewLlg = React.createClass({
                     <LineButtonsBox.Button btnText={"半月"} onPress={_this._onPressDays14}/>
                     <LineButtonsBox.Button btnText={"一月"} onPress={_this._onPressMonths1}/>
                     <LineButtonsBox.Button btnText={"三月"} onPress={_this._onPressMonths3}/>
+                    <LineButtonsBox.Button btnText={"搜索"} onPress={_this._onPressSearch}/>
                 </LineButtonsBox>
                 {
                     function(){
@@ -117,6 +118,10 @@ var ScrollViewLlg = React.createClass({
     _onPressMonths3: function(){
         var _this = this;
         global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:"ScrollViewShowTodayLlgBetweenContent",indexTitle:"最近三月",between:"3"});
+    },
+    _onPressSearch: function(){
+        var _this = this;
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:"ScrollViewSearchTodayContent",indexTitle:"搜索"});
     }
 });
 //

@@ -57,13 +57,14 @@ var WebViewEditTodayContent = React.createClass({
                     onFocus={this._onFocusText}
                     onBlur={this._onBlurText}
                     autoCorrect={false}
-                    autoFocus={true}
+                    autoFocus={false}
                     maxLength={this.props.maxLength}
                     keyboardType={this.props.keyboardType}
                     placeholder={this.props.placeholder}
                     defaultValue={val}
                     multiline={this.props.multiline}
                     placeholderTextColor={this.props.placeholderTextColor}
+                    textAlignVertical={'top'}
                     />
             </View>
         );
@@ -106,7 +107,6 @@ var styles = StyleSheet.create({
     },
     textInput:{
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height-50,
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 15,

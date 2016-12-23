@@ -6,10 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "antd-mobile": "^0.9.12",
+    "lunar-calendar": "0.1.4",
     "react": "15.3.2",
     "react-native": "0.35.0",
-    "react-timer-mixin": "^0.13.3",
+    "react-native-image-picker": "^0.24.1",
     "react-native-tab-navigator": "0.3.3",
-    "lunar-calendar": "0.1.4"
+    "react-timer-mixin": "^0.13.3"
   }
 }

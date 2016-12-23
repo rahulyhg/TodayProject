@@ -129,7 +129,7 @@ class RNUtils{
         failedCallbackFn = failedCallbackFn || function(){};
         isNoUser = isNoUser || "0";
         if(isNoUser == "0"){
-            console.log(global.YrcnApp.loginUser)
+            //console.log(global.YrcnApp.loginUser)
             key = global.YrcnApp.loginUser.userLogin.id + key;
         }
         AsyncStorage.getItem(key)
@@ -144,7 +144,8 @@ class RNUtils{
                 }
             })
             .catch(function(e){
-                console.log("获取"+key);
+                console.log("获取失败"+key);
+                console.error(e);
                 failedCallbackFn(e);
             })
             .done();
@@ -155,7 +156,7 @@ class RNUtils{
         failedCallbackFn = failedCallbackFn || function(){};
         isNoUser = isNoUser || "0";
         if(isNoUser == "0"){
-            console.log(global.YrcnApp.loginUser)
+            //console.log(global.YrcnApp.loginUser)
             key = global.YrcnApp.loginUser.userLogin.id + key;
         }
         AsyncStorage.removeItem(key)
@@ -510,6 +511,25 @@ class RNUtils{
         return obj;
     }
     //
+    static toJsonObject(json) {
+        if (typeof json == "string") {
+            return $.parseJSON(json);
+        } else {
+            return json;
+        }
+    }
+    //
+    static toString(obj) {
+        if (typeof obj == "object") {
+            return JSON.stringify(obj);
+        } else {
+            if (oCheck.isBlank(obj)) {
+                return "";
+            }
+            return obj;
+        }
+    }
+    //
     static humanDt(dtStr){
         var ret = moment(dtStr,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");;
         //console.log(ret);
@@ -534,6 +554,12 @@ class RNUtils{
         return ret;
     }
     //
+    static lastMonth3Date(){
+        var ret =  moment().subtract(3, 'months').format("YYYY-MM-DD");;
+        //console.log(ret);
+        return ret;
+    }
+    //
     static nowTime(){
         var ret = moment().format("HH:mm:ss");;
         //console.log(ret);
@@ -544,6 +570,14 @@ class RNUtils{
         var ret = moment().format("HH:mm");;
         //console.log(ret);
         return ret;
+    }
+    //
+    static isBefore(beforeDate,afterDate){
+        return moment(beforeDate).isBefore(afterDate);
+    }
+    //
+    static isAfter(beforeDate,afterDate){
+        return moment(beforeDate).isAfter(afterDate);
     }
     //
     static deepCopy(source) {
@@ -1032,7 +1066,21 @@ class RNUtils{
     }
     //获取Today数据
     static getJsonTodayContent(day,succCallbackFn){
-        RNUtils.AsyncStorage_getItem(AS_KEY_TODAY_CONTENT_PREV+day,succCallbackFn);
+        RNUtils.AsyncStorage_getItem(AS_KEY_TODAY_CONTENT_PREV+day,function(getJsonTodayContentObj){
+            //if(getJsonTodayContentObj){
+            //    for(var key in getJsonTodayContentObj){
+            //        if(getJsonTodayContentObj[key] && getJsonTodayContentObj[key].oneImages && getJsonTodayContentObj[key].oneImages.length>0){
+            //            for(var oneImage of getJsonTodayContentObj[key].oneImages){
+            //                if(oneImage.uri.indexOf('file://')>-1){
+            //                    oneImage.uri = oneImage.uri.split('Documents')[0];
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            succCallbackFn(getJsonTodayContentObj);
+            //RNUtils.sycnJsonTodayContent(day,getJsonTodayContentObj);
+        });
     }
     //获取Today数据类型
     static getJsonTodayContentTypes(succCallbackFn){
@@ -1071,6 +1119,55 @@ class RNUtils{
     //设置新功能
     static setJsonNewFunc(funcName,succCallbackFn){
         RNUtils.AsyncStorage_setItem(AS_KEY_NEW_FUNC_PREV+funcName,"1",succCallbackFn);
+    }
+    //
+    static getImageExt(origURL,fileName){
+        var index = origURL.indexOf("ext=");
+        if(index > -1){
+            return origURL.substring(index + 4).toLowerCase();
+        }else{
+            index = fileName.lastIndexOf(".");
+            if(index > -1){
+                return fileName.substring(index + 1).toLowerCase();
+            }else{
+                return "jpg";
+            }
+        }
+    }
+    //
+    static getSandboxFileUri(uri){
+        var uriArray = uri.split("Documents");
+        console.log(uriArray);
+        if(uriArray.length == 2){
+            return "file://"+YrcnApp.appInfo.DocumentsPath + uriArray[1];
+        }else{
+            return null;
+        }
+    }
+    //
+    static getSandboxFileShortPath(uri){
+        var uriArray = uri.split("Documents");
+        console.log(uriArray);
+        if(uriArray.length == 2){
+            return uriArray[1];
+        }else{
+            return null;
+        }
+    }
+    //
+    static getSandboxFileLongPath(uri){
+        return "file://"+YrcnApp.appInfo.DocumentsPath + uri;
+    }
+    //
+    static handleSandboxImageSource(source){
+        console.log("handleSandboxImageSource");
+        console.log(source);
+        var uriArray = source.uri.split("Documents");
+        console.log(uriArray);
+        if(uriArray.length == 2){
+            source.uri = "file://"+YrcnApp.appInfo.DocumentsPath + uriArray[1];
+        }
+        return source;
     }
 }
 module.exports = RNUtils;

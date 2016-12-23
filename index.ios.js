@@ -18,6 +18,7 @@ YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
     var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
     global.YrcnApp.appInfo = appInfo;
     console.log(appInfo)
+    //alert(appInfo.DocumentsPath);
     YrcnApp.utils.setAppInfo(appInfo);
 });
 //所有的页面都在顶级导航之内

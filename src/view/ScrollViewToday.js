@@ -35,10 +35,12 @@ var ListViewLi = require('../component/ListViewLi.js');
  */
 var ScrollViewToday = React.createClass({
     _vars:{
+        contentDay: RNUtils.nowDate(),
+        ViewEdit: "ViewEditTodayContent"
     },
     getInitialState: function() {
         var _this = this;
-        var now = moment();
+        var now = moment(_this._vars.contentDay);
         _this._vars.title = now.format("YYYY年MM月DD日 dddd 第wo 第DDDo");
         var lunarCalendar = RNLunarCalendar.solarToLunar(now.year(),now.month()+1,now.date());
         _this._vars.introduce = "生肖【"+lunarCalendar.zodiac+"】";
@@ -66,12 +68,12 @@ var ScrollViewToday = React.createClass({
                 typeArray: todayContentTypesObj.list,
             });
         });
-        RNUtils.getJsonTodayContent(RNUtils.nowDate(),function(contentObj){
+        RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
             _this._vars.contentObj = contentObj;
             var typeArray = _this.state.typeArray;
             for(var key in contentObj){
                 for(var typeObj of typeArray){
-                    if(typeObj.typeCode == key){
+                    if(typeObj.typeCode == key && (contentObj[key].content || (contentObj[key].oneImages && contentObj[key].oneImages.length>0))){
                         typeObj.rightColor = '#01bbfc';
                         break;
                     }
@@ -82,7 +84,7 @@ var ScrollViewToday = React.createClass({
             })
         })
         //
-        YrcnApp.services.getJson_today_getContentInfo({day:YrcnApp.utils.nowDate()},function(getJson_today_getContentInfoObj){
+        YrcnApp.services.getJson_today_getContentInfo({day:_this._vars.contentDay},function(getJson_today_getContentInfoObj){
 
         })
         //
@@ -118,8 +120,13 @@ var ScrollViewToday = React.createClass({
         var indexTitle = this.state.typeArray[liIndex].typeContent;
         //console.log(this.state.typeArray[liIndex])
         var coreObj = _this._vars.contentObj[this.state.typeArray[liIndex].typeCode];
+        if(coreObj && coreObj.oneImages && coreObj.oneImages.length>0){
+            for(var oneImage of coreObj.oneImages){
+                oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
+            }
+        }
         global.YrcnApp.now.scrollViewToday = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:"ViewEditTodayContent",indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:_this._vars.ViewEdit,indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
     },
     refreshView: function(){
         var _this = this;
@@ -129,20 +136,22 @@ var ScrollViewToday = React.createClass({
                 typeArray: todayContentTypesObj.list,
             });
         });
-        RNUtils.getJsonTodayContent(RNUtils.nowDate(),function(contentObj){
+        RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
             _this._vars.contentObj = contentObj;
             //和服务器同步contentObj
             for(var key in contentObj){
                 //console.log(key);
-                RNAllService.getJson_today_synchronizeContentInfo(contentObj[key],function(getJson_today_synchronizeContentInfoObj){
-                    console.log(getJson_today_synchronizeContentInfoObj);
-                });
+                if(contentObj[key]&&contentObj[key].content){
+                    RNAllService.getJson_today_synchronizeContentInfo(contentObj[key],function(getJson_today_synchronizeContentInfoObj){
+                        //console.log(getJson_today_synchronizeContentInfoObj);
+                    });
+                }
             }
             //
             var typeArray = _this.state.typeArray;
             for(var key in contentObj){
                 for(var typeObj of typeArray){
-                    if(typeObj.typeCode == key){
+                    if(typeObj.typeCode == key && (contentObj[key].content || (contentObj[key].oneImages && contentObj[key].oneImages.length>0))){
                         typeObj.rightColor = '#01bbfc';
                         break;
                     }

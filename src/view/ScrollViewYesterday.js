@@ -33,12 +33,16 @@ var ListViewLi = require('../component/ListViewLi.js');
 //
 /**
  */
-var ScrollViewYesterday = React.createClass({
+var ScrollViewToday = React.createClass({
     _vars:{
+        contentDay: RNUtils.yesterdayDate(),
+        ViewEdit: "ViewEditYesterdayContent",
+        NavigatorInner: "NavigatorYesterdayInner",
+        scrollView: "scrollViewYesterday",
     },
     getInitialState: function() {
         var _this = this;
-        var now = moment().subtract(1, 'days');
+        var now = moment(_this._vars.contentDay);
         _this._vars.title = now.format("YYYY年MM月DD日 dddd 第wo 第DDDo");
         var lunarCalendar = RNLunarCalendar.solarToLunar(now.year(),now.month()+1,now.date());
         _this._vars.introduce = "生肖【"+lunarCalendar.zodiac+"】";
@@ -52,7 +56,8 @@ var ScrollViewYesterday = React.createClass({
         //
         return {
             isShowLoadingView: true,
-            typeArray:[]
+            typeArray:[],
+            typeRightColorArray:[],
         };
     },
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
@@ -65,12 +70,12 @@ var ScrollViewYesterday = React.createClass({
                 typeArray: todayContentTypesObj.list,
             });
         });
-        RNUtils.getJsonTodayContent(RNUtils.yesterdayDate(),function(contentObj){
+        RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
             _this._vars.contentObj = contentObj;
             var typeArray = _this.state.typeArray;
             for(var key in contentObj){
                 for(var typeObj of typeArray){
-                    if(typeObj.typeCode == key){
+                    if(typeObj.typeCode == key && (contentObj[key].content || (contentObj[key].oneImages && contentObj[key].oneImages.length>0))){
                         typeObj.rightColor = '#01bbfc';
                         break;
                     }
@@ -80,10 +85,21 @@ var ScrollViewYesterday = React.createClass({
                 typeArray: typeArray,
             })
         })
+        //
+        YrcnApp.services.getJson_today_getContentInfo({day:_this._vars.contentDay},function(getJson_today_getContentInfoObj){
+
+        })
+        //
+        RNUtils.getJsonNewFunc("xian_she",function(value){
+            if(value && value == "1"){
+            }else{
+                global.YrcnApp.now.$NavigatorRoot.renderNewFunc();
+            }
+        })
     },
     render: function(){
         var _this = this;
-        global.YrcnApp.now.scrollViewYesterday = this;
+        global.YrcnApp.now[_this._vars.scrollView] = this;
         return (
             <ScrollView
                 style={styles.scrollViewContainer}>
@@ -92,7 +108,7 @@ var ScrollViewYesterday = React.createClass({
                     function(){
                         return _this.state.typeArray.map(function(d,i){
                             return (
-                                <ListViewLi title={d.typeContent} onPress={function(){_this._onPressLi(i)}} key={i} color={'#777777'} rightColor={d.rightColor||'#aaaaaa'}/>
+                                <ListViewLi title={d.typeContent} onPress={function(){_this._onPressLi(i)}} key={i} color={'#000000'} rightColor={d.rightColor||'#aaaaaa'}/>
                             );
                         });
                     }()
@@ -104,9 +120,15 @@ var ScrollViewYesterday = React.createClass({
         var _this = this;
         //console.log(liIndex);
         var indexTitle = this.state.typeArray[liIndex].typeContent;
+        //console.log(this.state.typeArray[liIndex])
         var coreObj = _this._vars.contentObj[this.state.typeArray[liIndex].typeCode];
-        global.YrcnApp.now.scrollViewYesterday = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorYesterdayInner",indexName:"ViewEditYesterdayContent",indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        if(coreObj && coreObj.oneImages && coreObj.oneImages.length>0){
+            for(var oneImage of coreObj.oneImages){
+                oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
+            }
+        }
+        global.YrcnApp.now[_this._vars.scrollView] = this;
+        global.YrcnApp.now.rootNavigator.push({name: _this._vars.NavigatorInner,indexName:_this._vars.ViewEdit,indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
     },
     refreshView: function(){
         var _this = this;
@@ -116,20 +138,22 @@ var ScrollViewYesterday = React.createClass({
                 typeArray: todayContentTypesObj.list,
             });
         });
-        RNUtils.getJsonTodayContent(RNUtils.yesterdayDate(),function(contentObj){
+        RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
             _this._vars.contentObj = contentObj;
             //和服务器同步contentObj
             for(var key in contentObj){
                 //console.log(key);
-                RNAllService.getJson_today_synchronizeContentInfo(contentObj[key],function(getJson_today_synchronizeContentInfoObj){
-                    console.log(getJson_today_synchronizeContentInfoObj);
-                });
+                if(contentObj[key]&&contentObj[key].content){
+                    RNAllService.getJson_today_synchronizeContentInfo(contentObj[key],function(getJson_today_synchronizeContentInfoObj){
+                        //console.log(getJson_today_synchronizeContentInfoObj);
+                    });
+                }
             }
             //
             var typeArray = _this.state.typeArray;
             for(var key in contentObj){
                 for(var typeObj of typeArray){
-                    if(typeObj.typeCode == key){
+                    if(typeObj.typeCode == key && (contentObj[key].content || (contentObj[key].oneImages && contentObj[key].oneImages.length>0))){
                         typeObj.rightColor = '#01bbfc';
                         break;
                     }
@@ -145,8 +169,8 @@ var ScrollViewYesterday = React.createClass({
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#f7f7f2',
-        marginTop: 44
+        marginTop: 44,
     },
 });
 //
-module.exports = ScrollViewYesterday;
+module.exports = ScrollViewToday;

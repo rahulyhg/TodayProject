@@ -15,7 +15,7 @@ import {
     View,
 } from 'react-native';
 //
-var ViewEditYesterdayContent = require('./ViewEditYesterdayContent.js');
+var ViewEditYesterdayContent = require('./ViewEditYesterdayContent');
 //
 var navigationBarRouteMapper = {
     titleStr: "",

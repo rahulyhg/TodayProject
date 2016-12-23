@@ -100,6 +100,11 @@ RCT_EXPORT_METHOD(getAppInfo:(NSArray *) params callback:(RCTResponseSenderBlock
     NSLog(@"未取得通知授权");
     [appInfo setValue:@"0" forKey:@"isOpenNotification"];
   }
+  //
+  NSString *homeDir = NSHomeDirectory();
+  NSString *DocumentsDir = [homeDir stringByAppendingPathComponent:@"Documents"];
+  NSLog(@"%@",DocumentsDir);
+  [appInfo setValue:DocumentsDir forKey:@"DocumentsPath"];
     //
     callback(@[@[appInfo]]);
 }

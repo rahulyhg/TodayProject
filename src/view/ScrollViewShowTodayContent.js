@@ -30,6 +30,7 @@ var ACViewBox = require('../component/ACViewBox.js');
 var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
+var NineImagesBox = require('../component/NineImagesBox.js');
 //
 /**
  */
@@ -146,11 +147,23 @@ var ScrollViewShowTodayContent = React.createClass({
                         letterSpacing: 0,
                         paddingTop: 0,
                         paddingBottom: 0,
+                        paddingLeft: 15,
+                        paddingRight: 15,
                         marginBottom: 0,
                         color: this.state.paragraphColor}}
                         >
                         <Text>{rowData.content}</Text>
                     </Text>
+                    {(function(){
+                        if(rowData.oneImages && rowData.oneImages.length>0){
+                            for(var oneImage of rowData.oneImages) {
+                                oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
+                            }
+                            return (
+                                <NineImagesBox oneImages={rowData.oneImages} isHideDelete={true}/>
+                            );
+                        }
+                    })()}
                 </View>
             );
         }else if(rowData.type == "sectionAuthor"){
@@ -182,8 +195,8 @@ var styles = StyleSheet.create({
         marginTop: 44
     },
     paragraphView:{
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 0,
+        paddingRight: 0,
     },
     paragraphText:{
         fontSize: 13,

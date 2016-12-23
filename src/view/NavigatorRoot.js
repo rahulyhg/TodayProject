@@ -13,6 +13,8 @@ import {
     TouchableOpacity,
     Text,
     TouchableWithoutFeedback,
+    Image,
+    PanResponder,
 } from 'react-native';
 var RNUtilsModule = global.YrcnApp.native.RNUtilsModule;
 //
@@ -27,6 +29,7 @@ var ViewNewFunc = require('../view/ViewNewFunc');
 
 //
 var NavigatorRoot = React.createClass({
+    _vars:{},
     //在组件挂载之前调用一次。返回值将会作为 this.state 的初始值。
     getInitialState: function(){
         return ({
@@ -35,7 +38,70 @@ var NavigatorRoot = React.createClass({
             appBundleUpgradeVersion: "",
             appUpgradeDesp: "",
             contentBottomText: "下载升级",
-            isShowNewFunc: false
+            isShowNewFunc: false,
+            lookImage: null,
+            isHideDelete: false,
+        });
+    },
+    componentWillMount: function() {
+        var _this = this;
+        this._panResponder = PanResponder.create({
+            // Ask to be the responder:
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+
+            onPanResponderGrant: (evt, gestureState) => {
+                // The guesture has started. Show visual feedback so the user knows
+                // what is happening!
+
+                // gestureState.d{x,y} will be set to zero now
+            },
+            onPanResponderMove: (evt, gestureState) => {
+                // The most recent move distance is gestureState.move{X,Y}
+
+                // The accumulated gesture distance since becoming responder is
+                // gestureState.d{x,y}
+                //console.log(evt)
+                //console.log(gestureState);
+            },
+            onPanResponderTerminationRequest: (evt, gestureState) => true,
+            onPanResponderRelease: (evt, gestureState) => {
+                // The user has released all touches while this view is the
+                // responder. This typically means a gesture has succeeded
+                //console.log(gestureState);
+                if(gestureState.x0 - gestureState.moveX > 100 && gestureState.moveX!=0){
+                    console.log("下一张图片");
+                    var index = _this._vars.index + 1;
+                    if(index == _this._vars.imageObjs.length && _this._vars.imageObjs.length > 1){
+                        index = 0;
+                    }
+                    _this._vars.index = index;
+                    _this.setState({
+                        lookImage: _this._vars.imageObjs[index]
+                    });
+                }else if(gestureState.x0 - gestureState.moveX < -100 && gestureState.moveX!=0){
+                    console.log("上一张图片");
+                    var index = _this._vars.index - 1;
+                    if(index == -1 && _this._vars.imageObjs.length > 1){
+                        index = _this._vars.imageObjs.length-1;
+                    }
+                    _this._vars.index = index;
+                    _this.setState({
+                        lookImage: _this._vars.imageObjs[index]
+                    });
+                }
+            },
+            onPanResponderTerminate: (evt, gestureState) => {
+                // Another component has become the responder, so this gesture
+                // should be cancelled
+            },
+            onShouldBlockNativeResponder: (evt, gestureState) => {
+                // Returns whether this component should block native components from becoming the JS
+                // responder. Returns true by default. Is currently only supported on android.
+                return true;
+            },
         });
     },
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
@@ -114,6 +180,28 @@ var NavigatorRoot = React.createClass({
                         <ViewNewFunc onPress={_this._onPressNewFunc}/>
                     );
                 }():function(){}()}
+                {
+                    (function(){
+                        if(_this.state.lookImage){
+                            return (
+                                <View style={styles.lookView}>
+                                    <Image source={_this.state.lookImage} style={styles.lookImage} resizeMode="cover" {..._this._panResponder.panHandlers}/>
+                                    <View style={styles.lookImageBottomContainer}>
+                                        <TouchableOpacity style={styles.lookImageBottomBack} onPress={_this._onPressLookImageBack}>
+                                            <Text style={styles.btnText}>返回</Text>
+                                        </TouchableOpacity>
+                                        <View style={styles.lookImageBottomCenter}>
+                                            <Text style={[{textAlign: 'center'}]}>{_this._vars.index+1}/{_this._vars.imageObjs.length}</Text>
+                                        </View>
+                                        <TouchableOpacity style={styles.lookImageBottomDelete} onPress={_this._onPressLookImageDelete}>
+                                            <Text style={styles.btnText}>{!_this.state.isHideDelete?'删除':''}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            );
+                        }
+                    })()
+                }
             </View>
         );
     },
@@ -179,6 +267,39 @@ var NavigatorRoot = React.createClass({
         this.setState({
             isShowNewFunc: false
         });
+    },
+    lookImage: function(imageObj,callObj,index,isHideDelete){//预览图片
+        var imageingObj = imageObj;
+        if(Array.isArray(imageObj)){
+            imageingObj = imageObj[index];
+            this._vars.imageObjs = imageObj;
+        }else{
+            this._vars.imageObjs = [imageObj];
+        }
+        this.setState({
+            lookImage: imageingObj
+        });
+        this._vars.callObj = callObj;
+        this._vars.index = index;
+        console.log("isHideDelete="+isHideDelete);
+        this.setState({
+            isHideDelete: isHideDelete
+        });
+    },
+    _onPressLookImageBack: function(){
+        this.setState({
+            lookImage: null
+        });
+    },
+    _onPressLookImageDelete: function(){
+        var _this = this;
+        if(_this.state.isHideDelete){
+            return;
+        }
+        this.setState({
+            lookImage: null
+        });
+        this._vars.callObj.deleteImage(this._vars.index);
     }
 });
 //
@@ -258,6 +379,42 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 15,
     },
+    lookView:{
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+    },
+    lookImage:{
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
+    lookImageBottomContainer:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems:'center',
+        position: 'absolute',
+        top: Dimensions.get('window').height-50,
+        left: 0,
+        width: Dimensions.get('window').width,
+        height: 50,
+        backgroundColor: '#fefefe',
+        opacity: 0.6
+    },
+    lookImageBottomBack:{
+        flex: 1,
+    },
+    lookImageBottomCenter:{
+        flex: 4,
+    },
+    lookImageBottomDelete:{
+        flex: 1
+    },
+    btnText: {
+        textAlign: 'center',
+        fontWeight: '700'
+    }
 });
 //
 module.exports = NavigatorRoot;

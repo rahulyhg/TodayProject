@@ -51,15 +51,18 @@ var SettingsView = React.createClass({
                 title:"显示设置",onPressFn: function(){_this._onPressTypeShow();}
             }
         ];
+        console.log(YrcnApp.Platform.OS)
         if(YrcnApp.Platform.OS == "ios"){
-            dsArray.concat([
+            dsArray.push(
                 {
                     title:"智能提醒",onPressFn: function(){_this._onPressTimeShow();}
-                },
+                }
+            );
+            dsArray.push(
                 {
                     title:"给我评分",onPressFn: function(){_this._onPressMarkScore();}
                 }
-            ]);
+            );
         }
         //
         return {
@@ -153,12 +156,10 @@ var styles = StyleSheet.create({
     },
     centerView:{
         width:Dimensions.get('window').width,
-        position: 'absolute',
         height: Dimensions.get('window').height - 160 -100,
-        top: 240,
-        left: 0,
         borderTopWidth: 1,
         borderTopColor: '#dddddd',
+        marginTop: 10,
     },
     bottomView:{
         width:Dimensions.get('window').width,
@@ -171,8 +172,8 @@ var styles = StyleSheet.create({
         fontSize: 12,
     },
     logo:{
-        width: 100,
-        height: 100,
+        width: Dimensions.get('window').width/4.5,
+        height: Dimensions.get('window').width/4.5,
         borderRadius: 10,
         marginBottom: 20,
     },

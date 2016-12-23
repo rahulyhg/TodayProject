@@ -24,7 +24,7 @@ var ImagePicker = require('react-native-image-picker');
  */
 var WebViewEditTodayContent = React.createClass({
     _vars:{
-        contentDay: RNUtils.nowDate(),
+        contentDay: RNUtils.yesterdayDate()
     },
     getDefaultProps: function(){
         return ({
