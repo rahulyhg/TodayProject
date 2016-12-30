@@ -209,6 +209,22 @@ RCT_EXPORT_METHOD(gotoAppSystemSetting:(NSArray *) params)
     [[UIApplication sharedApplication] openURL:url];
   }
 }
+#pragma mark +++++++++++++++++++++++++++++++++++++++
+#pragma mark deleteSandboxFile
+RCT_EXPORT_METHOD(deleteSandboxFile:(NSArray *) params)
+{
+  NSLog(@"deleteSandboxFile=%@",params);
+  NSString * oneFilePath = params[0];
+  //
+  NSString *homeDir = NSHomeDirectory();
+  NSString *DocumentsDir = [homeDir stringByAppendingPathComponent:@"Documents"];
+  NSLog(@"%@",DocumentsDir);
+  //
+  NSString * fileFullPath = [DocumentsDir stringByAppendingString:oneFilePath];
+  //
+  NSFileManager * fileManager = [NSFileManager defaultManager];
+  [fileManager removeItemAtPath:fileFullPath error:nil];
+}
 
 -(void) reloadRootView{
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];

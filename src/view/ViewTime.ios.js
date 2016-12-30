@@ -46,6 +46,7 @@ var ViewTime = React.createClass({
     componentDidMount: function(){
         var userLogin = global.YrcnApp.loginUser.userLogin;
         //console.log(userLogin)
+        //alert(global.YrcnApp.appInfo.isOpenNotification+"===="+userLogin.appNotificationTime);
         if(global.YrcnApp.appInfo.isOpenNotification == "1" && userLogin.appNotificationTime){
             var hour = userLogin.appNotificationTime.split(":")[0];
             var minute = userLogin.appNotificationTime.split(":")[1];

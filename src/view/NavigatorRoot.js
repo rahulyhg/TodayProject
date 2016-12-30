@@ -299,6 +299,11 @@ var NavigatorRoot = React.createClass({
         this.setState({
             lookImage: null
         });
+        console.log(this._vars.imageObjs);
+        console.log(this._vars.index);
+        var iamgePath = this._vars.imageObjs[this._vars.index].uri;
+        console.log("调用插件删除文件="+iamgePath);
+        YrcnApp.native.RNUtilsModule.deleteSandboxFile([RNUtils.getSandboxFileShortPath(iamgePath)]);
         this._vars.callObj.deleteImage(this._vars.index);
     }
 });

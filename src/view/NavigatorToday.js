@@ -1,5 +1,5 @@
 /**
- * 首页
+ * Navigator 今天
  */
 'use strict';
 //导入
@@ -101,15 +101,21 @@ var NavigatorToday = React.createClass({
         navigationBarRouteMapper.navigator = navigator;
         navigationBarRouteMapper.titleStr = route.title;
         var Component = null;
+        var props = {};
         switch(route.name){
             default: //default view
                 navigationBarRouteMapper.isShowNavigationBarLeftButton = false;
+                props.contentDay = RNUtils.nowDate();
+                props.ViewEdit = "ViewEditTodayContent";
+                props.NavigatorInner = "NavigatorTodayInner";
+                props.scrollView = "scrollViewToday";
+                props.backgroundColor = "#f7f7f2";
                 Component = ScrollViewToday;
         }
         return <Component
                     parent_route = {route}
                     parent_navigator = {navigator}
-                    parent={this}/>
+                    parent={this} {...props}/>
     }
 });
 //

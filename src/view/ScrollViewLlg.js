@@ -54,7 +54,8 @@ var ScrollViewLlg = React.createClass({
         RNUtils.getKeysTodayContent(function(keys){
             _this.setState({
                 title: "已记录"+keys.length+"天",
-                keys: keys
+                keys: keys,
+                isShowLoadingView: false,
             });
         })
     },
@@ -74,7 +75,11 @@ var ScrollViewLlg = React.createClass({
                 </LineButtonsBox>
                 {
                     function(){
-                        if(_this.state.keys.length == 0){
+                        if(_this.state.isShowLoadingView){
+                            return (
+                                <ACViewBox />
+                            );
+                        }else if(_this.state.keys.length == 0){
                             return (
                                 <NoRecordViewBox backgroundColor={'#f7f7f2'} height={100}/>
                             );

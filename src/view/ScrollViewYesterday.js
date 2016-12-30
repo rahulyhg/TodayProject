@@ -35,13 +35,16 @@ var ListViewLi = require('../component/ListViewLi.js');
  */
 var ScrollViewToday = React.createClass({
     _vars:{
-        contentDay: RNUtils.yesterdayDate(),
-        ViewEdit: "ViewEditYesterdayContent",
-        NavigatorInner: "NavigatorYesterdayInner",
-        scrollView: "scrollViewYesterday",
     },
     getInitialState: function() {
         var _this = this;
+        //
+        this._vars.contentDay = this.props.contentDay;
+        this._vars.ViewEdit = this.props.ViewEdit;
+        this._vars.NavigatorInner = this.props.NavigatorInner;
+        this._vars.scrollView = this.props.scrollView;
+        this._vars.backgroundColor = this.props.backgroundColor;
+        //
         var now = moment(_this._vars.contentDay);
         _this._vars.title = now.format("YYYY年MM月DD日 dddd 第wo 第DDDo");
         var lunarCalendar = RNLunarCalendar.solarToLunar(now.year(),now.month()+1,now.date());
@@ -102,7 +105,7 @@ var ScrollViewToday = React.createClass({
         global.YrcnApp.now[_this._vars.scrollView] = this;
         return (
             <ScrollView
-                style={styles.scrollViewContainer}>
+                style={[styles.scrollViewContainer,{backgroundColor: _this._vars.backgroundColor}]}>
                 <TitleIntroduceBox title={_this._vars.title} introduce={_this._vars.introduce} noNumberOfLines={true}/>
                 {
                     function(){
@@ -168,7 +171,6 @@ var ScrollViewToday = React.createClass({
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        backgroundColor: '#f7f7f2',
         marginTop: 44,
     },
 });

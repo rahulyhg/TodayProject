@@ -10,6 +10,7 @@ import {
     StatusBar,
     AppState,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen'
 //
 var YrcnApp = require('./src/common/YrcnApp.js');
 global.YrcnApp = YrcnApp;
@@ -31,6 +32,7 @@ var ReadingProject = React.createClass({
         this.setInterval(function(){
             //console.log("xxxxxxx");
         },1000)
+        SplashScreen.hide();//关闭启动屏幕
     },
     render: function(){
         //设置状态栏

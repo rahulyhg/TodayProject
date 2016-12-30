@@ -15,6 +15,7 @@
 //#import "GDTTrack.h"
 //#import "GDTSplashAd.h"
 //#import "GDTMobInterstitial.h"
+#import "SplashScreen.h"//RN启动白屏处理
 
 
 @implementation AppDelegate
@@ -56,6 +57,8 @@
     NSLog(@"未取得通知授权");
     [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound  categories:nil]];
   }
+  //
+  [SplashScreen show];  // 启动白屏处理，这一句一定要在最后 
   //
   return YES;
 }
