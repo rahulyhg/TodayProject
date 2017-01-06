@@ -14,8 +14,6 @@ import {
     Dimensions,
 } from 'react-native';
 //
-var RNUtils = require('../common/RNUtils.js');
-var globalStyles = RNUtils.getGlobalStyles();
 var LineButtonsBoxButton = require('./LineButtonsBoxButton.js');
 //
 /**

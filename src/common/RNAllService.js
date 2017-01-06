@@ -289,76 +289,6 @@ class RNAllService{
         };
         RNAllService.getData(params,callbackFn)
     }
-    //获取书库类型
-    static getJson_bookLibraryTypes(callbackFn){
-        //var params = {
-        //    path: "/resources/json/bookLibraryTypes.json?v=2"
-        //};
-        var params = {
-            path: "/reading/json/getBookTypes"
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //书库搜索书籍
-    static getJson_bookLibrarySearch(param,callbackFn){
-        param.currentPage = param.currentPage || 1;
-        param.searchKey = param.searchKey || "";
-        var params = {
-            path: "/reading/json/getBooks?currentPage="+param.currentPage
-                +"&key="+encodeURI(encodeURI(param.searchKey))
-                +"&bCode="+encodeURI(encodeURI(param.bCode))
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //书库搜索诗词曲
-    static getJson_bookLibrarySearchPoems(param,callbackFn){
-        param.currentPage= param.currentPage || 1;
-        param.searchKey = param.searchKey || "";
-        var params = {
-            path: "/reading/json/getPoems?currentPage="+param.currentPage
-                +"&key="+encodeURI(encodeURI(param.searchKey))
-                +"&bCode="+param.bCode
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //根据诗词ID获取诗词评论
-    static getJson_getPoemComments(param,callbackFn){
-        param.currentPage = param.currentPage || 1;
-        var params = {
-            path: "/reading/json/getPoemComments?currentPage="+param.currentPage+"&poemInfoId="+param.poemInfoId
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //根据诗词ID获取诗词评论
-    static getJson_getBookComments(param,callbackFn){
-        param.currentPage = param.currentPage || 1;
-        var params = {
-            path: "/reading/json/getBookComments?currentPage="+param.currentPage+"&bookInfoId="+param.bookInfoId
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //根据书籍id获取章节列表
-    static getJson_getSectionsByBookId(param,callbackFn){
-        var params = {
-            path: "/reading/json/getSections?bookId="+param.bookID
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //获取热门搜索关键词
-    static getJson_getHotSearchKey(param,callbackFn){
-        var params = {
-            path: "/life/search/json/getHotSearchKey?keyType="+param.keyType
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //
-    static getDefaultBookShelfIcon(){
-        return SERVER_ROOT_PATH+"/resources/images/bookShelf_000.jpg";
-    }
-    //
-    static getDefaultHeadLogo_samll(){
-        return SERVER_ROOT_PATH+"/resources/images/headLogo_small_000.png";
-    }
     //
     static getValidateCodeRegister(){
         return SERVER_ROOT_PATH+"/validateCode.html?func=02";
@@ -389,144 +319,6 @@ class RNAllService{
         RNAllService.getData(param,callbackFn,failCallbackFn);
     }
     //
-    //已阅诗词
-    static addPoemReaded(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/json/addPoemReaded";
-        param.method = "POST";
-        param.isBack = true;
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //已阅书籍
-    static addBookReaded(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addBookReaded";
-        param.method = "POST";
-        param.isBack = true;
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //关注诗词
-    static addPoemFocus(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addPoemFocus";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //关注书籍
-    static addBookFocus(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addBookFocus";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //收藏诗词
-    static addPoemCollection(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addPoemCollection";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //下载书籍
-    static addBookDown(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addBookDown";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //书库诗词曲 阅读 排行榜
-    static getJson_getPoemsReadedBang(param,callbackFn){
-        param.currentPage= param.currentPage || 1;
-        var params = {
-            path: "/reading/json/getPoems?currentPage="+param.currentPage
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //添加诗词评论
-    static addPoemComment(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addPoemComment";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //添加书籍评论
-    static addBookComment(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/reading/session/json/addBookComment";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //获取诗词
-    static getJson_getPoemInfo(param,callbackFn){
-        param = param || {};
-        param.path = "/reading/json/getPoemInfo";
-        param.method = "POST";
-        RNAllService.getData(param,callbackFn)
-    }
-    //添加搜索
-    static addSearchKey(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/life/search/json/addSearchKey";
-        param.method = "POST";
-        param.isBack = true;
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //搜索她的生活
-    static getJson_searchHerLife(param,callbackFn){
-        param.currentPage = param.currentPage || 1;
-        param.searchKey = param.searchKey || "";
-        param.type = param.type || "1";
-        var params = {
-            path: "/life/search/json/searchHerLife?currentPage="+param.currentPage
-            +"&key="+encodeURI(encodeURI(param.searchKey))
-            +"&type="+param.type
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //根据topicInfoId获取所有答案
-    static getJson_getTopicAnswers(param,callbackFn){
-        var params = {
-            path: "/life/json/getTopicAnswers?topicInfoId="+param.topicInfoId
-        };
-        RNAllService.getData(params,callbackFn)
-    }
-    //赞主题
-    static goodOrBadTopicInfo(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/life/json/goodOrBadTopicInfo";
-        param.method = "POST";
-        param.isBack = true;
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //参与主题
-    static joinTopicInfo(param,callbackFn,failCallbackFn){
-        param = param || {};
-        param.path = "/life/json/joinTopicInfo";
-        param.method = "POST";
-        param.isBack = true;
-        RNAllService.getData(param,callbackFn,failCallbackFn);
-    }
-    //根据topicInfoId获取当前用户主题信息
-    static getJson_getLifeTopicInfo(param,callbackFn){
-        if(global.YrcnApp.loginUser&&global.YrcnApp.loginUser.userLogin){
-            var params = {
-                path: "/life/json/postLifeTopicInfo?topicInfoId="+param.topicInfoId
-            };
-            params.method = "POST";
-            RNAllService.getData(params,callbackFn);
-        }else{
-            callbackFn({
-                goodType:"-2",
-                joined:"-2"
-            });
-        }
-    }
-    //获取生活类型
-    static getJson_getLifeTypes(param,callbackFn){
-        var params = {
-            path: "/life/json/getLifeTypes"
-        };
-        RNAllService.getData(params,callbackFn)
-    }
     //获取Today事件类型
     static getJson_getTodayContentTypes(param,callbackFn){
         //var params = {
@@ -550,7 +342,16 @@ class RNAllService{
             isBack: true,
         };
         params.day = param.day;
-        RNAllService.getData(params,callbackFn)
+        RNAllService.getData(params,function(contentInfoObj){
+            if(contentInfoObj && contentInfoObj.list){
+                for(var e of contentInfoObj.list){
+                    if(e && e.oneImages){
+                        delete e.oneImages;
+                    }
+                }
+            }
+            callbackFn(contentInfoObj);
+        })
     }
     //获取Today内容
     static getJson_today_synchronizeContentInfo(param,callbackFn){
@@ -562,6 +363,13 @@ class RNAllService{
         params.day = param.day;
         params.typeCode = param.typeCode;
         params.content = param.content;
+        if(param.oneImages){
+            //var images = [];
+            //for(var e of param.oneImages){
+            //    images.push(JSON.stringify(e));
+            //}
+            params.oneImages = encodeURIComponent(encodeURIComponent(JSON.stringify(param.oneImages)));
+        }
         RNAllService.getData(params,callbackFn)
     }
 }

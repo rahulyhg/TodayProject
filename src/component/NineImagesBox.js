@@ -6,16 +6,12 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    NavigatorBar,
-    Image,
-    Text,
     TouchableOpacity,
     View,
-    StatusBar,
     Dimensions,
+    Image,
 } from 'react-native';
 //
-var RNUtils = require('../common/RNUtils.js');
 //
 /**
  * 定义属性：

@@ -3,7 +3,6 @@
 #import "UIKIT/UIDevice.h"
 #import "UIKIT/UIScreen.h"
 #import "UIKIT/UIApplication.h"
-//#import "AdSupport/ASIdentifierManager.h"
 #import "../utils/RNUtils.h"
 #import "AppDelegate.h"
 #import "RCTBundleURLProvider.h"
@@ -154,11 +153,6 @@ RCT_EXPORT_METHOD(appBundleUpgrade:(NSArray *) params)
 {
     NSLog(@"appBundleUpgrade=%@",params);
     //
-    [RNUtils  handleAppUpgradeWithSuccess:^{
-      NSLog(@"");
-      //
-      [self performSelectorOnMainThread:@selector(reloadRootView) withObject:nil waitUntilDone:NO];
-    }];
 }
 #pragma mark +++++++++++++++++++++++++++++++++++++++
 #pragma mark appNotification
@@ -224,26 +218,5 @@ RCT_EXPORT_METHOD(deleteSandboxFile:(NSArray *) params)
   //
   NSFileManager * fileManager = [NSFileManager defaultManager];
   [fileManager removeItemAtPath:fileFullPath error:nil];
-}
-
--(void) reloadRootView{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    NSURL *jsCodeLocation;
-    // 获取沙盒主目录路径
-    NSString *homeDir = NSHomeDirectory();
-    NSString *documentDir = [homeDir stringByAppendingPathComponent:@"Documents"];
-    NSString *fileName=[documentDir stringByAppendingPathComponent:@"main.jsbundle"];
-    NSLog(@"%@",fileName);
-    jsCodeLocation = [[NSURL alloc] initFileURLWithPath:fileName isDirectory:NO];//生产上使用
-    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                        moduleName:@"ReadingProject"
-                                                 initialProperties:nil
-                                                     launchOptions:nil];
-    rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-    
-    UIViewController *rootViewController = [UIViewController new];
-    rootViewController.view = rootView;
-    window.rootViewController = rootViewController;
-    [window makeKeyAndVisible];
 }
 @end

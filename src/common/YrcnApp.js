@@ -31,5 +31,14 @@ var YrcnApp = {
     configs: RNConfigs,
     now: {},
 };
-
-module.exports = YrcnApp;
+global.YrcnApp = YrcnApp;
+//
+YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
+    var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
+    global.YrcnApp.appInfo = appInfo;
+    console.log(appInfo)
+    //alert(appInfo.DocumentsPath);
+    YrcnApp.utils.setAppInfo(appInfo);
+});
+//module.exports = YrcnApp;
+export default YrcnApp;

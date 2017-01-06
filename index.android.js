@@ -19,7 +19,7 @@ YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
     YrcnApp.utils.setAppInfo(appInfo);
 });
 //所有的页面都在顶级导航之内
-var NavigatorRoot = require('./src/view/NavigatorRoot.js');//顶级导航
+var NavigatorRoot = require('./src/navigator/NavigatorRoot.js');//顶级导航
 //
 var ReadingProject = React.createClass({
     render: function(){

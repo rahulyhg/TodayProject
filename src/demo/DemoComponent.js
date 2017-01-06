@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 //
 var RNUtils = require('../common/RNUtils.js');
-var globalStyles = RNUtils.getGlobalStyles();
 /**
  * 定义属性：
  */
@@ -79,7 +78,7 @@ var DemoComponent = React.createClass({
     },
     render: function(){
         return (
-            <View style={[globalStyles.box_container,styles.container]}>
+            <View style={[styles.container]}>
 
             </View>
         );

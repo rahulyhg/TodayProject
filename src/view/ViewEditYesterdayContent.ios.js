@@ -49,7 +49,7 @@ var WebViewEditTodayContent = React.createClass({
     componentDidMount: function(){
         var _this = this;
         var oneImages = [];
-        if(this.props.coreObj && this.props.coreObj.oneImages){
+        if(this.props.coreObj && this.props.coreObj.oneImages && Array.isArray(this.props.coreObj.oneImages)){
             oneImages = this.props.coreObj.oneImages;
         }
         this.setState({
