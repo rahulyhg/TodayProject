@@ -14,10 +14,15 @@ import {
     StatusBar,
     View,
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';//navigator
 //
 import {GuideIndexView } from '../view/guide';
 import {LoginIndexView, LoginEmailView } from '../view/login';
 import {RegisterIndexView, RegisterEmailView } from '../view/register';
+
+const StackNavigatorRoot = StackNavigator({
+    Home: { screen: GuideIndexView },
+});
 //
 var navigationBarRouteMapper = {
     titleStr: "Today",
@@ -48,7 +53,17 @@ var navigationBarRouteMapper = {
     },
 }
 //
-
+//class NavigatorGuidePages extends React.Component {
+//    static navigationOptions = {
+//        title: 'Welcome',
+//    };
+//    componentDidMount() {
+//
+//    }
+//    render() {
+//        return <Text>Hello, Navigation!</Text>;
+//    }
+//}
 //
 var NavigatorGuidePages = React.createClass({
     getInitialState: function(){
@@ -91,17 +106,18 @@ var NavigatorGuidePages = React.createClass({
     render: function(){
         console.log("render NavigatorGuidePages");
         var _this = this;
-        return (
-            <Navigator
-                initialRoute={{name: 'GuideIndexView', index: 0,title:"Today"}}
-                navigationBar={
-                    <Navigator.NavigationBar
-                        routeMapper={navigationBarRouteMapper}
-                        style={global.YrcnApp.styles.common.navBar}/>
-                }
-                renderScene={this._renderScene}
-                />
-        );
+        //return (
+        //    <Navigator
+        //        initialRoute={{name: 'GuideIndexView', index: 0,title:"Today"}}
+        //        navigationBar={
+        //            <Navigator.NavigationBar
+        //                routeMapper={navigationBarRouteMapper}
+        //                style={global.YrcnApp.styles.common.navBar}/>
+        //        }
+        //        renderScene={this._renderScene}
+        //        />
+        //);
+        return (<StackNavigatorRoot />);
     },
     _renderScene: function(route, navigator){
         //

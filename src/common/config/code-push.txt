@@ -1,0 +1,14 @@
+800P-weichuang-bangong:TodayProject weichuang$ code-push app add today-ios
+Successfully added the "today-ios" app, along with the following default deployments:
+┌────────────┬───────────────────────────────────────┐
+│ Name       │ Deployment Key                        │
+├────────────┼───────────────────────────────────────┤
+│ Production │ Wi8zksyd6SJKo09AwPXwF2_grRvRE1yi6tLHf │
+├────────────┼───────────────────────────────────────┤
+│ Staging    │ BHikBu2kYvfnuvm_A39dxduaAWi3E1yi6tLHf │
+
+
+提示：你可以通过code-push deployment ls <APP_NAME> -k命令来查看deployment key。
+
+
+code-push release-react today-ios ios --t 2.0.0 --d Production

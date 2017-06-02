@@ -23,6 +23,7 @@ import {
 //
 var ButtonsBox = require('../../component/ButtonsBox.js');
 var ACViewBox = require('../../component/ACViewBox.js')
+var BottomCancelBtn = require('../../component/BottomCancelBtn.js')
 //
 /**
  * 定义属性：
@@ -55,7 +56,6 @@ var LoginView = React.createClass({
         var _this = this;
         global.YrcnApp.components.StatusBar.setHidden(false,'slide');
         global.YrcnApp.components.StatusBar.setBarStyle('light-content',false);
-        this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
@@ -80,11 +80,13 @@ var LoginView = React.createClass({
                         <Text style={[styles.bottomViewColumnText]}></Text>
                     </View>
                 </View>
+                <BottomCancelBtn />
             </View>
         );
     },
     _onPressLogin: function () {
-        this.props.parent_navigator.push({name:'LoginEmailView',title:'Today'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'LoginEmailView'});
+
     },
 });
 //

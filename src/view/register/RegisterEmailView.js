@@ -27,6 +27,7 @@ var RNAllService = require('../../common/RNAllService.js');
 var ButtonsBox = require('../../component/ButtonsBox.js');
 var ACViewBox = require('../../component/ACViewBox.js')
 var FormBox = require('../../component/FormBox.js')
+var BottomCancelBtn = require('../../component/BottomCancelBtn.js')
 //
 /**
  * 定义属性：
@@ -48,7 +49,7 @@ var RegisterEmailView = React.createClass({
     },
     getInitialState: function(){
         return ({
-            imageUri:global.YrcnApp.services.getValidateCodeRegister()+"&uuid="+Math.uuidFast(),
+            //imageUri:global.YrcnApp.services.getValidateCodeRegister()+"&uuid="+Math.uuidFast(),
             isPressingRegister: false,
         });
     },
@@ -85,7 +86,7 @@ var RegisterEmailView = React.createClass({
         var _this = this;
         global.YrcnApp.components.StatusBar.setHidden(false,'slide');
         global.YrcnApp.components.StatusBar.setBarStyle('light-content',false);
-        this.props.parent.showLeftButton();
+        //this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
@@ -105,10 +106,6 @@ var RegisterEmailView = React.createClass({
                                           parent={this} paramName={"pwd"}/>
                         <FormBox.Input placeholder={"昵称"} keyboardType={"default"}  maxLength={10}
                                        parent={this} paramName={"niCheng"}/>
-                        <FormBox.InputImage placeholder={"验证码"} keyboardType={"numeric"} borderBottomWidth={0.5}
-                                            maxLength={4}
-                                            imageUri={_this.state.imageUri}
-                                            parent={this} paramName={"vc"}/>
                     </FormBox>
                     <ButtonsBox marginBottom={0}>
                         <ButtonsBox.Button btnText={"注册"} onPress={this._onPressRegister} isPressing={this.state.isPressingRegister}/>
@@ -119,6 +116,7 @@ var RegisterEmailView = React.createClass({
                 </View>
                 <View style={[styles.bottomView]}>
                 </View>
+                <BottomCancelBtn />
             </View>
         );
     },
@@ -126,7 +124,7 @@ var RegisterEmailView = React.createClass({
         this._vars.param[paramName] = paramValue;
     },
     _onPressLogin: function () {
-        this.props.parent_navigator.push({name:'LoginIndexView',title:'Today'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'LoginIndexView'});
     },
     _onPressRegister: function () {
         var _this = this;
@@ -144,10 +142,10 @@ var RegisterEmailView = React.createClass({
             RNUtils.alert("请输入正确格式的昵称");
             return;
         }
-        if(!RNValidateUtils.vc(param.vc)){
-            RNUtils.alert("请输入正确格式的验证码");
-            return;
-        }
+        //if(!RNValidateUtils.vc(param.vc)){
+        //    RNUtils.alert("请输入正确格式的验证码");
+        //    return;
+        //}
         param.address = "";
         param.email = param.userName;
         param.requestFlag = "0";
@@ -163,13 +161,13 @@ var RegisterEmailView = React.createClass({
             });
             RNUtils.pushLoginInfo(registerObj,function(){
                 RNUtils.alert("恭喜您注册成功。",function(){
-                    global.YrcnApp.now.rootNavigator.replace({name:'TabBarIndex'});
+                    YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex'});
                 })
             })
         },function(msg){
             _this.setState({
                 isPressingRegister: false,
-                imageUri:global.YrcnApp.services.getValidateCodeRegister()+"&uuid="+Math.uuidFast(),
+                //imageUri:global.YrcnApp.services.getValidateCodeRegister()+"&uuid="+Math.uuidFast(),
             });
             RNUtils.alert(msg);
         });
@@ -246,3 +244,8 @@ var styles = StyleSheet.create({
         paddingRight: 20,
     },
 });
+//
+//<FormBox.InputImage placeholder={"验证码"} keyboardType={"numeric"} borderBottomWidth={0.5}
+//                    maxLength={4}
+//                    imageUri={_this.state.imageUri}
+//                    parent={this} paramName={"vc"}/>

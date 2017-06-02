@@ -60,6 +60,17 @@ const BOOKDESK_BOOKS_NUM = 12;
 
 class RNUtils{
     //
+    static log(fileName,msg,level){
+        level = level || "debug";
+        console.log(fileName+" === "+level + " === " +msg);
+    }
+    //
+    static logObj(fileName,obj,level){
+        level = level || "debug";
+        console.log(fileName+" === "+level + " === ");
+        console.log(obj);
+    }
+    //
     static AsyncStorage_setItem(key,obj,succCallbackFn,failedCallbackFn,isNoUser){
         succCallbackFn = succCallbackFn || function(){};
         failedCallbackFn = failedCallbackFn || function(){};
@@ -69,13 +80,11 @@ class RNUtils{
         }
         AsyncStorage.setItem(key,JSON.stringify(obj))
             .then(function(){
-                console.log("AsyncStorage_setItem");
-                console.log(key)
-                console.log(obj)
+                RNUtils.log("RNUtils.js AsyncStorage_setItem","成功 key="+key+" value="+JSON.stringify(obj))
                 succCallbackFn();
             })
             .catch(function(e){
-                console.log("存储失败"+key);
+                RNUtils.log("RNUtils.js AsyncStorage_setItem","异常 key="+key)
                 failedCallbackFn(e);
             })
             .done();
@@ -86,23 +95,19 @@ class RNUtils{
         failedCallbackFn = failedCallbackFn || function(){};
         isNoUser = isNoUser || "0";
         if(isNoUser == "0"){
-            //console.log(global.YrcnApp.loginUser)
             key = global.YrcnApp.loginUser.userLogin.id + key;
         }
         AsyncStorage.getItem(key)
             .then((obj)=>{
-                console.log("AsyncStorage_getItem");
-                console.log(key)
-                console.log(obj)
                 if(obj){
+                    RNUtils.log("RNUtils.js AsyncStorage_getItem","成功 key="+key+" value="+JSON.stringify(obj))
                     succCallbackFn(RNUtils.parseJSON(obj));
                 }else{
                     succCallbackFn({});
                 }
             })
             .catch(function(e){
-                console.log("获取失败"+key);
-                console.error(e);
+                RNUtils.log("RNUtils.js AsyncStorage_getItem","异常 key="+key)
                 failedCallbackFn(e);
             })
             .done();
@@ -113,7 +118,6 @@ class RNUtils{
         failedCallbackFn = failedCallbackFn || function(){};
         isNoUser = isNoUser || "0";
         if(isNoUser == "0"){
-            //console.log(global.YrcnApp.loginUser)
             key = global.YrcnApp.loginUser.userLogin.id + key;
         }
         AsyncStorage.removeItem(key)
@@ -121,7 +125,7 @@ class RNUtils{
                 succCallbackFn();
             })
             .catch(function(e){
-                console.log("清除失败"+key);
+                RNUtils.log("RNUtils.js AsyncStorage_removeItem","异常 key="+key)
                 failedCallbackFn(e);
             })
             .done();
@@ -235,8 +239,9 @@ class RNUtils{
         ]);
     }
     //
-    static confirm(msg,callbackFn,title){
+    static confirm(msg,callbackFn,title,cancelCallbackFn){
         callbackFn = callbackFn || function(){};
+        cancelCallbackFn = cancelCallbackFn || function(){};
         title = title || "温馨提示";
         Alert.alert(title,msg+"",[
             {
@@ -248,7 +253,7 @@ class RNUtils{
             {
                 text:"取消",
                 onPress:function(){
-
+                    cancelCallbackFn();
                 }
             }
         ]);
@@ -413,17 +418,13 @@ class RNUtils{
     }
     //清除登录信息
     static removeLoginInfo(succCallbackFn){
-        RNUtils.AsyncStorage_removeItem(AS_KEY_LOGIN_INFO,succCallbackFn,null,"1");
+        RNUtils.confirm("您确定要注销么？",function(){
+            RNUtils.AsyncStorage_removeItem(AS_KEY_LOGIN_INFO,succCallbackFn,null,"1");
+        })
     }
     //同步Today数据
     static sycnJsonTodayContent(day,contentObj,succCallbackFn){
         if(contentObj){
-            //for(var key in contentObj){
-            //    var coreObj = contentObj[key];
-            //    for(var oneImage of coreObj.oneImages){
-            //        //oneImage.uri = RNUtils.getSandboxFileShortPath(oneImage.uri);
-            //    }
-            //}
             if(contentObj && contentObj.day){
                 delete contentObj.day;
             }
@@ -471,6 +472,7 @@ class RNUtils{
     static getKeysTodayContent(succCallbackFn){
         AsyncStorage.getAllKeys()
             .then(function(keys){
+                console.log(keys);
                 var exeCount = 0;
                 var dayLength = 0;
                 var keysArr = [];
@@ -481,29 +483,36 @@ class RNUtils{
                         dayLength++;
                     }
                 }
-                for(var i=0;i<keys.length;i++){
-                    var key = keys[i];
-                    if(key.indexOf(global.YrcnApp.loginUser.userLogin.id + AS_KEY_TODAY_CONTENT_PREV) == 0){
-                        RNUtils.getJsonTodayContent(key.substring(startIndex),function(getJsonTodayContentObj){
-                            if(getJsonTodayContentObj){
-                                var ok = false;
-                                var aDay = "";
-                                for(var bkey in getJsonTodayContentObj){
-                                    if(bkey!='day' && bkey!='contentArray' && (getJsonTodayContentObj[bkey] && (getJsonTodayContentObj[bkey].content || (Array.isArray(getJsonTodayContentObj[bkey].oneImages && getJsonTodayContentObj[bkey].oneImages.length>0))))){
-                                        aDay = getJsonTodayContentObj[bkey].day;
-                                        ok = true;
+                if(dayLength == 0){
+                    innerFunc();
+                }else{
+                    for(var i=0;i<keys.length;i++){
+                        var key = keys[i];
+                        if(key.indexOf(global.YrcnApp.loginUser.userLogin.id + AS_KEY_TODAY_CONTENT_PREV) == 0){
+                            RNUtils.getJsonTodayContent(key.substring(startIndex),function(getJsonTodayContentObj){
+                                if(getJsonTodayContentObj){
+                                    YrcnApp.utils.logObj("RNUtils getKeysTodayContent",getJsonTodayContentObj)
+                                    var ok = false;
+                                    var aDay = "";
+                                    for(var bkey in getJsonTodayContentObj){
+                                        if(RNUtils.isTrueContentObj(bkey,getJsonTodayContentObj)){
+                                            aDay = getJsonTodayContentObj[bkey].day;
+                                            ok = true;
+                                        }
+                                    }
+                                    if(ok){
+                                        keysArr.push(aDay);
                                     }
                                 }
-                                if(ok){
-                                    keysArr.push(aDay);
-                                }
-                            }
-                            exeCount++;
-                            innerFunc();
-                        })
+                                exeCount++;
+                                innerFunc();
+                            })
+                        }
                     }
                 }
+                //
                 function innerFunc(){
+                    console.log(exeCount + "====" + dayLength)
                     if(exeCount != dayLength){
                         return;
                     }
@@ -574,6 +583,21 @@ class RNUtils{
             source.uri = "file://"+YrcnApp.appInfo.DocumentsPath + uriArray[uriArray.length-1];
         }
         return source;
+    }
+    //
+    static isTrueContentObj(e,contentObj){
+        if(e!='day' && e!='contentArray'
+            && (contentObj[e]
+                && (contentObj[e].content
+                    || (Array.isArray(contentObj[e].oneImages) && contentObj[e].oneImages.length>0)
+                    || contentObj[e].overtime || contentObj[e].qingjia
+                )
+            )
+        ){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 module.exports = RNUtils;

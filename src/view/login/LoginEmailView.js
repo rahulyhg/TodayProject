@@ -27,6 +27,7 @@ var RNAllService = require('../../common/RNAllService.js');
 var ButtonsBox = require('../../component/ButtonsBox.js');
 var ACViewBox = require('../../component/ACViewBox.js')
 var FormBox = require('../../component/FormBox.js')
+var BottomCancelBtn = require('../../component/BottomCancelBtn.js')
 //
 /**
  * 定义属性：
@@ -78,7 +79,7 @@ var LoginEmailView = React.createClass({
         var _this = this;
         global.YrcnApp.components.StatusBar.setHidden(false,'slide');
         global.YrcnApp.components.StatusBar.setBarStyle('light-content',false);
-        this.props.parent.showLeftButton();
+        //this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
@@ -103,6 +104,7 @@ var LoginEmailView = React.createClass({
                 </View>
                 <View style={[styles.bottomView]}>
                 </View>
+                <BottomCancelBtn />
             </View>
         );
     },
@@ -129,45 +131,7 @@ var LoginEmailView = React.createClass({
         });
         RNAllService.login(param,function(registerObj){
             RNUtils.pushLoginInfo(registerObj,function(){
-                global.YrcnApp.now.rootNavigator.replace({name:'TabBarIndex'});
-                ////取出今天的数据
-                //RNAllService.getJson_today_getContentInfo({day:RNUtils.nowDate()},function(getJson_today_getContentInfoObj){
-                //    if(getJson_today_getContentInfoObj && getJson_today_getContentInfoObj.list.length > 0){
-                //        var contentObj = {};
-                //        for(var e of getJson_today_getContentInfoObj.list){
-                //            var contentOneObj = {};
-                //            contentOneObj.day = e.day;
-                //            contentOneObj.typeCode = e.typeCode;
-                //            contentOneObj.content = e.content;
-                //            //
-                //            contentObj[contentOneObj.typeCode] = contentOneObj;
-                //        }
-                //        RNUtils.sycnJsonTodayContent(RNUtils.nowDate(),contentObj,function(){
-                //
-                //        })
-                //    }
-                //    _this.setState({
-                //        isPressingLogin: false,
-                //    });
-                //    global.YrcnApp.now.rootNavigator.replace({name:'TabBarIndex'});
-                //})
-                ////取出昨天的数据
-                //RNAllService.getJson_today_getContentInfo({day:RNUtils.yesterdayDate()},function(getJson_today_getContentInfoObj){
-                //    if(getJson_today_getContentInfoObj && getJson_today_getContentInfoObj.list.length > 0){
-                //        var contentObj = {};
-                //        for(var e of getJson_today_getContentInfoObj.list){
-                //            var contentOneObj = {};
-                //            contentOneObj.day = e.day;
-                //            contentOneObj.typeCode = e.typeCode;
-                //            contentOneObj.content = e.content;
-                //            //
-                //            contentObj[contentOneObj.typeCode] = contentOneObj;
-                //        }
-                //        RNUtils.sycnJsonTodayContent(RNUtils.yesterdayDate(),contentObj,function(){
-                //
-                //        })
-                //    }
-                //})
+                YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex'});
             })
         },function(msg){
             _this.setState({

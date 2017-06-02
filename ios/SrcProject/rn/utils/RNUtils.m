@@ -30,5 +30,7 @@ NSString * const SERVER_ROOT_PATH = @"http://www.weichuanghome.com:28080/today/"
     NSLog(@"当前应用版本号码：%@",appCurVersionNum);
     return infoDictionary;
 }
-
++(void) log:(NSString *)fileName widthMsg:(NSString *)msg widthLevel:(NSString *)level{
+  NSLog(@"%@ &&& %@ &&& %@",fileName,level,msg);
+}
 @end

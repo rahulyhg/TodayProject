@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 //
 var RNUtils = require('../common/RNUtils.js');
+//var globalStyles = RNUtils.getGlobalStyles();
 //
 /**
  * 定义属性：
@@ -30,6 +31,7 @@ var FormBoxInput = React.createClass({
             placeholderTextColor: '#fefefe',
             keyboardType: 'default',
             defaultValue: '',
+            inputColor: '#ffffff',
         });
     },
     getInitialState: function(){
@@ -53,7 +55,7 @@ var FormBoxInput = React.createClass({
         return (
             <View style={[styles.container,{borderBottomWidth:this.props.borderBottomWidth}]}>
                 <TextInput
-                    style={[styles.textInput,{height: this.props.height,borderBottomWidth:1,}]}
+                    style={[styles.textInput,{height: this.props.height,borderBottomWidth:1,color:this.props.inputColor}]}
                     onChangeText={this._onChangeText}
                     autoCorrect={false}
                     autoFocus={false}
@@ -78,10 +80,13 @@ module.exports = FormBoxInput;
 var styles = StyleSheet.create({
     container:{
         borderBottomWidth: 0,
-        borderBottomColor: '#efefef',
+        borderBottomColor: '#dddddd',
         marginLeft: 0,
         marginBottom: 10,
         paddingTop: 10,
+        paddingBottom: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
     },
     textInput:{
         width: Dimensions.get('window').width-50,

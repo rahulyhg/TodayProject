@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#eeeeee',
         height: 120,
-        backgroundColor: '#f7f7f2',
+        backgroundColor: '#ffffff',
     },
     iconView:{
         flex: 2,

@@ -20,8 +20,12 @@ import {
 /**
  * 定义属性：
  */
-var TitleIntroduceBox = React.createClass({
-    render: function(){
+class TitleIntroduceBox extends Component{
+    static defaultProps={
+        titleColor: '#4c566c',
+        borderBottomColor: '#e7e7e7',
+    }
+    render(){
         var titleProps = {
             numberOfLines: 1,
         };
@@ -33,9 +37,9 @@ var TitleIntroduceBox = React.createClass({
             delete introduceProps.numberOfLines;
         }
         return (
-            <View style={[styles.container]}>
+            <View style={[styles.container,{borderBottomColor:this.props.borderBottomColor}]}>
                 <View style={styles.title_container}>
-                    <Text style={styles.titleText} {...titleProps}>{this.props.title}</Text>
+                    <Text style={[styles.titleText,{color:this.props.titleColor}]} {...titleProps}>{this.props.title}</Text>
                 </View>
                 <View style={styles.introduce_container}>
                     <Text style={styles.introduceText} {...introduceProps}>{this.props.introduce}</Text>
@@ -43,7 +47,7 @@ var TitleIntroduceBox = React.createClass({
             </View>
         );
     }
-});
+}
 //
 module.exports = TitleIntroduceBox;
 //
@@ -64,15 +68,15 @@ var styles = StyleSheet.create({
         color: '#4c566c'
     },
     introduce_container:{
-        paddingTop: 0,
+        paddingTop: 10,
         paddingLeft:10,
         paddingRight:10,
     },
     introduceText:{
-        fontSize:12,
+        fontSize:14,
         fontWeight:'100',
         lineHeight: 20,
         textAlign:'justify',
-        color: '#646464'
+        color: '#444444'
     }
 });

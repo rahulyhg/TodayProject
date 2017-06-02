@@ -5,7 +5,6 @@
 //导入
 import React, { Component } from 'react';
 import {
-    Navigator,
     AppRegistry,
     StyleSheet,
     View,
@@ -16,12 +15,22 @@ import {
     Image,
     PanResponder,
 } from 'react-native';
+import { StackNavigator,DrawerNavigator } from 'react-navigation';//navigator
 import {TabBarIndex} from '../tab';
-import {NavigatorGuidePages,NavigatorTodayInner,NavigatorYesterdayInner,NavigatorLlgInner,NavigatorSettingsInner} from './';
+import {NavigatorTodayInner,NavigatorYesterdayInner,NavigatorLlgInner,NavigatorSettingsInner} from './';
+var NavigatorGuidePages = require('./NavigatorGuidePages');
 var ViewNewFunc = require('../view/ViewNewFunc');
 var RNUtilsModule = global.YrcnApp.native.RNUtilsModule;
 var RNUtils = global.YrcnApp.utils;
 var RNAllService = global.YrcnApp.services;
+import {GuideIndexView } from '../view/guide';
+var StackNavigatorRoot = require('../navigator/StackNavigatorRoot.js');
+
+const DrawerNavigatorRoot = DrawerNavigator({
+    Home: { screen: GuideIndexView },
+    TabBarIndex: { screen: TabBarIndex },
+    StackNavigatorRoot: { screen: StackNavigatorRoot },
+});
 //
 var NavigatorRoot = React.createClass({
     _vars:{},
@@ -138,11 +147,70 @@ var NavigatorRoot = React.createClass({
         //
         var _this = this;
         global.YrcnApp.now.$NavigatorRoot = this;
+        //return (
+        //    <View style={[global.YrcnApp.styles.common.container]}>
+        //        <Navigator
+        //            initialRoute={{name: 'NavigatorGuidePages', index: 0,title: ''}}
+        //            renderScene={this._renderScene}/>
+        //        {(this.state.appUpgrade||this.state.appBundleUpgrade)?function(){
+        //            //YrcnApp.components.StatusBar.setHidden(true,'slide');
+        //            return (
+        //                <View style={styles.appUpgradeView}>
+        //                    <TouchableOpacity style={styles.appUpgradeViewInner} onPress={_this._onPressBackView}></TouchableOpacity>
+        //                </View>
+        //            );
+        //        }():function(){}()}
+        //        {(this.state.appUpgrade||this.state.appBundleUpgrade)?function(){
+        //            return (
+        //                <View style={styles.appUpgradeContentView}>
+        //                    <View style={styles.contentTopView}>
+        //                        <Text style={styles.contentTopText}>{_this.state.appUpgradeVersion||_this.state.appBundleUpgradeVersion}</Text>
+        //                        <Text style={styles.contentTopText2}>升级提醒</Text>
+        //                    </View>
+        //                    <View style={styles.contentCenterView}>
+        //                        <Text style={styles.contentCenterText1}>{global.YrcnApp.configs.AppName}已更新到{_this.state.appUpgradeVersion||_this.state.appBundleUpgradeVersion}版本了</Text>
+        //                        <Text style={styles.contentCenterText2}>{_this.state.appUpgradeDesp||_this.state.appBundleUpgradeDesp}</Text>
+        //                    </View>
+        //                    <View style={styles.contentBottomView}>
+        //                        <TouchableOpacity style={styles.contentBottomButton} onPress={_this._onPressUpgradeBtn}>
+        //                            <Text style={styles.contentBottomText}>{_this.state.contentBottomText}</Text>
+        //                        </TouchableOpacity>
+        //                    </View>
+        //                </View>
+        //            );
+        //        }():function(){}()}
+        //        {(this.state.isShowNewFunc)?function(){
+        //            return (
+        //                <ViewNewFunc onPress={_this._onPressNewFunc}/>
+        //            );
+        //        }():function(){}()}
+        //        {
+        //            (function(){
+        //                if(_this.state.lookImage){
+        //                    return (
+        //                        <View style={styles.lookView}>
+        //                            <Image source={_this.state.lookImage} style={styles.lookImage} resizeMode="contain" {..._this._panResponder.panHandlers}/>
+        //                            <View style={styles.lookImageBottomContainer}>
+        //                                <TouchableOpacity style={styles.lookImageBottomBack} onPress={_this._onPressLookImageBack}>
+        //                                    <Text style={styles.btnText}>返回</Text>
+        //                                </TouchableOpacity>
+        //                                <View style={styles.lookImageBottomCenter}>
+        //                                    <Text style={[{textAlign: 'center'}]}>{_this._vars.index+1}/{_this._vars.imageObjs.length}</Text>
+        //                                </View>
+        //                                <TouchableOpacity style={styles.lookImageBottomDelete} onPress={_this._onPressLookImageDelete}>
+        //                                    <Text style={styles.btnText}>{!_this.state.isHideDelete?'删除':''}</Text>
+        //                                </TouchableOpacity>
+        //                            </View>
+        //                        </View>
+        //                    );
+        //                }
+        //            })()
+        //        }
+        //    </View>
+        //);
         return (
             <View style={[global.YrcnApp.styles.common.container]}>
-                <Navigator
-                    initialRoute={{name: 'NavigatorGuidePages', index: 0,title: ''}}
-                    renderScene={this._renderScene}/>
+                <DrawerNavigatorRoot />
                 {(this.state.appUpgrade||this.state.appBundleUpgrade)?function(){
                     //YrcnApp.components.StatusBar.setHidden(true,'slide');
                     return (

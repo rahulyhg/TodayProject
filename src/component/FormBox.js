@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 //
 var FormBoxInput = require('./FormBoxInput');
+var FormBoxInputArea = require('./FormBoxInputArea');
 var FormBoxPassword = require('./FormBoxPassword');
 var FormBoxInputImage = require('./FormBoxInputImage');
 var FormBoxSwitch = require('./FormBoxSwitch.js');
@@ -27,6 +28,8 @@ var FormBox = React.createClass({
     _vars:{},
     getDefaultProps: function(){
         return ({
+            paddingLeft: 0,
+            paddingRight: 0,
         });
     },
     getInitialState: function(){
@@ -36,6 +39,7 @@ var FormBox = React.createClass({
     //statics 对象允许你定义静态的方法，这些静态的方法可以在组件类上调用。
     statics: {
         Input: FormBoxInput,
+        InputArea: FormBoxInputArea,
         InputImage: FormBoxInputImage,
         Password: FormBoxPassword,
         Switch: FormBoxSwitch,
@@ -56,7 +60,7 @@ var FormBox = React.createClass({
         //console.log("render FormBox");
         //
         return (
-            <View style={[styles.container]}>
+            <View style={[styles.container,{paddingLeft: this.props.paddingLeft,paddingRight: this.props.paddingRight}]}>
                 {this.props.children}
             </View>
         );

@@ -22,6 +22,7 @@ var FloatButtonsBoxButton = React.createClass({
     getDefaultProps: function(){
         return ({
             isPressing: false,
+            backgroundColor: '#ffffff'
         });
     },
     getInitialState: function(){
@@ -54,7 +55,7 @@ var FloatButtonsBoxButton = React.createClass({
             );
         }else{
             return (
-                <TouchableOpacity style={[styles.container]} onPress={this.props.onPress}>
+                <TouchableOpacity style={[styles.container,{backgroundColor: this.props.backgroundColor}]} onPress={this.props.onPress}>
                     <Text style={[styles.btnText]}>{this.props.btnText}</Text>
                 </TouchableOpacity>
             );
@@ -70,7 +71,6 @@ var styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         borderRadius: 6,
-        backgroundColor: '#ffffff',
     },
     container_pressing:{
         flex: 1,

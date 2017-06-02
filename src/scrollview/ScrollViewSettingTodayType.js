@@ -30,6 +30,7 @@ var ACViewBox = require('../component/ACViewBox.js');
 var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLiSelected = require('../component/ListViewLiSelected.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -57,9 +58,10 @@ var ScrollViewToday = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.showLeftButton();
+        //this.props.parent.showLeftButton();
         return (
             <View style={styles.container}>
+                <ViewHeader title="显示设置" onPressLeft={this._onPressLeft}/>
                 <ScrollView style={styles.scrollViewContainer}>
                     {
                         function(){
@@ -102,7 +104,7 @@ var ScrollViewToday = React.createClass({
         });
     },
     _onPressAdd: function(){
-        this.props.parent_navigator.push({name:'ScrollViewAddTodayType',title:'新增',prevView: this});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewAddTodayType',viewTitle:'新增',prevView: this});
     },
     _onPressUpd: function(){
         var _this = this;
@@ -122,7 +124,7 @@ var ScrollViewToday = React.createClass({
             RNUtils.alert("只能选择一项")
             return;
         }
-        this.props.parent_navigator.push({name:'ScrollViewUpdTodayType',title:'编辑',prevView: this,typeObj:selectedArray[0]});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewUpdTodayType',viewTitle:'编辑',prevView: this,typeObj:selectedArray[0]});
     },
     _onPressDel: function(){
         var _this = this;
@@ -153,23 +155,26 @@ var ScrollViewToday = React.createClass({
             });
         })
     },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'myLife'});
+    }
 });
 //
 var styles = StyleSheet.create({
     container:{
-        marginTop: 44
     },
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        height:Dimensions.get('window').height - 88,
+        height:Dimensions.get('window').height,
     },
     bottomView: {
         position:'absolute',
-        top:Dimensions.get('window').height - 88,
+        top:Dimensions.get('window').height-44,
         left:0,
         height: 44,
         borderTopWidth: 2,
         borderTopColor: '#aaaaaa',
+        backgroundColor: '#ffffff',
     }
 });
 //

@@ -11,9 +11,11 @@ import {
     Dimensions,
     Timers,
     Image,
+    TouchableOpacity,
 } from 'react-native';
 //
 var TextBox = require('../component/TextBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  * 定义属性：
@@ -42,10 +44,11 @@ var SpecialStatementView = React.createClass({
     //
     render: function(){
         //console.log("render");
-        this.props.parent.showLeftButton();
+        //this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
+                <ViewHeader title="特别声明" onPressLeft={this._onPressLeft}/>
                 <TextBox>
                     <TextBox.Title text={"联系我们"}/>
                     <TextBox.Text text={"联系邮箱：weichuang950@163.com"}/>
@@ -56,6 +59,9 @@ var SpecialStatementView = React.createClass({
                 </TextBox>
             </View>
         );
+    },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'myLife'});
     }
 });
 //
@@ -65,7 +71,6 @@ var styles = StyleSheet.create({
     container:{
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
-        backgroundColor: '#f7f7f2',
-        paddingTop: 50,
+        backgroundColor: '#ffffff',
     },
 });

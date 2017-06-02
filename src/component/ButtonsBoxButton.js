@@ -21,6 +21,9 @@ var ButtonsBoxButton = React.createClass({
     getDefaultProps: function(){
         return ({
             isPressing: false,
+            backgroundColor_pressing: '#efefef',
+            backgroundColor: '#ffffff',
+            btnColor: '#01bbfc',
         });
     },
     getInitialState: function(){
@@ -47,14 +50,14 @@ var ButtonsBoxButton = React.createClass({
         //
         if(this.props.isPressing){
             return (
-                <TouchableOpacity style={[styles.container_pressing]}>
-                    <Text style={[styles.btnText]}>{this.props.btnText+'...'}</Text>
+                <TouchableOpacity style={[styles.container_pressing,{backgroundColor:this.props.backgroundColor_pressing}]}>
+                    <Text style={[styles.btnText,{color:this.props.btnColor}]}>{this.props.btnText+'...'}</Text>
                 </TouchableOpacity>
             );
         }else{
             return (
-                <TouchableOpacity style={[styles.container]} onPress={this.props.onPress}>
-                    <Text style={[styles.btnText]}>{this.props.btnText}</Text>
+                <TouchableOpacity style={[styles.container,{backgroundColor:this.props.backgroundColor}]} onPress={this.props.onPress}>
+                    <Text style={[styles.btnText,{color:this.props.btnColor}]}>{this.props.btnText}</Text>
                 </TouchableOpacity>
             );
         }

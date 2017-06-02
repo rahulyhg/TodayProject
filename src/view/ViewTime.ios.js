@@ -19,6 +19,7 @@ import {
     Switch,
 } from 'react-native';
 import todayNofifications from "../common/config/today_notifications.json";
+var ViewHeader = require('../component/ViewHeader.js');
 //
 var moment = require('moment/moment.js');
 moment.locale('zh-cn');
@@ -75,10 +76,10 @@ var ViewTime = React.createClass({
     //
     render: function(){
         //console.log("render");
-        this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
+                <ViewHeader title="智能提醒" onPressLeft={this._onPressLeft}/>
                 <View style={[styles.controlView]}>
                     <View style={[styles.controlLeftView]}>
                         <Text style={[styles.controlText]}>开关控制</Text>
@@ -155,6 +156,9 @@ var ViewTime = React.createClass({
             YrcnApp.utils.pushLoginInfo(global.YrcnApp.loginUser);
             global.YrcnApp.native.RNUtilsModule.appNotification(["1",time,todayNofifications["Time"+time.split(":")[0]].content]);
         }
+    },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'myLife'});
     }
 });
 //
@@ -164,8 +168,7 @@ var styles = StyleSheet.create({
     container:{
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
-        backgroundColor: '#f7f7f2',
-        paddingTop: 50,
+        backgroundColor: '#ffffff',
     },
     controlView:{
         width:Dimensions.get('window').width,

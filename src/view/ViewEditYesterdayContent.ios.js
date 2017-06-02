@@ -19,6 +19,7 @@ var RNAllService = require('../common/RNAllService.js');
 var FloatButtonsBox = require('../component/FloatButtonsBox.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var ImagePicker = require('react-native-image-picker');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -58,14 +59,15 @@ var WebViewEditTodayContent = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.showRightButton();
+        //this.props.parent.showRightButton();
         //console.log(this.props.type);
         console.log(this.props.coreObj);
         var coreObj = this.props.coreObj||{};
         var val = coreObj.content||"";
         this._vars.text = val.trim();
         return (
-            <View style={styles.webViewContainer}>
+            <View style={[global.YrcnApp.styles.common.container,{backgroundColor:'#f0f0f0'}]}>
+                <ViewHeader title={_this.props.title} onPressLeft={this._onPressComplete} leftText="完成"/>
                 <TextInput
                     style={[styles.textInput,{height:_this.state.textInputHeight}]}
                     onChangeText={this._onChangeText}
@@ -81,7 +83,7 @@ var WebViewEditTodayContent = React.createClass({
                     placeholderTextColor={this.props.placeholderTextColor}
                     />
                 <NineImagesBox oneImages={this.state.oneImages} parent={_this}/>
-                <FloatButtonsBox>
+                <FloatButtonsBox marginTop={30}>
                     <FloatButtonsBox.Button btnText={"图片"} onPress={this._onPressImage}/>
                 </FloatButtonsBox>
             </View>
@@ -99,9 +101,9 @@ var WebViewEditTodayContent = React.createClass({
         RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
             contentObj[_this.props.type.typeCode] = contentOneObj;
             RNUtils.sycnJsonTodayContent(_this._vars.contentDay,contentObj,function(){
-                if(global.YrcnApp.now.scrollViewLlg){
-                    global.YrcnApp.now.scrollViewLlg.refreshView();
-                }
+                //if(global.YrcnApp.now.scrollViewLlg){
+                //    global.YrcnApp.now.scrollViewLlg.refreshView();
+                //}
             });
         })
     },
@@ -159,9 +161,9 @@ var WebViewEditTodayContent = React.createClass({
                     contentObj[_this.props.type.typeCode].day = _this._vars.contentDay;
                     //
                     RNUtils.sycnJsonTodayContent(_this._vars.contentDay,contentObj,function(){
-                        if(global.YrcnApp.now.scrollViewLlg){
-                            global.YrcnApp.now.scrollViewLlg.refreshView();
-                        }
+                        //if(global.YrcnApp.now.scrollViewLlg){
+                        //    global.YrcnApp.now.scrollViewLlg.refreshView();
+                        //}
                     });
                 })
             })
@@ -182,14 +184,13 @@ var WebViewEditTodayContent = React.createClass({
         _this.setState({
             oneImages: _this.state.oneImages
         })
+    },
+    _onPressComplete(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'yesterdayIcon'});
     }
 });
 //
 var styles = StyleSheet.create({
-    webViewContainer:{
-        backgroundColor: '#ffffff',
-        marginTop: 50
-    },
     textInput:{
         width: Dimensions.get('window').width,
         paddingLeft: 15,
@@ -200,6 +201,9 @@ var styles = StyleSheet.create({
         color: '#444444',
         borderBottomWidth: 3,
         borderBottomColor: '#eeeeee',
+        backgroundColor:'#ffffff',
+        marginTop: 3,
+        textAlignVertical: 'top',
     },
 });
 //

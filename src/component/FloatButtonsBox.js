@@ -26,6 +26,8 @@ var FloatButtonsBox = React.createClass({
     _vars:{},
     getDefaultProps: function(){
         return ({
+            backgroundColor: '#ffffff',
+            marginTop: 10,
         });
     },
     getInitialState: function(){
@@ -53,9 +55,9 @@ var FloatButtonsBox = React.createClass({
         //console.log("render ButtonsBox");
         //
         return (
-            <Animated.View style={[styles.container,{top: this.state.top}]}>
+            <Animated.View style={[styles.container,{top: this.state.top,marginTop:this.props.marginTop}]}>
                 {this.props.children}
-                <FloatButtonsBoxButton btnText={this.state.hideOrShowText} onPress={this._onPress}/>
+                <FloatButtonsBoxButton btnText={this.state.hideOrShowText} onPress={this._onPress} backgroundColor={this.props.backgroundColor}/>
             </Animated.View>
         );
     },

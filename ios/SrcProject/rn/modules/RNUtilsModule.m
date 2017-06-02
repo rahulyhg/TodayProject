@@ -36,7 +36,7 @@ RCT_EXPORT_METHOD(demoAsynCallback:(NSArray *) params)
 #pragma mark 获取APP系统信息
 RCT_EXPORT_METHOD(getAppInfo:(NSArray *) params callback:(RCTResponseSenderBlock)callback)
 {
-    NSLog(@"getAppInfo=%@",params);
+    [RNUtils log:@"RNUtilsModule.m getAppInfo" widthMsg:[@"输入参数" stringByAppendingString:[params componentsJoinedByString:@","]] widthLevel:@"debug"];
     //
     NSMutableDictionary * appInfo = [[NSMutableDictionary alloc] init];
     //
@@ -93,10 +93,10 @@ RCT_EXPORT_METHOD(getAppInfo:(NSArray *) params callback:(RCTResponseSenderBlock
     [appInfo setValue:appCurName forKey:@"appCurName"];
     //
   if ([[UIApplication sharedApplication]currentUserNotificationSettings].types!=UIUserNotificationTypeNone) {
-    NSLog(@"取得通知授权");
+    [RNUtils log:@"RNUtilsModule.m getAppInfo" widthMsg:@"取得通知授权" widthLevel:@"debug"];
     [appInfo setValue:@"1" forKey:@"isOpenNotification"];
   }else{
-    NSLog(@"未取得通知授权");
+    [RNUtils log:@"RNUtilsModule.m getAppInfo" widthMsg:@"未取得通知授权" widthLevel:@"debug"];
     [appInfo setValue:@"0" forKey:@"isOpenNotification"];
   }
   //

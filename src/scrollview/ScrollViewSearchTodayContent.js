@@ -19,7 +19,10 @@ import {
     ListView,
     ScrollView,
     TouchableHighlight,
+    DatePickerIOS,
 } from 'react-native';
+//这是一个三方组件 github地址:https://github.com/eyaleizenberg/react-native-custom-action-sheet
+var CustomActionSheet = require('react-native-custom-action-sheet');
 //
 var moment = require('moment/min/moment-with-locales.min.js');
 moment.locale('zh-cn');
@@ -32,61 +35,87 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var ButtonsBox = require('../component/ButtonsBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
-var ScrollViewSearchTodayContent = React.createClass({
-    _vars:{
+class ScrollViewSearchTodayContent extends Component{
+    constructor(props){
+        super(props);
+        this._onPressSearch = this._onPressSearch.bind(this);
+        this._showDatePicker = this._showDatePicker.bind(this);
+        this._onDateChange = this._onDateChange.bind(this);
+        this._onSubmitEditingSearch = this._onSubmitEditingSearch.bind(this);
+    }
+    _vars = {
         contentObjArray: [],
         ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    },
-    getInitialState: function() {
-        var _this = this;
-        //
-        return {
-            searchKey: '',
+    }
+    state = {
+        searchKey: '',
             beginDateVal: RNUtils.lastMonth3Date(),
             endDateVal: RNUtils.nowDate(),
             isPressingSearch: false,
-        };
-    },
+            datePickerModalVisible: false,  //选择器显隐标记
+            showDate: 'begin',
+    }
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
     //如果想和其它 JavaScript 框架集成，使用 setTimeout 或者 setInterval 来设置定时器，或者发送 AJAX 请求，可以在该方法中执行这些操作。
-    componentDidMount: function(){
+    componentDidMount(){
         var _this = this;
-    },
-    render: function(){
+    }
+    render(){
         var _this = this;
-        this.props.parent.hideRightButton();
+        //
+        let datePickerModal = (   //日期选择器组件 (根据标记赋值为 选择器 或 空)
+            this.state.datePickerModalVisible ?
+                <CustomActionSheet
+                    modalVisible={this.state.datePickerModalVisible}
+                    onCancel={()=>this._showDatePicker()}>
+                    <View style={styles.datePickerContainer}>
+                        <DatePickerIOS
+                            mode={"date"}
+                            date={new Date(this.state.showDate=='begin'?this.state.beginDateVal:this.state.endDateVal)}
+                            onDateChange={this._onDateChange}
+                            style={{borderWidth: 0,width: Dimensions.get('window').width-20,}}
+                            />
+                    </View>
+                </CustomActionSheet> : null
+        );
+        //
         return (
             <ScrollView
                 style={styles.scrollViewContainer}>
+                <ViewHeader title={this.props.title} onPressLeft={this._onPressLeft}/>
                 <View style={styles.searchInputView}>
-                    <TextInput keyboardType={"web-search"} placeholder={"关键字"} style={styles.search_textInput}
-                               onChangeText={text => this.state.searchKey=text}/>
+                    <TextInput keyboardType={"default"} returnKeyType="search" placeholder={"请输入关键字..."} style={styles.search_textInput}
+                               onChangeText={text => this.state.searchKey=text} onSubmitEditing={this._onSubmitEditingSearch}/>
                 </View>
                 <View style={styles.dateInputView}>
-                    <View style={styles.dateInputOneView}>
-                        <TextInput keyboardType={"web-search"} placeholder={"开始时间"} style={styles.date_textInput}
-                                   defaultValue={this.state.beginDateVal} onChangeText={text => this.state.beginDateVal=text}/>
+                    <View style={[styles.dateInputOneView]}>
+                        <TouchableOpacity
+                            onPress={()=>_this._showDatePicker('begin')}
+                            ><Text style={[styles.date_textInput,{textAlign: 'right'}]}>{_this.state.beginDateVal}</Text></TouchableOpacity>
                     </View>
                     <View style={styles.dateInputCenterView}>
-                        <Text style={[{textAlign:'center'}]}>至</Text>
+                        <Text style={[{textAlign:'center',paddingBottom: 3,}]}>至</Text>
                     </View>
                     <View style={styles.dateInputOneView}>
-                        <TextInput keyboardType={"web-search"} placeholder={"结束时间"} style={styles.date_textInput}
-                                   defaultValue={this.state.endDateVal} onChangeText={text => this.state.endDateVal=text}/>
+                        <TouchableOpacity
+                            onPress={()=>_this._showDatePicker('end')}
+                            ><Text style={styles.date_textInput}>{_this.state.endDateVal}</Text></TouchableOpacity>
                     </View>
                 </View>
                 <View style={[styles.searchBtnView]}>
                     <ButtonsBox marginBottom={0}>
-                        <ButtonsBox.Button btnText={"开始搜索"} onPress={this._onPressSearch} isPressing={this.state.isPressingSearch}/>
+                        <ButtonsBox.Button btnText={"开始搜索"} onPress={this._onPressSearch} isPressing={this.state.isPressingSearch} backgroundColor="#01bbfc" btnColor="#ffffff"/>
                     </ButtonsBox>
                 </View>
+                {datePickerModal}
             </ScrollView>
         );
-    },
-    _onPressSearch: function(){
+    }
+    _onPressSearch(){
         var _this = this;
         _this._vars.contentObjArray = [];
         //
@@ -129,7 +158,7 @@ var ScrollViewSearchTodayContent = React.createClass({
                                 if(contentObj[e].day){
                                     aDay = contentObj[e].day;
                                 }
-                                if(e != "contentArray" && e != "day" && (contentObj[e].content || (contentObj[e].oneImages))){
+                                if(RNUtils.isTrueContentObj(e,contentObj)){
                                     contentArray.push({
                                         key: e,
                                         value: contentObj[e]
@@ -160,7 +189,7 @@ var ScrollViewSearchTodayContent = React.createClass({
                                 if(contentObj[e].day){
                                     aDay = contentObj[e].day;
                                 }
-                                if(e != "contentArray" && e != "day" && (contentObj[e].content || (contentObj[e].oneImages))){
+                                if(RNUtils.isTrueContentObj(e,contentObj)){
                                     contentArray.push({
                                         key: e,
                                         value: contentObj[e]
@@ -192,18 +221,37 @@ var ScrollViewSearchTodayContent = React.createClass({
                         return;
                     }
                     //
-                    _this.props.parent_navigator.push({name:"ScrollViewShowTodaysContent",title:"搜索",contentObjArray: _this._vars.contentObjArray});
+                    YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodaysContent',contentObjArray: _this._vars.contentObjArray,viewTitle:"搜索"});
                 }
             }
         });
 
     }
-});
+    _showDatePicker(showDate) { //切换显隐标记
+        this.setState({
+            datePickerModalVisible: !this.state.datePickerModalVisible,
+            showDate: showDate
+        });
+    }
+    _onDateChange(date) {  //改变日期state
+        if(this.state.showDate == "begin"){
+            this.setState({beginDateVal:moment(date).format("YYYY-MM-DD")});
+        }else{
+            this.setState({endDateVal:moment(date).format("YYYY-MM-DD")});
+        }
+    }
+    _onPressLeft(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'llgIcon'});
+    }
+    _onSubmitEditingSearch(){
+        //RNUtils.log("ScrollViewSearchTodayContent.js _onSubmitEditingSearch","");
+        this._onPressSearch();
+    }
+}
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        marginTop: 44
     },
     searchInputView:{
         width:Dimensions.get('window').width,
@@ -217,9 +265,12 @@ var styles = StyleSheet.create({
         alignItems:'center',
         borderBottomWidth: 1,
         borderBottomColor: '#eeeeee',
+        marginTop: 20,
+        paddingBottom: 10,
     },
     dateInputOneView:{
         flex: 3,
+        borderWidth:0
     },
     dateInputCenterView:{
         flex: 1,
@@ -232,21 +283,26 @@ var styles = StyleSheet.create({
         paddingTop: 15,
         paddingBottom: 0,
         fontSize: 16,
-        color: '#444444',
+        color: '#01bbfc',
     },
     date_textInput:{
-        height: 60,
-        paddingLeft: 15,
+        paddingLeft: 10,
         paddingRight: 15,
-        paddingTop: 15,
-        paddingBottom: 15,
         fontSize: 16,
-        color: '#444444',
+        color: '#01bbfc',
         borderBottomWidth: 3,
         borderBottomColor: '#444444',
     },
     searchBtnView:{
         width:Dimensions.get('window').width,
+    },
+    datePickerContainer: {
+        flex: 1,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        marginBottom: 10,
     },
 });
 //

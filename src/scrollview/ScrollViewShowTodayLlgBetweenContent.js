@@ -34,6 +34,7 @@ var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -91,7 +92,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
                             //if(contentObj[e].content||contentObj[e].content!=''){
                             //    content += contentObj[e].content+"\r\n";
                             //}
-                            if(e != "contentArray" && e != "day" && (contentObj[e].content || (Array.isArray(contentObj[e].oneImages)&&contentObj[e].oneImages.length>0))){
+                            if(RNUtils.isTrueContentObj(e,contentObj)){
                                 contentArray.push({
                                     key: e,
                                     value: contentObj[e]
@@ -139,8 +140,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.hideRightButton();
-        return (
+        var innerView = (
             _this.state.isShowLoadingView=="-1"?
                 (<ACViewBox />):
                 (_this.state.isShowLoadingView=="0"?
@@ -155,6 +155,12 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
                         onEndReachedThreshold={0}
                         onEndReached={_this._onEndReached}
                         />))
+        );
+        return (
+            <View style={[styles.container]}>
+                <ViewHeader title={this.props.title} onPressLeft={this._onPressLeft}/>
+                {innerView}
+            </View>
         );
     },
     _onPressLi: function(liIndex){
@@ -188,7 +194,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
                     if(contentObj.contentArray && contentObj.contentArray.length > 0){
                         return contentObj.contentArray.map(function(d,i){
                             console.log("xxxxxxxx"+RNUtils.toString(d.value))
-                            if(d.value.content || d.value.oneImages){
+                            if(d.value.content || d.value.oneImages || d.value.overtime || d.value.qingjia){
                                 if(d.value.oneImages && Array.isArray(d.value.oneImages) && d.value.oneImages.length>0){
                                     d.value.oneImages = d.value.oneImages||[];
                                     for(var oneImage of d.value.oneImages) {
@@ -220,6 +226,8 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
                                             color: _this.state.paragraphColor}}
                                             >
                                             {d.value.content}
+                                            <Text>{d.value.overtime?'\r\n加班：'+d.value.overtimeDesp:''}</Text>
+                                            <Text>{d.value.qingjia?'\r\n请假：'+d.value.qingjiaDesp:''}</Text>
                                         </Text>
                                         <NineImagesBox oneImages={d.value.oneImages } isHideDelete={true}/>
                                     </View>
@@ -231,12 +239,19 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
             </View>
         );
     },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'llgIcon'});
+    }
 });
 //
 var styles = StyleSheet.create({
+    container:{
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').height,
+        backgroundColor: '#ffffff',
+    },
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        marginTop: 44
     },
     paragraphView:{
         paddingLeft: 0,

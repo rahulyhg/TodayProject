@@ -32,6 +32,7 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLiSelected = require('../component/ListViewLiSelected.js');
 var ButtonsBox = require('../component/ButtonsBox.js');
 var FormBox = require('../component/FormBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -56,15 +57,16 @@ var ScrollViewUpdTodayType = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.showLeftButton();
         return (
             <View style={styles.container}>
+                <ViewHeader title="显示设置" onPressLeft={this._onPressLeft}/>
                 <FormBox>
                     <FormBox.Input placeholder={"事件展示内容"} keyboardType={"default"} maxLength={50}
-                                   parent={this} paramName={"content"} defaultValue={this.props.typeObj.typeCode}/>
+                                   parent={this} paramName={"content"} defaultValue={this.props.typeObj.typeCode} inputColor="#01bbfc" placeholderTextColor="#4e4e4e"/>
                 </FormBox>
                 <ButtonsBox marginBottom={0}>
-                    <ButtonsBox.Button btnText={"编辑"} onPress={this._onPressUpd} isPressing={this.state.isPressingUpd}/>
+                    <ButtonsBox.Button btnText={"编辑"} onPress={this._onPressUpd} isPressing={this.state.isPressingUpd}
+                                       backgroundColor_pressing="#01bbfc" backgroundColor="#01bbfc" btnColor="#ffffff"/>
                 </ButtonsBox>
             </View>
         );
@@ -86,8 +88,9 @@ var ScrollViewUpdTodayType = React.createClass({
                     item.typeContent = _this._vars.param.content;
                     RNUtils.setJsonTodayContentTypes(todayContentTypesObj,function(){
                         RNUtils.alert("编辑成功",function(){
-                            _this.props.prevView.refreshView();
-                            _this.props.parent_navigator.pop();
+                            //_this.props.prevView.refreshView();
+                            //_this.props.parent_navigator.pop();
+                            YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSettingTodayType'});
                         })
                     });
                     return;
@@ -98,16 +101,17 @@ var ScrollViewUpdTodayType = React.createClass({
     changeParam: function(paramName,paramValue){
         this._vars.param[paramName] = paramValue.trim();
     },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSettingTodayType'});
+    }
 });
 //
 var styles = StyleSheet.create({
     container:{
-        marginTop: 44,
-        backgroundColor: '#01bbfc',
+        backgroundColor: '#ffffff',
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems:'center',
     },
 });

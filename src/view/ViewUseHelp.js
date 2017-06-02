@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 //
 var TextBox = require('../component/TextBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  * 定义属性：
@@ -42,16 +43,19 @@ var UseHelpView = React.createClass({
     //
     render: function(){
         //console.log("render");
-        this.props.parent.showLeftButton();
         //
         return (
             <View style={[styles.container]}>
+                <ViewHeader title="使用帮助" onPressLeft={this._onPressLeft}/>
                 <TextBox>
                     <TextBox.Title text={"如何注销当前登录用户"}/>
                     <TextBox.Text text={"设置页面右上侧按钮“注销”"}/>
                 </TextBox>
             </View>
         );
+    },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'myLife'});
     }
 });
 //
@@ -61,7 +65,6 @@ var styles = StyleSheet.create({
     container:{
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
-        backgroundColor: '#f7f7f2',
-        paddingTop: 50,
+        backgroundColor: '#ffffff',
     },
 });

@@ -34,6 +34,7 @@ var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -75,8 +76,8 @@ var ScrollViewShowTodaysContent = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.hideRightButton();
-        return (
+        //this.props.parent.hideRightButton();
+        var innerView = (
             _this.state.isShowLoadingView=="-1"?
                 (<ACViewBox />):
                 (_this.state.isShowLoadingView=="0"?
@@ -91,6 +92,12 @@ var ScrollViewShowTodaysContent = React.createClass({
                         onEndReachedThreshold={0}
                         onEndReached={_this._onEndReached}
                         />))
+        );
+        return (
+            <View style={[styles.container]}>
+                <ViewHeader title={this.props.title} onPressLeft={this._onPressLeft}/>
+                {innerView}
+            </View>
         );
     },
     _onPressLi: function(liIndex){
@@ -135,7 +142,7 @@ var ScrollViewShowTodaysContent = React.createClass({
                     if(contentObj.contentArray && contentObj.contentArray.length > 0){
                         return contentObj.contentArray.map(function(d,i){
                             console.log("xxxxxxxx"+d.value.content)
-                            if(d.value.content || d.value.oneImages){
+                            if(d.value.content || d.value.oneImages || d.value.overtime || d.value.qingjia){
                                 d.value.oneImages = d.value.oneImages||[];
                                 if(Array.isArray(d.value.oneImages)){
                                     for(var oneImage of d.value.oneImages) {
@@ -167,6 +174,8 @@ var ScrollViewShowTodaysContent = React.createClass({
                                             color: _this.state.paragraphColor}}
                                             >
                                             {d.value.content}
+                                            <Text>{d.value.overtime?'\r\n加班：'+d.value.overtimeDesp:''}</Text>
+                                            <Text>{d.value.qingjia?'\r\n请假：'+d.value.qingjiaDesp:''}</Text>
                                         </Text>
                                         <NineImagesBox oneImages={d.value.oneImages } isHideDelete={true}/>
                                     </View>
@@ -178,12 +187,14 @@ var ScrollViewShowTodaysContent = React.createClass({
             </View>
         );
     },
+    _onPressLeft: function () {
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSearchTodayContent',selectedTab:'llgIcon'});
+    }
 });
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        marginTop: 44
     },
     paragraphView:{
         paddingLeft: 0,
@@ -215,7 +226,12 @@ var styles = StyleSheet.create({
     },
     textAndImageView: {
 
-    }
+    },
+    container:{
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').height,
+        backgroundColor: '#ffffff',
+    },
 });
 //
 module.exports = ScrollViewShowTodaysContent;

@@ -110,11 +110,13 @@ var requestThreadPool = {
                     function innerFuncRequest(){
                         if(_this.fetchObj.params.method == "POST"){
                             for(var e in _this.fetchObj.params){
+
                                 body += "&"+e+"="+_this.fetchObj.params[e];
                             }
                             fetchParam2.body = body;
                             fetchParam2.headers = {
-                                "Content-Type": "application/x-www-form-urlencoded"
+                                "Content-Type": "application/x-www-form-urlencoded",
+                                'credentials': 'include'
                             }
                         }
                         console.log(SERVER_ROOT_PATH+_this.fetchObj.params.path)
@@ -251,16 +253,17 @@ class RNAllService{
                         }else if(responseJsonObj.RES_RESULT=="FAILED"){
                             gtObj.failCallbackFn(responseJsonObj.RES_MSG);
                         }else {
-                            console.warn("请求失败："+responseJsonObj.RES_MSG);
-                            //RNUtils.alert("请求网络异常");
-                            Alert.alert("温馨提示","请求网络异常",[
-                                {
-                                    text:"好的",
-                                    onPress:function(){
-
-                                    }
-                                }
-                            ]);
+                            //console.warn("请求失败："+responseJsonObj.RES_MSG);
+                            ////RNUtils.alert("请求网络异常");
+                            //Alert.alert("温馨提示","请求网络异常",[
+                            //    {
+                            //        text:"好的",
+                            //        onPress:function(){
+                            //
+                            //        }
+                            //    }
+                            //]);
+                            failCallbackFn(responseJsonObj.RES_MSG);
                         }
                     })
                     .catch((error) => {

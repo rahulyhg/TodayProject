@@ -1,5 +1,5 @@
 {
-  "name": "ReadingProject",
+  "name": "YrcnAppProject",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,13 +8,17 @@
   "dependencies": {
     "antd-mobile": "^0.9.12",
     "lunar-calendar": "0.1.4",
-    "react": "15.3.2",
+    "react": "^16.0.0-alpha.6",
     "react-addons-pure-render-mixin": "^15.4.1",
-    "react-native": "0.35.0",
+    "react-dom": "^16.0.0-alpha.6",
+    "react-native": "^0.44.0",
     "react-native-code-push": "^1.16.1-beta",
-    "react-native-image-picker": "^0.24.1",
+    "react-native-custom-action-sheet": "0.0.11",
+    "react-native-fs": "latest",
+    "react-native-image-picker": "^0.26.3",
     "react-native-splash-screen": "^1.0.9",
-    "react-native-tab-navigator": "0.3.3",
+    "react-native-tab-navigator": "^0.3.3",
+    "react-navigation": "^1.0.0-beta.11",
     "react-timer-mixin": "^0.13.3"
   }
 }

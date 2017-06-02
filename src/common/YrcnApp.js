@@ -1,6 +1,10 @@
-
+/**
+ * 自定义APP全局变量YrcnApp
+ */
 'use strict';
+//
 import { NativeModules,Platform } from 'react-native';
+//
 var RNUtils = require('../common/RNUtils.js');
 var RNAllService = require('../common/RNAllService.js');
 var styles = require('../common/RNStyles.js');
@@ -36,7 +40,7 @@ global.YrcnApp = YrcnApp;
 YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
     var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
     global.YrcnApp.appInfo = appInfo;
-    console.log(appInfo)
+    YrcnApp.utils.log("YrcnApp.js",JSON.stringify(appInfo),"info");
     //alert(appInfo.DocumentsPath);
     YrcnApp.utils.setAppInfo(appInfo);
 });

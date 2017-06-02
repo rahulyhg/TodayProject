@@ -11,6 +11,7 @@ import {
     View,
     TextInput,
     Dimensions,
+    Switch,
 } from 'react-native';
 //
 //
@@ -25,10 +26,12 @@ var FormBoxInput = React.createClass({
             borderBottomWidth: 1,
             multiline: false,
             height: 20,
+            textColor: '#444444',
         });
     },
     getInitialState: function(){
         return ({
+            falseSwitchIsOn: this.props.is||false
         });
     },
     //statics 对象允许你定义静态的方法，这些静态的方法可以在组件类上调用。
@@ -51,24 +54,21 @@ var FormBoxInput = React.createClass({
         //
         return (
             <View style={[styles.container,{borderBottomWidth:this.props.borderBottomWidth}]}>
-                <TextInput
-                    style={[styles.textInput,{height: this.props.height,borderWidth:0,}]}
-                    onChangeText={this._onChangeText}
-                    autoCorrect={false}
-                    autoFocus={false}
-                    maxLength={this.props.maxLength}
-                    keyboardType={this.props.keyboardType}
-                    placeholder={this.props.placeholder}
-                    defaultValue={this.props.defaultValue}
-                    multiline={this.props.multiline}
-                    placeholderTextColor={'#bcbcbc'}
-                    />
+                <View style={[styles.controlLeftView]}>
+                    <Text style={[styles.controlText,{color:this.props.textColor}]}>{this.props.text}</Text>
+                </View>
+                <View style={[styles.controlRightView]}>
+                    <Switch
+                        onValueChange={this._onValueChange}
+                        style={[styles.controlSwitch]}
+                        value={this.state.falseSwitchIsOn} />
+                </View>
             </View>
         );
     },
-    _onChangeText: function(text){
-        this._vars.text = text.trim();
-        this.props.parent.changeParam(this.props.paramName,text);
+    _onValueChange: function(value){
+        this.props.parent.changeParam(this.props.paramName,value);
+        this.setState({falseSwitchIsOn:value});
     }
 });
 //
@@ -78,11 +78,25 @@ var styles = StyleSheet.create({
     container:{
         borderBottomWidth: 1,
         borderBottomColor: '#efefef',
-        paddingLeft:20,
+        paddingLeft:10,
         paddingBottom: 10,
         paddingTop: 10,
+        width:Dimensions.get('window').width,
+        backgroundColor: '#ffffff',
+        flexDirection:'row',
+        justifyContent: 'center',
+        alignItems:'center',
     },
-    textInput:{
+    controlSwitch:{
         width: Dimensions.get('window').width-50,
-    }
+    },
+    controlLeftView:{
+        flex:4,
+    },
+    controlRightView:{
+        flex:1,
+    },
+    controlText:{
+        fontSize: 16,
+    },
 });

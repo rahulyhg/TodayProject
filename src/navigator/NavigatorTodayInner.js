@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 //
 var ViewEditTodayContent = require('./../view/ViewEditTodayContent');
+var ViewEditWorkingLog = require('./../view/ViewEditWorkingLog');
 var ScrollViewShowTodayContent = require('./../scrollview/ScrollViewShowTodayContent.js');
 var ScrollViewShowTodayLlgBetweenContent = require('./../scrollview/ScrollViewShowTodayLlgBetweenContent.js');
 var ScrollViewSearchTodayContent = require('./../scrollview/ScrollViewSearchTodayContent.js');
@@ -41,15 +42,29 @@ var navigationBarRouteMapper = {
     },
     _onPressLeftButton: function(){
         //global.YrcnApp.now.rootNavigator.pop();
-        navigationBarRouteMapper.navigator.pop();
         if(navigationBarRouteMapper.route.name == "ViewEditTodayContent"){
+            global.YrcnApp.now.rootNavigator.pop();
             global.YrcnApp.now.scrollViewToday.refreshView();
+        }else if(navigationBarRouteMapper.route.name == "ViewEditWorkingLog"){
+            //
+            global.YrcnApp.utils.confirm("是否提交",function(){
+
+            },"温馨提示",function(){
+                global.YrcnApp.now.rootNavigator.pop();
+            })
         }
     },
     _onPressRightButton: function(){
-        global.YrcnApp.now.rootNavigator.pop();
         if(navigationBarRouteMapper.route.name == "ViewEditTodayContent"){
+            global.YrcnApp.now.rootNavigator.pop();
             global.YrcnApp.now.scrollViewToday.refreshView();
+        }else if(navigationBarRouteMapper.route.name == "ViewEditWorkingLog"){
+            //
+            global.YrcnApp.utils.confirm("是否提交",function(){
+
+            },"温馨提示",function(){
+                global.YrcnApp.now.rootNavigator.pop();
+            })
         }
     },
 }
@@ -120,6 +135,12 @@ var NavigatorTodayInner = React.createClass({
                 props.type = this.props.type;
                 props.coreObj = this.props.coreObj;
                 Component = ViewEditTodayContent;
+                navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
+                break;
+            case "ViewEditWorkingLog": //
+                props.indexName = this.props.indexName;
+                props.indexTitle = this.props.indexTitle;
+                Component = ViewEditWorkingLog;
                 navigationBarRouteMapper.navigator = global.YrcnApp.now.rootNavigator;
                 break;
             case "ScrollViewShowTodayContent": //

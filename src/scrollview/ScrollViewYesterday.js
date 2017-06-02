@@ -39,11 +39,8 @@ var ScrollViewToday = React.createClass({
     getInitialState: function() {
         var _this = this;
         //
-        this._vars.contentDay = this.props.contentDay;
-        this._vars.ViewEdit = this.props.ViewEdit;
-        this._vars.NavigatorInner = this.props.NavigatorInner;
-        this._vars.scrollView = this.props.scrollView;
-        this._vars.backgroundColor = this.props.backgroundColor;
+        this._vars.contentDay = global.YrcnApp.utils.yesterdayDate();
+        this._vars.backgroundColor = "#f1f1f1";
         //
         var now = moment(_this._vars.contentDay);
         _this._vars.title = now.format("YYYY年MM月DD日 dddd 第wo 第DDDo");
@@ -92,13 +89,6 @@ var ScrollViewToday = React.createClass({
         YrcnApp.services.getJson_today_getContentInfo({day:_this._vars.contentDay},function(getJson_today_getContentInfoObj){
 
         })
-        //
-        RNUtils.getJsonNewFunc("xian_she",function(value){
-            if(value && value == "1"){
-            }else{
-                global.YrcnApp.now.$NavigatorRoot.renderNewFunc();
-            }
-        })
     },
     render: function(){
         var _this = this;
@@ -131,7 +121,8 @@ var ScrollViewToday = React.createClass({
             }
         }
         global.YrcnApp.now[_this._vars.scrollView] = this;
-        global.YrcnApp.now.rootNavigator.push({name: _this._vars.NavigatorInner,indexName:_this._vars.ViewEdit,indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        //global.YrcnApp.now.rootNavigator.push({name: _this._vars.NavigatorInner,indexName:_this._vars.ViewEdit,indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditYesterdayContent',viewTitle:indexTitle,type:this.state.typeArray[liIndex],coreObj: coreObj});
     },
     refreshView: function(){
         var _this = this;
@@ -171,7 +162,7 @@ var ScrollViewToday = React.createClass({
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        marginTop: 44,
+        marginTop: 0,
     },
 });
 //

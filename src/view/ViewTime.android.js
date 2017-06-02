@@ -159,7 +159,7 @@ var styles = StyleSheet.create({
     container:{
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
-        backgroundColor: '#f7f7f2',
+        backgroundColor: '#ffffff',
         paddingTop: 50,
     },
     controlView:{

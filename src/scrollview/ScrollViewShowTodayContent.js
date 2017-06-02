@@ -32,6 +32,7 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var NoRecordViewBox = require('../component/NoRecordViewBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -66,20 +67,30 @@ var ScrollViewShowTodayContent = React.createClass({
     componentDidMount: function(){
         var _this = this;
         RNUtils.getJsonTodayContent(this.props.day,function(contentObj){
-            console.log(contentObj)
-            //alert(RNUtils.toString(contentObj));
+            YrcnApp.utils.logObj("ScrollViewShowTodayContent componentDidMount",contentObj);
             _this._vars.contentObj = contentObj;
             _this.setState({
                 isShowLoadingView: false,
             });
         })
     },
+    //在接收到新的 props 或者 state，将要渲染之前调用。该方法在初始化渲染的时候不会调用，在使用 forceUpdate 方法的时候也不会。
+    //如果确定新的 props 和 state 不会导致组件更新，则此处应该 返回 false。
+    shouldComponentUpdate: function(){
+        if(this.state.isShowLoadingView){
+            return true;
+        }else{
+            return false;
+        }
+        //return true;
+    },
     render: function(){
         var _this = this;
-        this.props.parent.hideRightButton();
+        console.log("ScrollViewShowTodayContent render");
         return (
             <ScrollView
                 style={styles.scrollViewContainer}>
+                <ViewHeader title={this.props.title} onPressLeft={this._onPressLeft}/>
                 <TitleIntroduceBox title={_this._vars.title} introduce={_this._vars.introduce} noNumberOfLines={true}/>
                 {function(){
                     if(_this.state.isShowLoadingView){
@@ -98,7 +109,8 @@ var ScrollViewShowTodayContent = React.createClass({
         var contentArray = [];
         for(var e in this._vars.contentObj){
             console.log(e);
-            if(e != "contentArray" && e != "day" && (this._vars.contentObj[e].content || (Array.isArray(this._vars.contentObj[e].oneImages) && this._vars.contentObj[e].oneImages.length>0))){
+            if(RNUtils.isTrueContentObj(e,this._vars.contentObj)){
+                this._vars.contentObj[e].e = e;
                 contentArray.push(this._vars.contentObj[e]);
             }
         }
@@ -107,10 +119,17 @@ var ScrollViewShowTodayContent = React.createClass({
                 <NoRecordViewBox />
             );
         }
-        return contentArray.map(function(d,i){
-            d.type = "sectionContent";
+        var retArray = contentArray.map(function(d,i){
+            //YrcnApp.utils.logObj("",d);
+            if(d.e == YrcnApp.configs.AS_KEY_WORKING_LOG){
+                d.type = "workingLog";
+            }else{
+                d.type = "sectionContent";
+            }
             return _this._renderRow(d);
         });
+        //
+        return retArray;
     },
     _onPressLi: function(liIndex){
         var _this = this;
@@ -185,6 +204,29 @@ var ScrollViewShowTodayContent = React.createClass({
                     })()}
                 </View>
             );
+        }else if(rowData.type == "workingLog"){
+            return (
+                <View key={key} style={styles.paragraphView_workingLog}>
+                    <Text style={{
+                        fontSize: this.state.fontSize,
+                        lineHeight: this.state.fontSize+this.state.lineHeight,
+                        textAlignVertical: 'bottom',//android专用
+                        marginTop: this.state.fontSize+this.state.lineHeight-15,
+                        textAlign: 'justify',
+                        letterSpacing: 0,
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 15,
+                        paddingRight: 15,
+                        marginBottom: 0,
+                        color: '#ffffff'}}
+                        >
+                        <Text>{rowData.content}</Text>
+                        <Text>{rowData.overtime?'\r\n加班：'+rowData.overtimeDesp:''}</Text>
+                        <Text>{rowData.qingjia?'\r\n请假：'+rowData.qingjiaDesp:''}</Text>
+                    </Text>
+                </View>
+            );
         }else if(rowData.type == "sectionAuthor"){
             return (
                 <View key={key} style={styles.paragraphView}>
@@ -206,16 +248,23 @@ var ScrollViewShowTodayContent = React.createClass({
             );
         }
     },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'llgIcon'});
+    }
 });
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        marginTop: 44
     },
     paragraphView:{
         paddingLeft: 0,
         paddingRight: 0,
+    },
+    paragraphView_workingLog:{
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor: '#01bbfc',
     },
     paragraphText:{
         fontSize: 13,

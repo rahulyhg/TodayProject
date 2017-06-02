@@ -65,13 +65,13 @@ var ScrollViewLlg = React.createClass({
         return (
             <ScrollView
                 style={styles.scrollViewContainer}>
-                <TitleIntroduceBox title={_this.state.title} introduce={_this.state.introduce} noNumberOfLines={true}/>
-                <LineButtonsBox>
-                    <LineButtonsBox.Button btnText={"七天"} onPress={_this._onPressDays7}/>
-                    <LineButtonsBox.Button btnText={"半月"} onPress={_this._onPressDays14}/>
-                    <LineButtonsBox.Button btnText={"一月"} onPress={_this._onPressMonths1}/>
-                    <LineButtonsBox.Button btnText={"三月"} onPress={_this._onPressMonths3}/>
-                    <LineButtonsBox.Button btnText={"搜索"} onPress={_this._onPressSearch}/>
+                <TitleIntroduceBox title={_this.state.title} introduce={_this.state.introduce} noNumberOfLines={true} titleColor="#01bbfc" borderBottomColor="#01bbfc"/>
+                <LineButtonsBox boxStyle={{borderBottomWidth: 0.5,borderBottomColor:'#01bbfc'}}>
+                    <LineButtonsBox.Button btnText={"七天"} onPress={_this._onPressDays7} color="#01bbfc"/>
+                    <LineButtonsBox.Button btnText={"半月"} onPress={_this._onPressDays14} color="#01bbfc"/>
+                    <LineButtonsBox.Button btnText={"一月"} onPress={_this._onPressMonths1} color="#01bbfc"/>
+                    <LineButtonsBox.Button btnText={"三月"} onPress={_this._onPressMonths3} color="#01bbfc"/>
+                    <LineButtonsBox.Button btnText={"搜索"} onPress={_this._onPressSearch} color="#01bbfc"/>
                 </LineButtonsBox>
                 {
                     function(){
@@ -81,7 +81,7 @@ var ScrollViewLlg = React.createClass({
                             );
                         }else if(_this.state.keys.length == 0){
                             return (
-                                <NoRecordViewBox backgroundColor={'#f7f7f2'} height={100}/>
+                                <NoRecordViewBox backgroundColor={'#ffffff'} height={100}/>
                             );
                         }
                         return _this.state.keys.map(function(d,i){
@@ -97,7 +97,8 @@ var ScrollViewLlg = React.createClass({
     _onPressLi: function(liIndex){
         var _this = this;
         var day = this.state.keys[liIndex];
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorTodayInner",indexName:"ScrollViewShowTodayContent",indexTitle:day,day:day});
+        //global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewShowTodayContent",indexTitle:day,day:day});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodayContent',day:day,viewTitle:day});
     },
     refreshView: function(){
         var _this = this;
@@ -109,31 +110,26 @@ var ScrollViewLlg = React.createClass({
         })
     },
     _onPressDays7: function(){
-        var _this = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewShowTodayLlgBetweenContent",indexTitle:"最近七日",between:"7"});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodayLlgBetweenContent',between:"7",viewTitle:"最近七日"});
     },
     _onPressDays14: function(){
-        var _this = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewShowTodayLlgBetweenContent",indexTitle:"最近半月",between:"14"});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodayLlgBetweenContent',between:"14",viewTitle:"最近半月"});
     },
     _onPressMonths1: function(){
-        var _this = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewShowTodayLlgBetweenContent",indexTitle:"最近一月",between:"1"});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodayLlgBetweenContent',between:"1",viewTitle:"最近一月"});
     },
     _onPressMonths3: function(){
-        var _this = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewShowTodayLlgBetweenContent",indexTitle:"最近三月",between:"3"});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewShowTodayLlgBetweenContent',between:"3",viewTitle:"最近三月"});
     },
     _onPressSearch: function(){
         var _this = this;
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorLlgInner",indexName:"ScrollViewSearchTodayContent",indexTitle:"搜索"});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSearchTodayContent',between:"3",viewTitle:"搜索"});
     }
 });
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        backgroundColor: '#f7f7f2',
-        marginTop: 44
+        backgroundColor: '#ffffff',
     },
 });
 //

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface RNUtils: NSObject <UIAlertViewDelegate>
-
++(void) log:(NSString *)fileName widthMsg:(NSString *)msg widthLevel:(NSString *)level;
 @end

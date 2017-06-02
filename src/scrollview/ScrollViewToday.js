@@ -20,6 +20,7 @@ import {
     ScrollView,
     TouchableHighlight,
 } from 'react-native';
+import { StackNavigator,DrawerNavigator } from 'react-navigation';//navigator
 //
 var moment = require('moment/min/moment-with-locales.min.js');
 moment.locale('zh-cn');
@@ -30,20 +31,17 @@ var ACViewBox = require('../component/ACViewBox.js');
 var TitleIntroduceBox = require('../component/TitleIntroduceBox.js');
 var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
+var FloatButtonsBox = require('../component/FloatButtonsBox.js');
 //
-/**
- */
+
 var ScrollViewToday = React.createClass({
     _vars:{
     },
     getInitialState: function() {
         var _this = this;
         //
-        this._vars.contentDay = this.props.contentDay;
-        this._vars.ViewEdit = this.props.ViewEdit;
-        this._vars.NavigatorInner = this.props.NavigatorInner;
-        this._vars.scrollView = this.props.scrollView;
-        this._vars.backgroundColor = this.props.backgroundColor;
+        this._vars.contentDay = global.YrcnApp.utils.nowDate();
+        this._vars.backgroundColor = "#fefefe";
         //
         var now = moment(_this._vars.contentDay);
         _this._vars.title = now.format("YYYY年MM月DD日 dddd 第wo 第DDDo");
@@ -92,13 +90,6 @@ var ScrollViewToday = React.createClass({
         YrcnApp.services.getJson_today_getContentInfo({day:_this._vars.contentDay},function(getJson_today_getContentInfoObj){
 
         })
-        //
-        RNUtils.getJsonNewFunc("xian_she",function(value){
-            if(value && value == "1"){
-            }else{
-                global.YrcnApp.now.$NavigatorRoot.renderNewFunc();
-            }
-        })
     },
     render: function(){
         var _this = this;
@@ -116,6 +107,9 @@ var ScrollViewToday = React.createClass({
                         });
                     }()
                 }
+                <FloatButtonsBox>
+                    <FloatButtonsBox.Button btnText={"工作"} onPress={this._onPressWorking} />
+                </FloatButtonsBox>
             </ScrollView>
         );
     },
@@ -131,7 +125,10 @@ var ScrollViewToday = React.createClass({
             }
         }
         global.YrcnApp.now[_this._vars.scrollView] = this;
-        global.YrcnApp.now.rootNavigator.push({name: _this._vars.NavigatorInner,indexName:_this._vars.ViewEdit,indexTitle:indexTitle,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        //global.YrcnApp.now.rootNavigator.push({name: _this._vars.NavigatorInner,indexName:_this._vars.ViewEdit,indexTitle:x,type: this.state.typeArray[liIndex],coreObj: coreObj});
+        //
+        //global.YrcnApp.root_navigate('StackNavigatorRoot',{title:indexTitle})
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditTodayContent',viewTitle:indexTitle,type:this.state.typeArray[liIndex],coreObj: coreObj});
     },
     refreshView: function(){
         var _this = this;
@@ -166,12 +163,17 @@ var ScrollViewToday = React.createClass({
                 typeArray: typeArray,
             })
         })
+    },
+    _onPressWorking: function(){
+        var _this = this;
+        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_WORKING_LOG]||{content:'',overtime:false,qingjia: false};
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditWorkingLog',viewTitle:"工作日志",coreObj: coreObj});
     }
 });
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        marginTop: 44,
+        marginTop: 0,
     },
 });
 //

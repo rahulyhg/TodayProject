@@ -92,6 +92,9 @@ var styles = StyleSheet.create({
         marginLeft:0,
         marginBottom: 10,
         paddingTop: 10,
+        paddingBottom: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
     },
 
 });

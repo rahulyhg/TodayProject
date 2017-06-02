@@ -23,7 +23,7 @@ var LineButtonsBox = React.createClass({
     _vars:{},
     getDefaultProps: function(){
         return ({
-            boxStyle: {}
+            boxStyle: {},
         });
     },
     getInitialState: function(){

@@ -23,6 +23,7 @@ var RNUtilsModule = NativeModules.RNUtilsModule;
 //
 var RNUtils = require('../common/RNUtils.js');
 var ListViewLi = require('../component/ListViewLi.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  * 定义属性：
@@ -92,6 +93,7 @@ var SettingsView = React.createClass({
         //
         return (
             <View style={[styles.container]}>
+                <ViewHeader title="" leftText="" rigthText="注销" onPressRight={this._onPressLogout}/>
                 <View style={styles.topView}>
                     <Image source={require('../images/MyLogo.png')} style={styles.logo} resizeMode="cover"/>
                     <Text style={styles.topText}>{global.YrcnApp.configs.AppName} For {Platform.OS} V{this.state.appBundleV}</Text>
@@ -117,22 +119,27 @@ var SettingsView = React.createClass({
         );
     },
     _onPressSpecialStatement: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"SpecialStatementView",indexTitle:'特别声明'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewSpecialStatement'});
     },
     _onPressUseHelp: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"UseHelpView",indexTitle:'使用帮助'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewUseHelp'});
     },
     _onPressClearCache: function(){
 
     },
     _onPressTypeShow: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"ScrollViewSettingTodayType",indexTitle:'显示设置'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSettingTodayType'});
     },
     _onPressMarkScore: function(){
         RNUtilsModule.appUpgrade([global.YrcnApp.configs.IOS_APP_URL]);
     },
     _onPressTimeShow: function(){
-        global.YrcnApp.now.rootNavigator.push({name:"NavigatorSettingsInner",indexName:"ViewTime",indexTitle:'智能提醒'});
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewTime'});
+    },
+    _onPressLogout: function(){
+        YrcnApp.utils.removeLoginInfo(function(){
+            YrcnApp.now.$ViewRoot.setState({viewName:'GuideIndexView'});
+        });
     }
 });
 //
@@ -142,11 +149,11 @@ var styles = StyleSheet.create({
     container:{
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
-        backgroundColor: '#f7f7f2',
+        backgroundColor: '#ffffff',
     },
     topView:{
         width:Dimensions.get('window').width,
-        marginTop: 80,
+        marginTop: 30,
         alignItems: 'center',
     },
     topText:{

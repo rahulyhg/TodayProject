@@ -32,6 +32,7 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLiSelected = require('../component/ListViewLiSelected.js');
 var ButtonsBox = require('../component/ButtonsBox.js');
 var FormBox = require('../component/FormBox.js');
+var ViewHeader = require('../component/ViewHeader.js');
 //
 /**
  */
@@ -55,15 +56,15 @@ var ScrollViewAddTodayType = React.createClass({
     },
     render: function(){
         var _this = this;
-        this.props.parent.showLeftButton();
         return (
             <View style={styles.container}>
+                <ViewHeader title="显示设置" onPressLeft={this._onPressLeft}/>
                 <FormBox>
-                    <FormBox.Input placeholder={"事件展示内容"} keyboardType={"default"} maxLength={50}
-                                   parent={this} paramName={"content"}/>
+                    <FormBox.Input placeholder={"请输入..."} keyboardType={"default"} maxLength={50}
+                                   parent={this} paramName={"content"} inputColor="#01bbfc" placeholderTextColor="#4e4e4e"/>
                 </FormBox>
                 <ButtonsBox marginBottom={0}>
-                    <ButtonsBox.Button btnText={"新增"} onPress={this._onPressAdd} isPressing={this.state.isPressingAdd}/>
+                    <ButtonsBox.Button btnText={"新增"} onPress={this._onPressAdd} isPressing={this.state.isPressingAdd} backgroundColor_pressing="#01bbfc" backgroundColor="#01bbfc" btnColor="#ffffff"/>
                 </ButtonsBox>
             </View>
         );
@@ -89,8 +90,9 @@ var ScrollViewAddTodayType = React.createClass({
             todayContentTypesObj.list.push(typeObj);
             RNUtils.setJsonTodayContentTypes(todayContentTypesObj,function(){
                 RNUtils.alert("新增成功",function(){
-                    _this.props.prevView.refreshView();
-                    _this.props.parent_navigator.pop();
+                    //_this.props.prevView.refreshView();
+                    //_this.props.parent_navigator.pop();
+                    YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSettingTodayType'});
                 })
             });
         });
@@ -98,16 +100,18 @@ var ScrollViewAddTodayType = React.createClass({
     changeParam: function(paramName,paramValue){
         this._vars.param[paramName] = paramValue.trim();
     },
+    _onPressLeft: function(){
+        YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSettingTodayType'});
+    }
 });
 //
 var styles = StyleSheet.create({
     container:{
-        marginTop: 44,
-        backgroundColor: '#01bbfc',
+        backgroundColor: '#ffffff',
         width:Dimensions.get('window').width,
         height:Dimensions.get('window').height,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems:'center',
     },
 });

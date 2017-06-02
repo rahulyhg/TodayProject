@@ -139,7 +139,8 @@ var NineImagesBox = React.createClass({
     },
     _lookImage: function(index){
         //console.log(index);
-        global.YrcnApp.now.$NavigatorRoot.lookImage(this.props.oneImages,this,index,this.props.isHideDelete);
+        //global.YrcnApp.now.$NavigatorRoot.lookImage(this.props.oneImages,this,index,this.props.isHideDelete);
+        YrcnApp.now.$ViewRoot.lookImage(this.props.oneImages,this,index,this.props.isHideDelete);
     },
     deleteImage: function(index){
         this.props.parent.deleteImage(index);

@@ -99,7 +99,7 @@ var NavigatorToday = React.createClass({
                 props.ViewEdit = "ViewEditTodayContent";
                 props.NavigatorInner = "NavigatorTodayInner";
                 props.scrollView = "scrollViewToday";
-                props.backgroundColor = "#f7f7f2";
+                props.backgroundColor = "#ffffff";
                 Component = ScrollViewToday;
         }
         return <Component
