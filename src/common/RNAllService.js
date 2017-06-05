@@ -424,6 +424,10 @@ var var_getJson_getTodayContentTypes = {
 //
 var var_getJson_getTodaySportTypes = {
     "list":[
-        {"typeCode":"paobu",typeContent:'跑步'},
+        {"typeCode":"跑步",typeContent:'跑步'},
+        {"typeCode":"哑铃",typeContent:'哑铃'},
+        {"typeCode":"健身房",typeContent:'健身房'},
+        {"typeCode":"健美操",typeContent:'健美操'},
+        {"typeCode":"瑜伽",typeContent:'瑜伽'},
     ]
 };

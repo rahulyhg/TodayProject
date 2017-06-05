@@ -10,6 +10,7 @@ var RNAllService = require('../common/RNAllService.js');
 var styles = require('../common/RNStyles.js');
 var RNConfigs = require('../common/RNConfigs.js');
 var RNLoginUser = require('../common/RNLoginUser.js');
+var RNBASE64 = require('../common/RNBASE64.js');
 //组件
 var YRImage = require('../component/overwrite/YRImage.js');
 var YRStatusBar = require('../component/overwrite/YRStatusBar.js');
@@ -28,6 +29,7 @@ var YrcnApp = {
     native: NativeModules,
     Platform: Platform,
     utils: RNUtils,
+    base64: RNBASE64,
     services: RNAllService,
     styles: styles,
     loginUser: RNLoginUser,

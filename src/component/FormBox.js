@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     View,
     StatusBar,
+    ScrollView,
 } from 'react-native';
 //
 var FormBoxInput = require('./FormBoxInput');
@@ -60,9 +61,9 @@ var FormBox = React.createClass({
         //console.log("render FormBox");
         //
         return (
-            <View style={[styles.container,{paddingLeft: this.props.paddingLeft,paddingRight: this.props.paddingRight}]}>
+            <ScrollView style={[styles.container,{paddingLeft: this.props.paddingLeft,paddingRight: this.props.paddingRight}]}>
                 {this.props.children}
-            </View>
+            </ScrollView>
         );
     }
 });

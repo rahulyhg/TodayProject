@@ -123,6 +123,10 @@ var ScrollViewShowTodayContent = React.createClass({
             //YrcnApp.utils.logObj("",d);
             if(d.e == YrcnApp.configs.AS_KEY_WORKING_LOG){
                 d.type = "workingLog";
+            }else if(d.e == YrcnApp.configs.AS_KEY_STUDY){
+                d.type = "study";
+            }else if(d.e == YrcnApp.configs.AS_KEY_SPORT){
+                d.type = "sport";
             }else{
                 d.type = "sectionContent";
             }
@@ -142,6 +146,7 @@ var ScrollViewShowTodayContent = React.createClass({
      */
     _renderRow: function(rowData: string, sectionID: number, rowID: number) {
         //console.log("==="+this.state.fontSize)
+        var _this = this;
         var key = Math.uuidFast();
         if(rowData.type == "sectionTitle"){
             return (
@@ -225,6 +230,62 @@ var ScrollViewShowTodayContent = React.createClass({
                         <Text>{rowData.overtime?'\r\n加班：'+rowData.overtimeDesp:''}</Text>
                         <Text>{rowData.qingjia?'\r\n请假：'+rowData.qingjiaDesp:''}</Text>
                     </Text>
+                </View>
+            );
+        }else if(rowData.type == "study"){
+            return (
+                <View key={key} style={styles.paragraphView_workingLog}>
+                    <Text style={{
+                        fontSize: this.state.fontSize,
+                        lineHeight: this.state.fontSize+this.state.lineHeight,
+                        textAlignVertical: 'bottom',//android专用
+                        marginTop: this.state.fontSize+this.state.lineHeight-15,
+                        textAlign: 'justify',
+                        letterSpacing: 0,
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 15,
+                        paddingRight: 15,
+                        marginBottom: 0,
+                        color: '#ffffff'}}
+                        >
+                        <Text>{rowData.content}</Text>
+                    </Text>
+                </View>
+            );
+        }else if(rowData.type == "sport"){
+            var contetnA = [];
+            for(var e in rowData){
+                if(e.indexOf('Desp')==-1 && rowData[e] && e!= 'day' && e!= 'content' && e!= 'e' && e!= 'type'){
+                    contetnA.push({
+                        content:e
+                    });
+                }
+            }
+            return (
+                <View key={key} style={styles.paragraphView_workingLog}>
+                    {
+                        contetnA.map(function(d){
+                            return (
+                                <Text key={d.content} style={{
+                                    fontSize: _this.state.fontSize,
+                                    lineHeight: _this.state.fontSize+_this.state.lineHeight,
+                                    textAlignVertical: 'bottom',//android专用
+                                    marginTop: _this.state.fontSize+_this.state.lineHeight-15,
+                                    textAlign: 'justify',
+                                    letterSpacing: 0,
+                                    paddingTop: 0,
+                                    paddingBottom: 0,
+                                    paddingLeft: 15,
+                                    paddingRight: 15,
+                                    marginBottom: 0,
+                                    color: '#ffffff'}}
+                                    >
+                                    {d.content}
+                                </Text>
+                            );
+                        })
+                    }
                 </View>
             );
         }else if(rowData.type == "sectionAuthor"){

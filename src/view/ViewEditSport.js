@@ -12,6 +12,7 @@ import {
     TextInput,
     Image,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 //
 var RNUtils = require('../common/RNUtils.js');
@@ -84,8 +85,6 @@ var ViewEditSport = React.createClass({
                             </View>
                         );
                     })}
-                    <FormBox.InputArea placeholder={"请输入其他运动内容..."} keyboardType={"default"}  maxLength={2000}
-                                       parent={this} paramName={"content"} height={140} multiline={true} inputColor="#01bbfc" placeholderTextColor="#4e4e4e" defaultValue={this.props.coreObj.content}/>
                 </FormBox>
             </View>
         );
@@ -112,6 +111,7 @@ var ViewEditSport = React.createClass({
             for(var e in _this._vars.param){
                 contentOneObj[e] = _this._vars.param[e];
             }
+            contentOneObj.content = '...';
             RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
                 contentObj[YrcnApp.configs.AS_KEY_SPORT] = contentOneObj;
                 RNUtils.sycnJsonTodayContent(_this._vars.contentDay,contentObj,function(){

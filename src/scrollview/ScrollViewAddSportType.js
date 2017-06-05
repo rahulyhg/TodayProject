@@ -77,12 +77,12 @@ var ScrollViewAddSportType = React.createClass({
         }
         RNAllService.getJson_getTodaySportTypes({},function(todayContentTypesObj){
             var typeObj = {
-                typeCode:_this._vars.param.content,
+                typeCode: _this._vars.param.content,
                 typeContent:_this._vars.param.content,
             };
             for(var item of todayContentTypesObj.list){
-                if(typeObj.typeCode == item.typeCode){
-                    RNUtils.alert("请勿重复新增"+typeObj.typeCode,function(){
+                if(typeObj.typeContent == item.typeContent){
+                    RNUtils.alert("请勿重复新增"+typeObj.typeContent,function(){
                     })
                     return;
                 }
