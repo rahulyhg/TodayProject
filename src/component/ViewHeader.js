@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     View,
     Dimensions,
+    Button,
 } from 'react-native';
 //
 var ButtonsBoxButton = require('./ButtonsBoxButton.js');
@@ -46,17 +47,13 @@ var ViewHeader = React.createClass({
     render: function(){
         return (
             <View style={styles.header}>
-                <View style={styles.header_left}>
-                    <TouchableOpacity onPress={this._onPressComplete}>
-                        <Text style={[styles.header_left_text,{color:'#01bbfc'}]} numberOfLines={1}>{this.props.leftText}</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.header_left} onPress={this._onPressComplete}>
+                    <Text style={[styles.header_left_text,{color:'#01bbfc'}]} numberOfLines={1} onPress={this._onPressComplete}>{this.props.leftText}</Text>
+                </TouchableOpacity>
                 <View style={styles.header_center}><Text style={styles.header_center_text} numberOfLines={1}>{this.props.title}</Text></View>
-                <View style={styles.header_right}>
-                    <TouchableOpacity onPress={this._onPressRight}>
-                        <Text style={[styles.header_right_text,{color:'#01bbfc'}]} numberOfLines={1}>{this.props.rigthText}</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={this._onPressRight} style={styles.header_right}>
+                    <Text style={[styles.header_right_text,{color:'#01bbfc'}]} numberOfLines={1}>{this.props.rightText}</Text>
+                </TouchableOpacity>
             </View>
         );
     },
@@ -74,7 +71,6 @@ var styles = StyleSheet.create({
     header:{
         width: Dimensions.get('window').width,
         height: 60,
-        paddingTop:30,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems:'center',
@@ -84,6 +80,9 @@ var styles = StyleSheet.create({
     },
     header_left:{
         flex: 1,
+        borderWidth: 0,
+        paddingTop:30,
+        paddingBottom: 10,
     },
     header_left_text:{
         textAlign: 'left',
@@ -93,6 +92,8 @@ var styles = StyleSheet.create({
     },
     header_center:{
         flex: 4,
+        paddingTop:30,
+        paddingBottom: 10,
     },
     header_center_text:{
         textAlign: 'center',
@@ -101,6 +102,8 @@ var styles = StyleSheet.create({
     },
     header_right:{
         flex: 1,
+        paddingTop:30,
+        paddingBottom: 10,
     },
     header_right_text:{
         textAlign: 'right',

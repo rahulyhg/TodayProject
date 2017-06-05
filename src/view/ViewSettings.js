@@ -93,7 +93,7 @@ var SettingsView = React.createClass({
         //
         return (
             <View style={[styles.container]}>
-                <ViewHeader title="" leftText="" rigthText="注销" onPressRight={this._onPressLogout}/>
+                <ViewHeader title="" leftText="" rightText="注销" onPressRight={this._onPressLogout}/>
                 <View style={styles.topView}>
                     <Image source={require('../images/MyLogo.png')} style={styles.logo} resizeMode="cover"/>
                     <Text style={styles.topText}>{global.YrcnApp.configs.AppName} For {Platform.OS} V{this.state.appBundleV}</Text>

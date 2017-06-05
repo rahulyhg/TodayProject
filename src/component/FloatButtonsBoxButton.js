@@ -71,6 +71,8 @@ var styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         borderRadius: 6,
+        borderWidth: 0,
+        width: 44,
     },
     container_pressing:{
         flex: 1,
@@ -78,6 +80,8 @@ var styles = StyleSheet.create({
         paddingBottom: 10,
         borderRadius: 6,
         backgroundColor: '#efefef',
+        borderWidth: 0,
+        width: 44,
     },
     btnText:{
         textAlign:'center',

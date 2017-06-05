@@ -35,13 +35,17 @@ var LoginEmailView = require('./../view/login/LoginEmailView.js');
 var ViewSpecialStatement = require('./../view/ViewSpecialStatement.js');
 var ViewUseHelp = require('./../view/ViewUseHelp.js');
 var ViewTime = require('./../view/ViewTime');
-var ViewEditWorkingLog = require('./../view/ViewEditWorkingLog');
+var ViewEditWorkingLog = require('./../view/ViewEditWorkingLog');//工作
+var ViewEditStudy = require('./../view/ViewEditStudy');//学习
+var ViewEditSport = require('./../view/ViewEditSport');//运动
 var ScrollViewSettingTodayType = require('./../scrollview/ScrollViewSettingTodayType.js');
+var ScrollViewSettingSportType = require('./../scrollview/ScrollViewSettingSportType.js');
 var ScrollViewShowTodayContent = require('./../scrollview/ScrollViewShowTodayContent.js');
 var ScrollViewShowTodayLlgBetweenContent = require('./../scrollview/ScrollViewShowTodayLlgBetweenContent.js');
 var ScrollViewSearchTodayContent = require('./../scrollview/ScrollViewSearchTodayContent.js');
 var ScrollViewShowTodaysContent = require('./../scrollview/ScrollViewShowTodaysContent.js');
 var ScrollViewAddTodayType = require('./../scrollview/ScrollViewAddTodayType.js');
+var ScrollViewAddSportType = require('./../scrollview/ScrollViewAddSportType.js');
 var ScrollViewUpdTodayType = require('./../scrollview/ScrollViewUpdTodayType.js');
 var StackNavigatorRoot = require('../navigator/StackNavigatorRoot.js');
 
@@ -232,6 +236,9 @@ class ViewRoot extends Component{
                 {(this.state.viewName=='ScrollViewSettingTodayType')?function(){
                     return (<ScrollViewSettingTodayType />);
                 }():function(){}()}
+                {(this.state.viewName=='ScrollViewSettingSportType')?function(){
+                    return (<ScrollViewSettingSportType />);
+                }():function(){}()}
                 {(this.state.viewName=='ScrollViewShowTodayContent')?function(){
                     return (<ScrollViewShowTodayContent title={_this.state.viewTitle} day={_this.state.day}/>);
                 }():function(){}()}
@@ -247,11 +254,20 @@ class ViewRoot extends Component{
                 {(this.state.viewName=='ScrollViewAddTodayType')?function(){
                     return (<ScrollViewAddTodayType title={_this.state.viewTitle} prevView={_this.state.prevView}/>);
                 }():function(){}()}
+                {(this.state.viewName=='ScrollViewAddSportType')?function(){
+                    return (<ScrollViewAddSportType title={_this.state.viewTitle} prevView={_this.state.prevView}/>);
+                }():function(){}()}
                 {(this.state.viewName=='ScrollViewUpdTodayType')?function(){
                     return (<ScrollViewUpdTodayType title={_this.state.viewTitle} prevView={_this.state.prevView} typeObj={_this.state.typeObj}/>);
                 }():function(){}()}
                 {(this.state.viewName=='ViewEditWorkingLog')?function(){
                     return (<ViewEditWorkingLog title={_this.state.viewTitle} coreObj={_this.state.coreObj}/>);
+                }():function(){}()}
+                {(this.state.viewName=='ViewEditStudy')?function(){
+                    return (<ViewEditStudy title={_this.state.viewTitle} coreObj={_this.state.coreObj}/>);
+                }():function(){}()}
+                {(this.state.viewName=='ViewEditSport')?function(){
+                    return (<ViewEditSport title={_this.state.viewTitle} coreObj={_this.state.coreObj}/>);
                 }():function(){}()}
                 {(this.state.appUpgrade||this.state.appBundleUpgrade)?function(){
                     //YrcnApp.components.StatusBar.setHidden(true,'slide');

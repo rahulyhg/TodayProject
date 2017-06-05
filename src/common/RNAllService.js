@@ -324,16 +324,23 @@ class RNAllService{
     //
     //获取Today事件类型
     static getJson_getTodayContentTypes(param,callbackFn){
-        //var params = {
-        //    path: "/life/json/getLifeTypes"
-        //};
-        //RNAllService.getData(params,callbackFn)
         global.YrcnApp.utils.getJsonTodayContentTypes(function(getJsonTodayContentTypesObj){
             if(getJsonTodayContentTypesObj && getJsonTodayContentTypesObj.list){
                 callbackFn(getJsonTodayContentTypesObj);
             }else{
-                global.YrcnApp.utils.setJsonTodayContentTypes(getJson_getTodayContentTypes);
-                callbackFn(getJson_getTodayContentTypes);
+                global.YrcnApp.utils.setJsonTodayContentTypes(var_getJson_getTodayContentTypes);
+                callbackFn(var_getJson_getTodayContentTypes);
+            }
+        })
+    }
+    //获取Today sport类型
+    static getJson_getTodaySportTypes(param,callbackFn){
+        global.YrcnApp.utils.getJsonTodaySportTypes(function(getJsonTodaySportTypesObj){
+            if(getJsonTodaySportTypesObj && getJsonTodaySportTypesObj.list){
+                callbackFn(getJsonTodaySportTypesObj);
+            }else{
+                global.YrcnApp.utils.setJsonTodaySportTypes(var_getJson_getTodaySportTypes);
+                callbackFn(var_getJson_getTodaySportTypes);
             }
         })
     }
@@ -378,79 +385,45 @@ class RNAllService{
 }
 module.exports = RNAllService;
 
-var getJson_getTodayContentTypes = {
+var var_getJson_getTodayContentTypes = {
     "list":[
         {
-            "id":1,
             "typeCode":"记忆深刻的地点/人物/事情",
             "typeContent":"记忆深刻的地点/人物/事情",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":2,
             "typeCode":"需要记录备案的地点/人物/事情",
             "typeContent":"需要记录备案的地点/人物/事情",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":3,
             "typeCode":"开心快乐的事情",
             "typeContent":"开心快乐的事情",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":4,
             "typeCode":"让人生气的事情",
             "typeContent":"让人生气的事情",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":5,
             "typeCode":"让人悲伤的事情",
             "typeContent":"让人悲伤的事情",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":6,
             "typeCode":"吃吃吃、喝喝喝，吃货的故事",
             "typeContent":"吃吃吃、喝喝喝，吃货的故事",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":7,
             "typeCode":"旅游、逛街、各种Happy",
             "typeContent":"旅游、逛街、各种Happy",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         },
         {
-            "id":8,
             "typeCode":"加班",
             "typeContent":"加班",
-            "typeDesp":"",
-            "creatDt":"",
-            "updateDt":"",
-            "status":"0"
         }
+    ]
+};
+//
+var var_getJson_getTodaySportTypes = {
+    "list":[
+        {"typeCode":"paobu",typeContent:'跑步'},
     ]
 };

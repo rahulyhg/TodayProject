@@ -61,7 +61,7 @@ var FormBoxInput = React.createClass({
                     <Switch
                         onValueChange={this._onValueChange}
                         style={[styles.controlSwitch]}
-                        value={this.state.falseSwitchIsOn} />
+                        value={this.state.falseSwitchIsOn} tintColor="#01bbfc" onTintColor="#01bbfc"/>
                 </View>
             </View>
         );

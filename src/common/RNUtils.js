@@ -55,6 +55,7 @@ const AS_KEY_CARD_PWD = "AS_013";//存储系统 卡类密码
 const AS_KEY_TODAY_CONTENT_PREV = "AS_014_";//存储系统 Today内容前缀
 const AS_KEY_TODAY_CONTENT_TYPES = "AS_015";//存储系统 Today内容类型
 const AS_KEY_NEW_FUNC_PREV = "AS_016_";//存储系统 新功能展示
+const AS_KEY_TODAY_SPORT_TYPES = "AS_017";//存储系统 Today sport类型
 
 const BOOKDESK_BOOKS_NUM = 12;
 
@@ -464,9 +465,17 @@ class RNUtils{
     static getJsonTodayContentTypes(succCallbackFn){
         RNUtils.AsyncStorage_getItem(AS_KEY_TODAY_CONTENT_TYPES,succCallbackFn);
     }
+    //获取Today sport类型
+    static getJsonTodaySportTypes(succCallbackFn){
+        RNUtils.AsyncStorage_getItem(AS_KEY_TODAY_SPORT_TYPES,succCallbackFn);
+    }
     //设置Today数据类型
     static setJsonTodayContentTypes(obj,succCallbackFn){
         RNUtils.AsyncStorage_setItem(AS_KEY_TODAY_CONTENT_TYPES,obj,succCallbackFn);
+    }
+    //设置Today sport类型
+    static setJsonTodaySportTypes(obj,succCallbackFn){
+        RNUtils.AsyncStorage_setItem(AS_KEY_TODAY_SPORT_TYPES,obj,succCallbackFn);
     }
     //获取Today数据
     static getKeysTodayContent(succCallbackFn){

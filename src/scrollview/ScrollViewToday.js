@@ -109,6 +109,8 @@ var ScrollViewToday = React.createClass({
                 }
                 <FloatButtonsBox>
                     <FloatButtonsBox.Button btnText={"工作"} onPress={this._onPressWorking} />
+                    <FloatButtonsBox.Button btnText={"学习"} onPress={this._onPressStudy} />
+                    <FloatButtonsBox.Button btnText={"运动"} onPress={this._onPressSport} />
                 </FloatButtonsBox>
             </ScrollView>
         );
@@ -168,6 +170,16 @@ var ScrollViewToday = React.createClass({
         var _this = this;
         var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_WORKING_LOG]||{content:'',overtime:false,qingjia: false};
         YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditWorkingLog',viewTitle:"工作日志",coreObj: coreObj});
+    },
+    _onPressStudy: function(){
+        var _this = this;
+        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_STUDY]||{content:'',overtime:false,qingjia: false};
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditStudy',viewTitle:"学习",coreObj: coreObj});
+    },
+    _onPressSport: function(){
+        var _this = this;
+        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_SPORT]||{content:'',overtime:false,qingjia: false};
+        YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditSport',viewTitle:"运动",coreObj: coreObj});
     }
 });
 //

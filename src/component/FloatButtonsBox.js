@@ -108,7 +108,7 @@ var styles = StyleSheet.create({
         marginLeft: 0,
         marginRight: 10,
         paddingTop: 10,
-        paddingBottom: 0,
+        paddingBottom: 10,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems:'center',
