@@ -29,6 +29,7 @@ class WebViewEditTodayContent extends Component {
         super(props);
         this._onChangeText = this._onChangeText.bind(this);
         this._onPressImage = this._onPressImage.bind(this);
+        this._onPressComplete = this._onPressComplete.bind(this);
     }
     //static navigationOptions = ({ navigation , screenProps}) => ({
     //    title: screenProps.title,
@@ -202,6 +203,15 @@ class WebViewEditTodayContent extends Component {
     }
     _onPressComplete(){
         YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'todayIcon'});
+        //
+        var _this = this;
+        var contentOneObj = {
+            typeCode: this.props.type.typeCode,
+            day: _this._vars.contentDay,
+            content: this._vars.text,
+            oneImages: this.state.oneImages
+        };
+        RNAllService.getJson_today_synchronizeContentInfo(contentOneObj);
     }
 }
 //

@@ -187,6 +187,15 @@ var WebViewEditTodayContent = React.createClass({
     },
     _onPressComplete(){
         YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'yesterdayIcon'});
+        //
+        var _this = this;
+        var contentOneObj = {
+            typeCode: this.props.type.typeCode,
+            day: _this._vars.contentDay,
+            content: this._vars.text,
+            oneImages: this.state.oneImages
+        };
+        RNAllService.getJson_today_synchronizeContentInfo(contentOneObj)
     }
 });
 //

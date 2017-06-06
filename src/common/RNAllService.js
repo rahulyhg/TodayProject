@@ -374,11 +374,16 @@ class RNAllService{
         params.typeCode = param.typeCode;
         params.content = param.content;
         if(param.oneImages){
-            //var images = [];
-            //for(var e of param.oneImages){
-            //    images.push(JSON.stringify(e));
-            //}
             params.oneImages = encodeURIComponent(encodeURIComponent(JSON.stringify(param.oneImages)));
+        }
+        if(param.$key == YrcnApp.configs.AS_KEY_WORKING_LOG || param.$key == YrcnApp.configs.AS_KEY_STUDY || param.$key == YrcnApp.configs.AS_KEY_SPORT){
+            params.content = '...';
+            var str = JSON.stringify(param);
+            var p = JSON.parse(str);
+            delete p.day;
+            delete p.typeCode;
+            delete p.$key;
+            params.json = encodeURIComponent(encodeURIComponent(JSON.stringify(p)));
         }
         RNAllService.getData(params,callbackFn)
     }

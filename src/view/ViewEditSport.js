@@ -105,6 +105,7 @@ var ViewEditSport = React.createClass({
         YrcnApp.utils.confirm("您确认要提交么？",function(){
             var contentOneObj = {
                 day: _this._vars.contentDay,
+                typeCode: _this.props.coreObj.$key,
             };
             for(var e in _this._vars.param){
                 contentOneObj[e] = _this._vars.param[e];
@@ -116,6 +117,8 @@ var ViewEditSport = React.createClass({
                     YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'todayIcon'});
                 });
             })
+            //
+            RNAllService.getJson_today_synchronizeContentInfo(contentOneObj)
         },"温馨提示",function(){
             YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'todayIcon'});
         })

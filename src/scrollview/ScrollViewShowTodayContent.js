@@ -198,9 +198,9 @@ var ScrollViewShowTodayContent = React.createClass({
         }else if(rowData.type == "sport"){
             var contetnA = [];
             for(var e in rowData){
-                if(e.indexOf('Desp')==-1 && rowData[e] && e!= 'day' && e!= 'content' && e!= 'e' && e!= 'type' && e!= '$key'){
+                if(e.indexOf('Desp')==-1 && rowData[e] && e!= 'day' && e!= 'content' && e!= 'e' && e!= 'type' && e!= '$key' && e!= 'typeCode'){
                     contetnA.push({
-                        content:e
+                        content:e+' : '+rowData[e+'Desp']
                     });
                 }
             }
@@ -240,7 +240,7 @@ var styles = StyleSheet.create({
         lineHeight: 30,
         textAlignVertical: 'bottom',
         marginTop: 0,
-        textAlign: 'justify',
+        textAlign: 'left',
         letterSpacing: 0,
         paddingTop: 0,
         paddingBottom: 0,

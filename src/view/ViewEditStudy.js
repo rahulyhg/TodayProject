@@ -65,7 +65,8 @@ var ViewEditStudy = React.createClass({
             var contentOneObj = {
                 day: _this._vars.contentDay,
                 content: _this._vars.param['content'],
-                $key: _this.props.coreObj.$key
+                $key: _this.props.coreObj.$key,
+                typeCode: _this.props.coreObj.$key,
             };
             RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
                 contentObj[YrcnApp.configs.AS_KEY_STUDY] = contentOneObj;
@@ -73,6 +74,8 @@ var ViewEditStudy = React.createClass({
                     YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'todayIcon'});
                 });
             })
+            //
+            RNAllService.getJson_today_synchronizeContentInfo(contentOneObj)
         },"温馨提示",function(){
             YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'todayIcon'});
         })

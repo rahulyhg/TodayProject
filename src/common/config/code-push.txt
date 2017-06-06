@@ -12,3 +12,8 @@ Successfully added the "today-ios" app, along with the following default deploym
 
 
 code-push release-react today-ios ios --t 2.0.0 --d Production
+
+svnserve -d -r /root/file/svn
+
+
+

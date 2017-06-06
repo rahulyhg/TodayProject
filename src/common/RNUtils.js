@@ -56,6 +56,7 @@ const AS_KEY_TODAY_CONTENT_PREV = "AS_014_";//存储系统 Today内容前缀
 const AS_KEY_TODAY_CONTENT_TYPES = "AS_015";//存储系统 Today内容类型
 const AS_KEY_NEW_FUNC_PREV = "AS_016_";//存储系统 新功能展示
 const AS_KEY_TODAY_SPORT_TYPES = "AS_017";//存储系统 Today sport类型
+const AS_KEY_TODAY_SYNC_WEEK = "AS_018";//存储系统 Today 每周同步一次
 
 const BOOKDESK_BOOKS_NUM = 12;
 
@@ -609,40 +610,27 @@ class RNUtils{
         }
     }
     //
-    static getInnerHtmlToTodayContent(obj,styles){
-        var key = Math.uuidFast();
-        var innerHtml=[];
-        //if(obj.content){
-        //    if(obj.$key == YrcnApp.configs.AS_KEY_STUDY){
-        //        innerHtml.push(()=>(
-        //            <Text key={'content_'+key} style={[styles.text,{backgroundColor:'#ffffff',color:'#01bbfc'}]}>{obj.content}</Text>
-        //        ));
-        //    }else if(obj.$key == YrcnApp.configs.AS_KEY_SPORT){
-        //        for(var e in obj){
-        //            if(e != 'content' && e != 'day' && e != '$key' && e.indexOf('Desp')==-1){
-        //                innerHtml.push(()=>(
-        //                    <Text key={'content_'+key+e} style={[styles.text,{backgroundColor:'#ffffff',color:'#00aa00'}]}>{e+' : '+obj[e+'Desp']}</Text>
-        //                ));
-        //            }
-        //        }
-        //    }else{
-        //        innerHtml.push(()=>(
-        //            <Text key={'content_'+key} style={[styles.text,{backgroundColor:'#ffffff',color:'#333333'}]}>{obj.content}</Text>
-        //        ));
-        //    }
-        //}
-        //if(obj.overtime){
-        //    innerHtml.push(()=>(
-        //        <Text key={key} style={[styles.text,{backgroundColor:'#ffffff',color:'#000000'}]}>{'加班：'+obj.overtimeDesp}</Text>
-        //    ));
-        //}
-        //if(obj.qingjia){
-            var ht = (
-                <Text key={key} style={[styles.text,{backgroundColor:'#ffffff',color:'#aaaaaa'}]}>{'请假：'+obj.qingjiaDesp}</Text>
-            );
-            innerHtml.push(ht);
-        //}
-        return innerHtml;
+    static isTyodaySyncWeek(succCallbackFn){//本周是否需要同步数据
+        RNUtils.AsyncStorage_getItem(AS_KEY_TODAY_SYNC_WEEK,function(AsyncStorage_getItemObj){
+            if(AsyncStorage_getItemObj&&AsyncStorage_getItemObj.week){
+                var nowWeek = moment().weeks();
+                if(AsyncStorage_getItemObj.week == nowWeek){
+                    succCallbackFn();
+                }
+            }else{
+                RNUtils.AsyncStorage_setItem(AS_KEY_TODAY_SYNC_WEEK,{week:0},function(){
+                    succCallbackFn();
+                });
+            }
+        })
+    }
+    //
+    //
+    static setTyodaySyncWeek(){//本周是否需要同步数据
+        var nowWeek = moment().weeks();
+        RNUtils.AsyncStorage_setItem(AS_KEY_TODAY_SYNC_WEEK,{week:nowWeek},function(){
+            succCallbackFn();
+        });
     }
 }
 module.exports = RNUtils;

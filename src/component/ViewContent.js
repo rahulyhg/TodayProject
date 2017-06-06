@@ -101,7 +101,7 @@ var ViewContent = React.createClass({
                                         ));
                                     }else if(d.value.$key == YrcnApp.configs.AS_KEY_SPORT){
                                         for(var e in d.value){
-                                            if(e != 'content' && e != 'day' && e != '$key' && e.indexOf('Desp')==-1){
+                                            if(e != 'content' && e != 'day' && e != '$key'&& e != 'typeCode' && e.indexOf('Desp')==-1){
                                                 innerHtml.push((
                                                     <Text key={'content_'+key+e} style={[styles.text,{backgroundColor:'#ffffff',color:'#00aa00'}]}>{e+' : '+d.value[e+'Desp']}</Text>
                                                 ));
@@ -186,7 +186,7 @@ var styles = StyleSheet.create({
         lineHeight: 30,
         textAlignVertical: 'bottom',
         marginTop: 0,
-        textAlign: 'justify',
+        textAlign: 'left',
         letterSpacing: 0,
         paddingTop: 0,
         paddingBottom: 0,
