@@ -169,16 +169,19 @@ var ScrollViewToday = React.createClass({
     _onPressWorking: function(){
         var _this = this;
         var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_WORKING_LOG]||{content:'',overtime:false,qingjia: false};
+        coreObj.$key = YrcnApp.configs.AS_KEY_WORKING_LOG;
         YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditWorkingLog',viewTitle:"工作日志",coreObj: coreObj});
     },
     _onPressStudy: function(){
         var _this = this;
-        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_STUDY]||{content:'',overtime:false,qingjia: false};
+        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_STUDY]||{content:''};
+        coreObj.$key = YrcnApp.configs.AS_KEY_STUDY;
         YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditStudy',viewTitle:"学习",coreObj: coreObj});
     },
     _onPressSport: function(){
         var _this = this;
-        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_SPORT]||{content:'',overtime:false,qingjia: false};
+        var coreObj = _this._vars.contentObj[YrcnApp.configs.AS_KEY_SPORT]||{content:''};
+        coreObj.$key = YrcnApp.configs.AS_KEY_SPORT;
         YrcnApp.now.$ViewRoot.setState({viewName:'ViewEditSport',viewTitle:"运动",coreObj: coreObj});
     }
 });

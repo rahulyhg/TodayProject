@@ -100,6 +100,7 @@ var WebViewEditTodayContent = React.createClass({
                 overtimeDesp: _this._vars.param['overtimeDesp'],
                 qingjia: _this._vars.param['qingjia'],
                 qingjiaDesp: _this._vars.param['qingjiaDesp'],
+                $key: _this.props.coreObj.$key
             };
             RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
                 contentObj[YrcnApp.configs.AS_KEY_WORKING_LOG] = contentOneObj;

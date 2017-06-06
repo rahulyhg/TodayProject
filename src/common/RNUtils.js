@@ -608,6 +608,42 @@ class RNUtils{
             return false;
         }
     }
+    //
+    static getInnerHtmlToTodayContent(obj,styles){
+        var key = Math.uuidFast();
+        var innerHtml=[];
+        //if(obj.content){
+        //    if(obj.$key == YrcnApp.configs.AS_KEY_STUDY){
+        //        innerHtml.push(()=>(
+        //            <Text key={'content_'+key} style={[styles.text,{backgroundColor:'#ffffff',color:'#01bbfc'}]}>{obj.content}</Text>
+        //        ));
+        //    }else if(obj.$key == YrcnApp.configs.AS_KEY_SPORT){
+        //        for(var e in obj){
+        //            if(e != 'content' && e != 'day' && e != '$key' && e.indexOf('Desp')==-1){
+        //                innerHtml.push(()=>(
+        //                    <Text key={'content_'+key+e} style={[styles.text,{backgroundColor:'#ffffff',color:'#00aa00'}]}>{e+' : '+obj[e+'Desp']}</Text>
+        //                ));
+        //            }
+        //        }
+        //    }else{
+        //        innerHtml.push(()=>(
+        //            <Text key={'content_'+key} style={[styles.text,{backgroundColor:'#ffffff',color:'#333333'}]}>{obj.content}</Text>
+        //        ));
+        //    }
+        //}
+        //if(obj.overtime){
+        //    innerHtml.push(()=>(
+        //        <Text key={key} style={[styles.text,{backgroundColor:'#ffffff',color:'#000000'}]}>{'加班：'+obj.overtimeDesp}</Text>
+        //    ));
+        //}
+        //if(obj.qingjia){
+            var ht = (
+                <Text key={key} style={[styles.text,{backgroundColor:'#ffffff',color:'#aaaaaa'}]}>{'请假：'+obj.qingjiaDesp}</Text>
+            );
+            innerHtml.push(ht);
+        //}
+        return innerHtml;
+    }
 }
 module.exports = RNUtils;
 //

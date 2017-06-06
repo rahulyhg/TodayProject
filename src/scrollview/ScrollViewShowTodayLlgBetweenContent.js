@@ -35,6 +35,7 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var ViewHeader = require('../component/ViewHeader.js');
+var ViewContent = require('../component/ViewContent.js');
 //
 /**
  */
@@ -178,66 +179,7 @@ var ScrollViewShowTodayLlgBetweenContent = React.createClass({
     _renderRow: function(contentObj: string, sectionID: number, rowID: number) {
         //console.log("==="+this.state.fontSize)
         console.log(contentObj);
-        var _this = this;
-        var key = Math.uuidFast();
-        var day = moment(contentObj.day);
-        return (
-            <View key={key} style={styles.paragraphView}>
-                <View style={styles.paragraphViewWeek}>
-                    <Text style={styles.paragraphViewWeekText}>{day.format("dddd")}</Text>
-                </View>
-                <View style={styles.paragraphViewDay}>
-                    <Text style={styles.paragraphViewDayText}>{contentObj.day}</Text>
-                </View>
-                {(function(){
-                    console.log("aaaaaa"+contentObj.contentArray)
-                    if(contentObj.contentArray && contentObj.contentArray.length > 0){
-                        return contentObj.contentArray.map(function(d,i){
-                            console.log("xxxxxxxx"+RNUtils.toString(d.value))
-                            if(d.value.content || d.value.oneImages || d.value.overtime || d.value.qingjia){
-                                if(d.value.oneImages && Array.isArray(d.value.oneImages) && d.value.oneImages.length>0){
-                                    d.value.oneImages = d.value.oneImages||[];
-                                    for(var oneImage of d.value.oneImages) {
-                                        oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
-                                    }
-                                }else if(d.value.oneImages){
-                                    var newOneImages = [];
-                                    for(var oneImagekey in d.value.oneImages) {
-                                        var oneImage = d.value.oneImages[oneImagekey];
-                                        oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
-                                        newOneImages.push(oneImage);
-                                    }
-                                    d.value.oneImages = newOneImages;
-                                }
-                                return (
-                                    <View key={i} style={styles.textAndImageView}>
-                                        <Text style={{
-                                            fontSize: _this.state.fontSize,
-                                            lineHeight: _this.state.fontSize+_this.state.lineHeight+5,
-                                            textAlignVertical: 'bottom',
-                                            marginTop: (i==0?(_this.state.fontSize+_this.state.lineHeight+25):0),
-                                            textAlign: 'justify',
-                                            letterSpacing: 0,
-                                            paddingTop: 0,
-                                            paddingBottom: 0,
-                                            paddingLeft: 15,
-                                            paddingRight: 15,
-                                            marginBottom: 0,
-                                            color: _this.state.paragraphColor}}
-                                            >
-                                            {d.value.content}
-                                            <Text>{d.value.overtime?'\r\n加班：'+d.value.overtimeDesp:''}</Text>
-                                            <Text>{d.value.qingjia?'\r\n请假：'+d.value.qingjiaDesp:''}</Text>
-                                        </Text>
-                                        <NineImagesBox oneImages={d.value.oneImages } isHideDelete={true}/>
-                                    </View>
-                                )
-                            }
-                        })
-                    }
-                })()}
-            </View>
-        );
+        return (<ViewContent contentObj={contentObj}/>);
     },
     _onPressLeft: function(){
         YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex',selectedTab:'llgIcon'});
@@ -258,6 +200,7 @@ var styles = StyleSheet.create({
         paddingRight: 0,
         borderBottomColor: '#eeeeee',
         borderBottomWidth: 1.5,
+        paddingTop: 50,
     },
     paragraphViewWeek:{
         position: 'absolute',
@@ -282,7 +225,22 @@ var styles = StyleSheet.create({
         fontSize: 13,
     },
     textAndImageView: {
-
+        paddingTop: 0
+    },
+    text:{
+        fontSize: 13,
+        lineHeight: 30,
+        textAlignVertical: 'bottom',
+        marginTop: 0,
+        textAlign: 'justify',
+        letterSpacing: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 15,
+        paddingRight: 15,
+        marginBottom: 0,
+        color: '#333333',
+        borderWidth: 0,
     }
 });
 //

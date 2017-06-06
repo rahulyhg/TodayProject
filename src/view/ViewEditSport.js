@@ -48,10 +48,8 @@ var ViewEditSport = React.createClass({
         RNAllService.getJson_getTodaySportTypes({},function(getJson_getTodaySportTypesObj){
             var typeArray = getJson_getTodaySportTypesObj.list;
             for(var e in _this._vars.param){
-                RNUtils.logObj("aaaaa",e)
                 if(e != "content"){
                     for(var item of typeArray){
-                        RNUtils.logObj("bbbbb",item)
                         if(item.typeCode == e){
                             item.isSelected = _this._vars.param[e];
                             break;

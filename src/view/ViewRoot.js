@@ -73,12 +73,12 @@ class ViewRoot extends Component{
     //在接收到新的 props 或者 state，将要渲染之前调用。该方法在初始化渲染的时候不会调用，在使用 forceUpdate 方法的时候也不会。
     //如果确定新的 props 和 state 不会导致组件更新，则此处应该 返回 false。
     shouldComponentUpdate(props,state){
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate new ",props)
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate new ",state)
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate old ",this.props)
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate old ",this.state);
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate new ",props)
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate new ",state)
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate old ",this.props)
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate old ",this.state);
         if(true){
-            console.log(this._vars.viewNames.indexOf(state.viewName) == this._vars.viewNames.length-2)
+            //console.log(this._vars.viewNames.indexOf(state.viewName) == this._vars.viewNames.length-2)
             if(this._vars.viewNames.indexOf(state.viewName) == this._vars.viewNames.length-2 && this._vars.viewNames.length>1){
                 this._vars.viewNames.pop();
                 if(this._vars.viewNames.length-2<=-1){
@@ -91,8 +91,8 @@ class ViewRoot extends Component{
                 this._vars.viewNames.push(state.viewName);
             }
         }
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate prevViewName",this._vars.prevViewName)
-        YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate viewNames",this._vars.viewNames)
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate prevViewName",this._vars.prevViewName)
+        //YrcnApp.utils.logObj("ViewRoot shouldComponentUpdate viewNames",this._vars.viewNames)
         return true;
     }
     componentWillMount() {
@@ -162,7 +162,7 @@ class ViewRoot extends Component{
         var _this = this;
         RNUtils.getAppInfo(function(appInfo){
             RNAllService.checkVersions(function(checkVersionsObj){
-                console.log(checkVersionsObj);
+                //console.log(checkVersionsObj);
                 //checkVersionsObj.appUpgrade = "1";
                 if(checkVersionsObj.appUpgrade == "1"){//app客户端需要升级
 
@@ -394,8 +394,8 @@ class ViewRoot extends Component{
     }
     lookImage(imageObj,callObj,index,isHideDelete){//预览图片
         var imageingObj = imageObj;
-        console.log(imageingObj);
-        console.log(index);
+        //console.log(imageingObj);
+        //console.log(index);
         if(Array.isArray(imageObj)){
             imageingObj = imageObj[index];
             this._vars.imageObjs = imageObj;
@@ -407,7 +407,7 @@ class ViewRoot extends Component{
         });
         this._vars.callObj = callObj;
         this._vars.index = index;
-        console.log("isHideDelete="+isHideDelete);
+        //console.log("isHideDelete="+isHideDelete);
         this.setState({
             isHideDelete: isHideDelete
         });
@@ -425,10 +425,10 @@ class ViewRoot extends Component{
         this.setState({
             lookImage: null
         });
-        console.log(this._vars.imageObjs);
-        console.log(this._vars.index);
+        //console.log(this._vars.imageObjs);
+        //console.log(this._vars.index);
         var iamgePath = this._vars.imageObjs[this._vars.index].uri;
-        console.log("调用插件删除文件="+iamgePath);
+        //console.log("调用插件删除文件="+iamgePath);
         YrcnApp.native.RNUtilsModule.deleteSandboxFile([RNUtils.getSandboxFileShortPath(iamgePath)]);
         this._vars.callObj.deleteImage(this._vars.index);
     }

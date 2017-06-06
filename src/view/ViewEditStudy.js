@@ -65,6 +65,7 @@ var ViewEditStudy = React.createClass({
             var contentOneObj = {
                 day: _this._vars.contentDay,
                 content: _this._vars.param['content'],
+                $key: _this.props.coreObj.$key
             };
             RNUtils.getJsonTodayContent(_this._vars.contentDay,function(contentObj){
                 contentObj[YrcnApp.configs.AS_KEY_STUDY] = contentOneObj;

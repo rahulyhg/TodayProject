@@ -33,6 +33,7 @@ var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var NoRecordViewBox = require('../component/NoRecordViewBox.js');
 var ViewHeader = require('../component/ViewHeader.js');
+var ViewContent = require('../component/ViewContent.js');
 //
 /**
  */
@@ -148,43 +149,10 @@ var ScrollViewShowTodayContent = React.createClass({
         //console.log("==="+this.state.fontSize)
         var _this = this;
         var key = Math.uuidFast();
-        if(rowData.type == "sectionTitle"){
+        if(rowData.type == "sectionContent"){
             return (
-                <View key={key} style={styles.paragraphView}>
-                    <Text style={{
-                    fontSize: this.state.fontSize+5,
-                    lineHeight: this.state.fontSize+this.state.lineHeight,
-                    textAlignVertical: 'bottom',//android专用
-                    marginTop: this.state.fontSize+this.state.lineHeight-10,
-                    letterSpacing: 0,
-                    paddingTop: 15,
-                    paddingBottom: 15,
-                    marginBottom: 0,
-                    fontWeight: '700',
-                    textAlign:'center',
-                    color: this.state.paragraphColor}}
-                        >
-                        {rowData.content}
-                    </Text>
-                </View>
-            );
-        }else if(rowData.type == "sectionContent"){
-            return (
-                <View key={key} style={styles.paragraphView}>
-                    <Text style={{
-                        fontSize: this.state.fontSize,
-                        lineHeight: this.state.fontSize+this.state.lineHeight,
-                        textAlignVertical: 'bottom',//android专用
-                        marginTop: this.state.fontSize+this.state.lineHeight-5,
-                        textAlign: 'justify',
-                        letterSpacing: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        marginBottom: 0,
-                        color: this.state.paragraphColor}}
-                        >
+                <View key={key} style={[styles.paragraphView,{backgroundColor:'#ffffff'}]}>
+                    <Text style={[styles.text,{color:'#444444'}]}>
                         <Text>{rowData.content}</Text>
                     </Text>
                     {(function(){
@@ -211,21 +179,8 @@ var ScrollViewShowTodayContent = React.createClass({
             );
         }else if(rowData.type == "workingLog"){
             return (
-                <View key={key} style={styles.paragraphView_workingLog}>
-                    <Text style={{
-                        fontSize: this.state.fontSize,
-                        lineHeight: this.state.fontSize+this.state.lineHeight,
-                        textAlignVertical: 'bottom',//android专用
-                        marginTop: this.state.fontSize+this.state.lineHeight-15,
-                        textAlign: 'justify',
-                        letterSpacing: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        marginBottom: 0,
-                        color: '#ffffff'}}
-                        >
+                <View key={key} style={[styles.paragraphView,{backgroundColor:'#db432a'}]}>
+                    <Text style={[styles.text,{color:'#ffffff'}]}>
                         <Text>{rowData.content}</Text>
                         <Text>{rowData.overtime?'\r\n加班：'+rowData.overtimeDesp:''}</Text>
                         <Text>{rowData.qingjia?'\r\n请假：'+rowData.qingjiaDesp:''}</Text>
@@ -234,21 +189,8 @@ var ScrollViewShowTodayContent = React.createClass({
             );
         }else if(rowData.type == "study"){
             return (
-                <View key={key} style={styles.paragraphView_workingLog}>
-                    <Text style={{
-                        fontSize: this.state.fontSize,
-                        lineHeight: this.state.fontSize+this.state.lineHeight,
-                        textAlignVertical: 'bottom',//android专用
-                        marginTop: this.state.fontSize+this.state.lineHeight-15,
-                        textAlign: 'justify',
-                        letterSpacing: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        marginBottom: 0,
-                        color: '#ffffff'}}
-                        >
+                <View key={key} style={[styles.paragraphView,{backgroundColor:'#25c20b'}]}>
+                    <Text style={[styles.text,{color:'#ffffff'}]}>
                         <Text>{rowData.content}</Text>
                     </Text>
                 </View>
@@ -256,55 +198,23 @@ var ScrollViewShowTodayContent = React.createClass({
         }else if(rowData.type == "sport"){
             var contetnA = [];
             for(var e in rowData){
-                if(e.indexOf('Desp')==-1 && rowData[e] && e!= 'day' && e!= 'content' && e!= 'e' && e!= 'type'){
+                if(e.indexOf('Desp')==-1 && rowData[e] && e!= 'day' && e!= 'content' && e!= 'e' && e!= 'type' && e!= '$key'){
                     contetnA.push({
                         content:e
                     });
                 }
             }
             return (
-                <View key={key} style={styles.paragraphView_workingLog}>
+                <View key={key} style={[styles.paragraphView,{backgroundColor: '#1c9c07'}]}>
                     {
                         contetnA.map(function(d){
                             return (
-                                <Text key={d.content} style={{
-                                    fontSize: _this.state.fontSize,
-                                    lineHeight: _this.state.fontSize+_this.state.lineHeight,
-                                    textAlignVertical: 'bottom',//android专用
-                                    marginTop: _this.state.fontSize+_this.state.lineHeight-15,
-                                    textAlign: 'justify',
-                                    letterSpacing: 0,
-                                    paddingTop: 0,
-                                    paddingBottom: 0,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    marginBottom: 0,
-                                    color: '#ffffff'}}
-                                    >
+                                <Text style={[styles.text,{color:'#ffffff'}]} key={d.content}>
                                     {d.content}
                                 </Text>
                             );
                         })
                     }
-                </View>
-            );
-        }else if(rowData.type == "sectionAuthor"){
-            return (
-                <View key={key} style={styles.paragraphView}>
-                    <Text style={{
-                    fontSize: this.state.fontSize,
-                    lineHeight: this.state.fontSize+this.state.lineHeight,
-                    textAlignVertical: 'bottom',//android专用
-                    marginTop: this.state.fontSize+this.state.lineHeight,
-                    textAlign: 'right',
-                    letterSpacing: 0,
-                    paddingTop: 0,
-                    paddingBottom: 70,
-                    marginBottom: 0,
-                    color: this.state.paragraphColor}}
-                        >
-                        {rowData.content}
-                    </Text>
                 </View>
             );
         }
@@ -322,14 +232,24 @@ var styles = StyleSheet.create({
         paddingLeft: 0,
         paddingRight: 0,
     },
-    paragraphView_workingLog:{
-        paddingLeft: 0,
-        paddingRight: 0,
-        backgroundColor: '#01bbfc',
-    },
     paragraphText:{
         fontSize: 13,
     },
+    text:{
+        fontSize: 13,
+        lineHeight: 30,
+        textAlignVertical: 'bottom',
+        marginTop: 0,
+        textAlign: 'justify',
+        letterSpacing: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 15,
+        paddingRight: 15,
+        marginBottom: 0,
+        color: '#333333',
+        borderWidth: 0,
+    }
 });
 //
 module.exports = ScrollViewShowTodayContent;

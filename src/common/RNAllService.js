@@ -119,8 +119,8 @@ var requestThreadPool = {
                                 'credentials': 'include'
                             }
                         }
-                        console.log(SERVER_ROOT_PATH+_this.fetchObj.params.path)
-                        console.log(fetchParam2)
+                        //console.log(SERVER_ROOT_PATH+_this.fetchObj.params.path)
+                        //console.log(fetchParam2)
                         fetch(SERVER_ROOT_PATH+_this.fetchObj.params.path, fetchParam2)
                             .then((response) => response.text())
                             .then((responseText) => {
@@ -151,7 +151,7 @@ var requestThreadPool = {
 class RNAllService{
     static getData(params,succCallbackFn,failCallbackFn){
         //
-        console.log(params);
+        //console.log(params);
         //
         succCallbackFn = succCallbackFn || function(){};
         failCallbackFn = failCallbackFn || function(msg){
@@ -218,7 +218,7 @@ class RNAllService{
                                             body += "&"+e+"="+encodeURIComponent(encodeURIComponent(userLoginObj[e]));
                                         }
                                     }
-                                    console.log("body="+body);
+                                    //console.log("body="+body);
                                     //
                                     innerFuncRequest();
                                 }else{
@@ -246,7 +246,7 @@ class RNAllService{
                 fetch(SERVER_ROOT_PATH+gtObj.params.path, fetchParam2)
                     .then((response) => response.text())
                     .then((responseText) => {
-                        console.log("responseText="+responseText);
+                        //console.log("responseText="+responseText);
                         var responseJsonObj = JSON.parse(responseText);
                         if(responseJsonObj.RES_RESULT=="SUCCESS"){
                             gtObj.succCallbackFn(responseJsonObj.RES_DATA);

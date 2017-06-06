@@ -35,6 +35,7 @@ var LineButtonsBox = require('../component/LineButtonsBox.js');
 var ListViewLi = require('../component/ListViewLi.js');
 var NineImagesBox = require('../component/NineImagesBox.js');
 var ViewHeader = require('../component/ViewHeader.js');
+var ViewContent = require('../component/ViewContent.js');
 //
 /**
  */
@@ -116,76 +117,19 @@ var ScrollViewShowTodaysContent = React.createClass({
         //console.log("==="+this.state.fontSize)
         console.log(contentObj);
         var _this = this;
-        var key = Math.uuidFast();
-        //var day = moment(contentObj.day);
         var day = null;
         if(contentObj){
             for(var key in contentObj){
                 if(contentObj[key] && contentObj[key].day){
-                    day = moment(contentObj[key].day);
+                    day = contentObj[key].day;
                 }
             }
         }
         if(!day){
             return;
         }
-        return (
-            <View key={key} style={styles.paragraphView}>
-                <View style={styles.paragraphViewWeek}>
-                    <Text style={styles.paragraphViewWeekText}>{day.format("dddd")}</Text>
-                </View>
-                <View style={styles.paragraphViewDay}>
-                    <Text style={styles.paragraphViewDayText}>{day.format('YYYY-MM-DD')}</Text>
-                </View>
-                {(function(){
-                    console.log("aaaaaa"+contentObj.contentArray)
-                    if(contentObj.contentArray && contentObj.contentArray.length > 0){
-                        return contentObj.contentArray.map(function(d,i){
-                            console.log("xxxxxxxx"+d.value.content)
-                            if(d.value.content || d.value.oneImages || d.value.overtime || d.value.qingjia){
-                                d.value.oneImages = d.value.oneImages||[];
-                                if(Array.isArray(d.value.oneImages)){
-                                    for(var oneImage of d.value.oneImages) {
-                                        oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
-                                    }
-                                }else if(d.value.oneImages){
-                                    var newOneImages = [];
-                                    for(var oneImagekey in d.value.oneImages) {
-                                        var oneImage = d.value.oneImages[oneImagekey];
-                                        oneImage.uri = RNUtils.getSandboxFileLongPath(oneImage.uri);
-                                        newOneImages.push(oneImage);
-                                    }
-                                    d.value.oneImages = newOneImages;
-                                }
-                                return (
-                                    <View key={i} style={styles.textAndImageView}>
-                                        <Text style={{
-                                            fontSize: _this.state.fontSize,
-                                            lineHeight: _this.state.fontSize+_this.state.lineHeight+5,
-                                            textAlignVertical: 'bottom',
-                                            marginTop: (i==0?(_this.state.fontSize+_this.state.lineHeight+25):0),
-                                            textAlign: 'justify',
-                                            letterSpacing: 0,
-                                            paddingTop: 0,
-                                            paddingBottom: 0,
-                                            paddingLeft: 15,
-                                            paddingRight: 15,
-                                            marginBottom: 0,
-                                            color: _this.state.paragraphColor}}
-                                            >
-                                            {d.value.content}
-                                            <Text>{d.value.overtime?'\r\n加班：'+d.value.overtimeDesp:''}</Text>
-                                            <Text>{d.value.qingjia?'\r\n请假：'+d.value.qingjiaDesp:''}</Text>
-                                        </Text>
-                                        <NineImagesBox oneImages={d.value.oneImages } isHideDelete={true}/>
-                                    </View>
-                                )
-                            }
-                        })
-                    }
-                })()}
-            </View>
-        );
+        contentObj.day = day;
+        return (<ViewContent contentObj={contentObj}/>);
     },
     _onPressLeft: function () {
         YrcnApp.now.$ViewRoot.setState({viewName:'ScrollViewSearchTodayContent',selectedTab:'llgIcon'});
