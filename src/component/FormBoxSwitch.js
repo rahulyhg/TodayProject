@@ -88,13 +88,13 @@ var styles = StyleSheet.create({
         alignItems:'center',
     },
     controlSwitch:{
-        width: Dimensions.get('window').width-50,
     },
     controlLeftView:{
         flex:4,
     },
     controlRightView:{
         flex:1,
+        borderWidth: 0,
     },
     controlText:{
         fontSize: 16,

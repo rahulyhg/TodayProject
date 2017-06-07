@@ -1,35 +1,43 @@
 /**
- * 首页
+ * 启动文件
  */
 'use strict';
 //
-import React, { Component } from 'react';
+import React,{Component} from 'react';
+//import {AppRegistry,Text} from 'react-native';
 import {
     AppRegistry,
-    StatusBar,
+    StyleSheet,
+    View,
+    Dimensions,
+    TouchableOpacity,
+    Text,
+    TouchableWithoutFeedback,
+    Image,
+    PanResponder,
+    Button,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';//处理启动闪屏问题
+import { StackNavigator,DrawerNavigator } from 'react-navigation';//navigator
+import codePush from 'react-native-code-push'
 //
-var YrcnApp = require('./src/common/YrcnApp.js');
-global.YrcnApp = YrcnApp;
+import YrcnApp from './src/common/YrcnApp.js';
+import ViewRoot from './src/view/ViewRoot.js';
+import {NavigatorRoot} from './src/navigator';
 //
-YrcnApp.native.RNUtilsModule.getAppInfo([],function(arrayObj){
-    var appInfo = YrcnApp.utils.parseJSON(arrayObj[0]);
-    global.YrcnApp.appInfo = appInfo;
-    //console.log(appInfo)
-    YrcnApp.utils.setAppInfo(appInfo);
-});
-//所有的页面都在顶级导航之内
-var NavigatorRoot = require('./src/navigator/NavigatorRoot.js');//顶级导航
-//
-var ReadingProject = React.createClass({
-    render: function(){
-        //设置状态栏
-        YrcnApp.components.StatusBar.setBarStyle('light-content',true);
-        StatusBar.setHidden(false,'slide');
+class YrcnAppProject extends Component {
+    componentDidMount() {
+        //codePush.sync()
+        SplashScreen.hide();//关闭启动屏幕
+        //AppState.addEventListener("change", (newState) => {
+        //    newState === "active" && codePush.sync();
+        //});
+    }
+    render(){
         return (
-            <NavigatorRoot />
+            <ViewRoot />
         );
     }
-});
+}
 //启动项目
-AppRegistry.registerComponent('ReadingProject', () => ReadingProject);
+AppRegistry.registerComponent('YrcnAppProject', () => YrcnAppProject);

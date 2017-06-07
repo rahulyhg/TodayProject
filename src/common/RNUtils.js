@@ -57,6 +57,7 @@ const AS_KEY_TODAY_CONTENT_TYPES = "AS_015";//存储系统 Today内容类型
 const AS_KEY_NEW_FUNC_PREV = "AS_016_";//存储系统 新功能展示
 const AS_KEY_TODAY_SPORT_TYPES = "AS_017";//存储系统 Today sport类型
 const AS_KEY_TODAY_SYNC_WEEK = "AS_018";//存储系统 Today 每周同步一次
+const AS_KEY_YOUKE_LOGIN_INFO = "AS_019";//存储系统 游客登录信息
 
 const BOOKDESK_BOOKS_NUM = 12;
 
@@ -414,9 +415,18 @@ class RNUtils{
         global.YrcnApp.loginUser = obj;
         RNUtils.AsyncStorage_setItem(AS_KEY_LOGIN_INFO,obj,succCallbackFn,null,"1");
     }
+    //设置游客登录信息
+    static pushYoukeLoginInfo(obj,succCallbackFn){
+        global.YrcnApp.loginUser = obj;
+        RNUtils.AsyncStorage_setItem(AS_KEY_YOUKE_LOGIN_INFO,obj,succCallbackFn,null,"1");
+    }
     //获取登录信息
     static getLoginInfo(succCallbackFn){
         RNUtils.AsyncStorage_getItem(AS_KEY_LOGIN_INFO,succCallbackFn,null,"1");
+    }
+    //获取游客登录信息
+    static getYoukeLoginInfo(succCallbackFn){
+        RNUtils.AsyncStorage_getItem(AS_KEY_YOUKE_LOGIN_INFO,succCallbackFn,null,"1");
     }
     //清除登录信息
     static removeLoginInfo(succCallbackFn){
@@ -581,7 +591,11 @@ class RNUtils{
     }
     //
     static getSandboxFileLongPath(uri){
-        return "file://"+YrcnApp.appInfo.DocumentsPath + RNUtils.getSandboxFileShortPath(uri);
+        if(YrcnApp.Platform.isIOS){
+            return "file://"+YrcnApp.appInfo.DocumentsPath + RNUtils.getSandboxFileShortPath(uri);
+        }else{
+            return uri;
+        }
     }
     //
     static handleSandboxImageSource(source){
@@ -632,6 +646,7 @@ class RNUtils{
             succCallbackFn();
         });
     }
+
 }
 module.exports = RNUtils;
 //

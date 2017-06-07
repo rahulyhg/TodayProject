@@ -29,6 +29,7 @@ class GuideIndexView  extends React.Component {
     constructor(props) {
         super(props);
         this._onPressWelcome = this._onPressWelcome.bind(this);
+        this._onPressYouke = this._onPressYouke.bind(this);
     }
     static navigationOptions = {
         drawerLabel: 'Home',
@@ -41,6 +42,7 @@ class GuideIndexView  extends React.Component {
         isPressingWelcome: false,
         isPressingStart: false,
         isPressingLogin: false,
+        isPressingYouke: false,
         isLogined: "0",
     }
     //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
@@ -68,9 +70,7 @@ class GuideIndexView  extends React.Component {
     render(){
         var _this = this;
         global.YrcnApp.components.StatusBar.setHidden(false,'slide');
-        global.YrcnApp.components.StatusBar.setBarStyle('light-content',false);
-        //global.YrcnApp.root_navigate = _this.props.navigation.navigate;
-        //this.props.parent.hideLeftButton();
+        global.YrcnApp.components.StatusBar.setBarStyle('light-content',false,'#01bbfc');
         //
         return (
             <View style={[styles.container]}>
@@ -94,8 +94,11 @@ class GuideIndexView  extends React.Component {
                                         <ButtonsBox marginBottom={0}>
                                             <ButtonsBox.Button btnText={"注册"} onPress={_this._onPressStart} isPressing={_this.state.isPressingStart}/>
                                         </ButtonsBox>
-                                        <ButtonsBox marginTop={0}>
+                                        <ButtonsBox marginTop={0} marginBottom={0}>
                                             <ButtonsBox.Button btnText={"已注册？登录"} onPress={_this._onPressLogin} isPressing={_this.state.isPressingLogin}/>
+                                        </ButtonsBox>
+                                        <ButtonsBox marginTop={0}>
+                                            <ButtonsBox.Button btnText={"游客登录"} onPress={_this._onPressYouke} isPressing={_this.state.isPressingYouke}/>
                                         </ButtonsBox>
                                     </View>
                                 );
@@ -114,6 +117,33 @@ class GuideIndexView  extends React.Component {
     }
     _onPressLogin(){
         YrcnApp.now.$ViewRoot.setState({viewName:'LoginIndexView'});
+    }
+    _onPressYouke(){
+        var _this = this;
+        _this.setState({
+            isPressingYouke: true,
+        });
+        YrcnApp.utils.getYoukeLoginInfo(function(getYoukeLoginInfoObj){
+            if(getYoukeLoginInfoObj&&getYoukeLoginInfoObj.userLogin){
+                YrcnApp.utils.pushLoginInfo(getYoukeLoginInfoObj,function(){
+                    YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex'});
+                })
+            }else{
+                YrcnApp.services.youkeLogin({},function(registerObj){
+                    YrcnApp.utils.pushLoginInfo(registerObj,function(){
+                        YrcnApp.now.$ViewRoot.setState({viewName:'TabBarIndex'});
+                    })
+                    YrcnApp.utils.pushYoukeLoginInfo(registerObj,function(){
+
+                    });
+                },function(msg){
+                    _this.setState({
+                        isPressingYouke: false,
+                    });
+                    YrcnApp.utils.alert(msg);
+                })
+            }
+        })
     }
 }
 //
@@ -157,7 +187,7 @@ var styles = StyleSheet.create({
     },
     bottomView:{
         width:Dimensions.get('window').width,
-        flex: 1.5,
+        flex: 2.0,
     },
     guideIndexImage:{
         width:Dimensions.get('window').width-40,

@@ -55,7 +55,7 @@ var RegisterIndexView = React.createClass({
     render: function(){
         var _this = this;
         global.YrcnApp.components.StatusBar.setHidden(false,'slide');
-        global.YrcnApp.components.StatusBar.setBarStyle('light-content',false);
+        global.YrcnApp.components.StatusBar.setBarStyle('light-content',false,'#01bbfc');
         //this.props.parent.showLeftButton();
         //
         return (

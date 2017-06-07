@@ -12,12 +12,15 @@ import {
  * 定义属性：
  */
 var YRStatusBar = {
-    setBarStyle: function (style, animated) {
+    setBarStyle: function (style, animated,backgroundColor) {
+        style = style||'dark-content';
         if(Platform.OS === 'ios'){
             StatusBar.setBarStyle(style, animated);
         }else{
+            backgroundColor = backgroundColor || '#ffffff';
             StatusBar.setTranslucent(true);
-            StatusBar.setBackgroundColor("#01bbfc",true);
+            StatusBar.setBackgroundColor(backgroundColor,false);
+            StatusBar.setBarStyle(style, true);
         }
     },
     setHidden: function(isHidden,type){

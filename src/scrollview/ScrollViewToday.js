@@ -188,7 +188,7 @@ var ScrollViewToday = React.createClass({
 //
 var styles = StyleSheet.create({
     scrollViewContainer:{
-        marginTop: 0,
+        marginTop: YrcnApp.Platform.isIOS?0:25,
     },
 });
 //

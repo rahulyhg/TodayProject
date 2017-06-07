@@ -313,6 +313,14 @@ class RNAllService{
         param.userFlag = "1";
         RNAllService.getData(param,callbackFn,failCallbackFn);
     }
+    //游客登录
+    static youkeLogin(param,callbackFn,failCallbackFn){
+        param = param || {};
+        param.path = "/userlogin/youkeLogin";
+        param.method = "POST";
+        param.userFlag = "1";
+        RNAllService.getData(param,callbackFn,failCallbackFn);
+    }
     //登录
     static logout(param,callbackFn,failCallbackFn){
         param = param || {};
@@ -384,6 +392,8 @@ class RNAllService{
             delete p.typeCode;
             delete p.$key;
             params.json = encodeURIComponent(encodeURIComponent(JSON.stringify(p)));
+        }else if(!param.content){
+            return;
         }
         RNAllService.getData(params,callbackFn)
     }

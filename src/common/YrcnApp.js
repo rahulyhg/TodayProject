@@ -25,6 +25,7 @@ var components = {
     NavigatorRightBtnView: YRNavigatorRightBtnView,
 };
 //
+Platform.isIOS = Platform.OS == 'ios';
 var YrcnApp = {
     native: NativeModules,
     Platform: Platform,

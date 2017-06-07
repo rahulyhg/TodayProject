@@ -77,7 +77,6 @@ gradle.projectsEvaluated {
                 } else {
                     commandLine "react-native", "bundle", "--platform", "android", "--dev", "${devEnabled}",
                             "--entry-file", entryFile, "--bundle-output", jsBundleFile, "--assets-dest", resourcesDir
-                }
 
                 enabled config."bundleIn${targetName}" ||
                     config."bundleIn${buildTypeName.capitalize()}" ?:

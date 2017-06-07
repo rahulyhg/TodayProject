@@ -10,10 +10,26 @@ Successfully added the "today-ios" app, along with the following default deploym
 
 提示：你可以通过code-push deployment ls <APP_NAME> -k命令来查看deployment key。
 
-
+code-push deployment ls today-ios --k
 code-push release-react today-ios ios --t 2.0.0 --d Production
 
 svnserve -d -r /root/file/svn
+
+
+code-push deployment ls today-android --k
+code-push release-react today-android android --t 1.0.0 --d Staging
+code-push release-react today-android android --t 1.0.0 --d Production
+
+
+
+800P-weichuang-bangong:TodayProject weichuang$ code-push app add today-android android react-native
+Successfully added the "today-android" app, along with the following default deployments:
+┌────────────┬──────────────────────────────────────────────────────────────────┐
+│ Name       │ Deployment Key                                                   │
+├────────────┼──────────────────────────────────────────────────────────────────┤
+│ Production │ tEzo6BfBEVe04z_hKQ9K4QtOIP3w12d41da1-a78b-47b4-b475-4f3305ad1642 │
+├────────────┼──────────────────────────────────────────────────────────────────┤
+│ Staging    │ U2kIDCmIe3M9XzDhIEOdmDGPctmv12d41da1-a78b-47b4-b475-4f3305ad1642 │
 
 
 

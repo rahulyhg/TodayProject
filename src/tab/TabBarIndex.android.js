@@ -15,10 +15,16 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 //
 var RNUtils = require('../common/RNUtils.js');
-var NavigatorToday = require('./../navigator/NavigatorToday.js');
-var NavigatorYesterday = require('./../navigator/NavigatorYesterday.js');
-var NavigatorLlg = require('./../navigator/NavigatorLlg.js');
-var NavigatorSettings = require('./../navigator/NavigatorSettings.js');
+//var NavigatorToday = require('./../navigator/NavigatorToday.js');
+//var NavigatorYesterday = require('./../navigator/NavigatorYesterday.js');
+//var NavigatorLlg = require('./../navigator/NavigatorLlg.js');
+//var NavigatorSettings = require('./../navigator/NavigatorSettings.js');
+
+
+var ScrollViewToday = require('./../scrollview/ScrollViewToday.js');
+var ScrollViewYesterday = require('./../scrollview/ScrollViewYesterday.js');
+var ScrollViewLlg = require('./../scrollview/ScrollViewLlg.js');
+var SettingsView = require('./../view/ViewSettings.js');
 //
 var TabBarIndex = React.createClass({
     getInitialState: function(){
@@ -29,6 +35,8 @@ var TabBarIndex = React.createClass({
     },
     render: function(){
         //console.log("TabBarIndex.js render");
+        global.YrcnApp.components.StatusBar.setBarStyle('light-content',false,'#01bbfc');
+        YrcnApp.components.StatusBar.setHidden(false,'slide');
         return (
             <TabNavigator tabBarStyle={{ height: 50, overflow: 'hidden',paddingBottom:0}}
                           sceneStyle={{ }}>
@@ -41,7 +49,7 @@ var TabBarIndex = React.createClass({
                     renderIcon={() => <Image source={require('../images/hotLife.png')} />}
                     renderSelectedIcon={() => <Image source={require('../images/hotLife.png')} />}
                     onPress={(item)=>{this._onPressTabItem('todayIcon')}}>
-                    <NavigatorToday />
+                    <ScrollViewToday />
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'yesterdayIcon'}
@@ -51,7 +59,8 @@ var TabBarIndex = React.createClass({
                     renderIcon={() => <Image source={require('../images/yesterdayIcon.png')} />}
                     renderSelectedIcon={() => <Image source={require('../images/yesterdayIcon.png')} />}
                     onPress={(item)=>{this._onPressTabItem('yesterdayIcon')}}>
-                    <NavigatorYesterday />
+                    <ScrollViewYesterday contentDay = {global.YrcnApp.utils.yesterdayDate()}
+                                         backgroundColor = "#ffffff"/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'llgIcon'}
@@ -61,7 +70,7 @@ var TabBarIndex = React.createClass({
                     renderIcon={() => <Image source={require('../images/llgIcon.png')} />}
                     renderSelectedIcon={() => <Image source={require('../images/llgIcon.png')} />}
                     onPress={(item)=>{this._onPressTabItem('llgIcon')}}>
-                    <NavigatorLlg />
+                    <ScrollViewLlg />
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'myLife'}
@@ -71,7 +80,7 @@ var TabBarIndex = React.createClass({
                     renderIcon={() => <Image source={require('../images/myLife.png')} />}
                     renderSelectedIcon={() => <Image source={require('../images/myLife.png')} />}
                     onPress={(item)=>{this._onPressTabItem('myLife')}}>
-                    <NavigatorSettings />
+                    <SettingsView />
                 </TabNavigator.Item>
             </TabNavigator>
         );

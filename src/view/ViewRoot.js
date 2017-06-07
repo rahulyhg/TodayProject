@@ -47,6 +47,7 @@ var ScrollViewShowTodaysContent = require('./../scrollview/ScrollViewShowTodaysC
 var ScrollViewAddTodayType = require('./../scrollview/ScrollViewAddTodayType.js');
 var ScrollViewAddSportType = require('./../scrollview/ScrollViewAddSportType.js');
 var ScrollViewUpdTodayType = require('./../scrollview/ScrollViewUpdTodayType.js');
+var ScrollViewUpdSportType = require('./../scrollview/ScrollViewUpdSportType.js');
 var StackNavigatorRoot = require('../navigator/StackNavigatorRoot.js');
 
 class ViewRoot extends Component{
@@ -259,6 +260,9 @@ class ViewRoot extends Component{
                 }():function(){}()}
                 {(this.state.viewName=='ScrollViewUpdTodayType')?function(){
                     return (<ScrollViewUpdTodayType title={_this.state.viewTitle} prevView={_this.state.prevView} typeObj={_this.state.typeObj}/>);
+                }():function(){}()}
+                {(this.state.viewName=='ScrollViewUpdSportType')?function(){
+                    return (<ScrollViewUpdSportType title={_this.state.viewTitle} prevView={_this.state.prevView} typeObj={_this.state.typeObj}/>);
                 }():function(){}()}
                 {(this.state.viewName=='ViewEditWorkingLog')?function(){
                     return (<ViewEditWorkingLog title={_this.state.viewTitle} coreObj={_this.state.coreObj}/>);

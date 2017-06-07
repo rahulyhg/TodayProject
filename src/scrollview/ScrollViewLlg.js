@@ -130,6 +130,7 @@ var ScrollViewLlg = React.createClass({
 var styles = StyleSheet.create({
     scrollViewContainer:{
         backgroundColor: '#ffffff',
+        marginTop: YrcnApp.Platform.isIOS?0:25,
     },
 });
 //

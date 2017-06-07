@@ -14,10 +14,10 @@ import {
 } from 'react-native';
 //
 var RNUtils = require('../common/RNUtils.js');
-var NavigatorToday = require('./../navigator/NavigatorToday.js');
-var NavigatorYesterday = require('./../navigator/NavigatorYesterday.js');
-var NavigatorLlg = require('./../navigator/NavigatorLlg.js');
-var NavigatorSettings = require('./../navigator/NavigatorSettings.js');
+//var NavigatorToday = require('./../navigator/NavigatorToday.js');
+//var NavigatorYesterday = require('./../navigator/NavigatorYesterday.js');
+//var NavigatorLlg = require('./../navigator/NavigatorLlg.js');
+//var NavigatorSettings = require('./../navigator/NavigatorSettings.js');
 
 
 var ScrollViewToday = require('./../scrollview/ScrollViewToday.js');
