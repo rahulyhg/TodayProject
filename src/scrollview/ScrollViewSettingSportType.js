@@ -157,7 +157,7 @@ var styles = StyleSheet.create({
     },
     scrollViewContainer:{
         backgroundColor: '#ffffff',
-        height:Dimensions.get('window').height,
+        height:Dimensions.get('window').height-120,
     },
     bottomView: {
         position:'absolute',

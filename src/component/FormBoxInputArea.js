@@ -11,6 +11,7 @@ import {
     View,
     TextInput,
     Dimensions,
+    KeyboardAvoidingView,
 } from 'react-native';
 //
 var RNUtils = require('../common/RNUtils.js');
@@ -65,13 +66,52 @@ var FormBoxInputArea = React.createClass({
                     defaultValue={this.props.defaultValue}
                     multiline={this.props.multiline}
                     placeholderTextColor={this.props.placeholderTextColor}
+                    onFocus={this._onFocus}
+                    onLayout={this._onLayout}
                     />
             </View>
         );
+        //
+        //return (
+        //    <KeyboardAvoidingView behavior="position">
+        //        <View style={[styles.container,{borderBottomWidth:this.props.borderBottomWidth}]}>
+        //            <TextInput
+        //                style={[styles.textInput,{height: this.props.height,borderBottomWidth:0,color:this.props.inputColor}]}
+        //                onChangeText={this._onChangeText}
+        //                autoCorrect={false}
+        //                autoFocus={false}
+        //                maxLength={this.props.maxLength}
+        //                keyboardType={this.props.keyboardType}
+        //                placeholder={this.props.placeholder}
+        //                defaultValue={this.props.defaultValue}
+        //                multiline={this.props.multiline}
+        //                placeholderTextColor={this.props.placeholderTextColor}
+        //                />
+        //        </View>
+        //    </KeyboardAvoidingView>
+        //);
     },
     _onChangeText: function(text){
         this._vars.text = text.trim();
         this.props.parent.changeParam(this.props.paramName,text);
+    },
+    _downloadLayout: function(e){
+        this.setState({
+            downloadY:e.nativeEvent.layout.y,
+        });
+    },
+    _downLoadFocus: function(){
+        let scroller = this.refs.scroller;
+        YrcnApp.Platform.isIOS&& setTimeout(()=>{
+            let y = this.state.downloadY - 1/3*Dimensions.get('window').height;//Dev_height为屏幕的高度
+            scroller&&scroller.scrollTo({x:0, y:y, animated:true});
+        },50);
+    },
+    _onFocus: function(e){
+        //YrcnApp.utils.logObj("FormBoxInputArea.js _onFocus",e.nativeEvent);
+    },
+    _onLayout: function(e){
+        //YrcnApp.utils.logObj("FormBoxInputArea.js _onLayout",e.nativeEvent);
     }
 });
 //

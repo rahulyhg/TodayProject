@@ -78,7 +78,7 @@ var SettingsView = React.createClass({
         var _this = this;
         RNUtils.getAppInfo(function (appInfo) {
             _this.setState({
-                appBundleV: appInfo.appBundleV,
+                appBundleV: appInfo.appV,
             });
         })
     },

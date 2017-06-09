@@ -42,8 +42,8 @@ public class RNUtilsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAppInfo(ReadableArray params, Callback successCallback) {
         final WritableNativeMap retMap = new WritableNativeMap();
-        retMap.putString("appV","1.0.0");
-        retMap.putString("appBundleV","1.0.0");
+        retMap.putString("appV","2.1.0");
+        retMap.putString("appBundleV","2.1.0");
         retMap.putString("isOpenNotification","1");
 //        retMap.putString("appUpgrade","0");
 //        retMap.putString("appUpgradeVersion","");

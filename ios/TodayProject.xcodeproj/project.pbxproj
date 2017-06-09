@@ -18,6 +18,7 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		4C9DDF35B64E4144AFDEF41E /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E53B7BBE89244B57AD7BD320 /* libRNImagePicker.a */; };
+		816357BA1EE8E38400A5F716 /* libRNKeyboardEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 816357881EE8DEF600A5F716 /* libRNKeyboardEvents.a */; };
 		81766B101D9CB2AA006B7401 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81766AE81D9CB2AA006B7401 /* AppDelegate.m */; };
 		81766B1F1D9CB2AA006B7401 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81766B001D9CB2AA006B7401 /* LaunchScreen.xib */; };
 		81766B201D9CB2AA006B7401 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81766B021D9CB2AA006B7401 /* Images.xcassets */; };
@@ -117,6 +118,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
 			remoteInfo = RNFS;
+		};
+		816357871EE8DEF600A5F716 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 816357671EE8DEF600A5F716 /* RNKeyboardEvents.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RNKeyboardEvents;
 		};
 		816E4B4A1E1DF67600E2A92A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -255,6 +263,7 @@
 		53F3B2AABB00441887FC4F68 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		552F461C6EB94331AF6C22B5 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		816357671EE8DEF600A5F716 /* RNKeyboardEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNKeyboardEvents.xcodeproj; path = "../node_modules/react-native-keyboardevents/RNKeyboardEvents.xcodeproj"; sourceTree = "<group>"; };
 		816882F61DD1AC67000E72ED /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		816882F81DD1AC7F000E72ED /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		816E4B591E1DF74900E2A92A /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
@@ -285,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				816357BA1EE8E38400A5F716 /* libRNKeyboardEvents.a in Frameworks */,
 				81A790861D61C6660004ACC7 /* SystemConfiguration.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				81A491B81E83B856003A45A5 /* libRCTAnimation.a in Frameworks */,
@@ -425,6 +435,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		816357681EE8DEF600A5F716 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				816357881EE8DEF600A5F716 /* libRNKeyboardEvents.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		816E4B471E1DF67600E2A92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +505,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				816357671EE8DEF600A5F716 /* RNKeyboardEvents.xcodeproj */,
 				816882F81DD1AC7F000E72ED /* CoreTelephony.framework */,
 				816882F61DD1AC67000E72ED /* libc++.tbd */,
 				81DC32361D8CD8E4008870FE /* libsqlite3.0.tbd */,
@@ -646,6 +665,10 @@
 					ProjectRef = 0E9E165E7A4943AEB5D6EC39 /* RNImagePicker.xcodeproj */;
 				},
 				{
+					ProductGroup = 816357681EE8DEF600A5F716 /* Products */;
+					ProjectRef = 816357671EE8DEF600A5F716 /* RNKeyboardEvents.xcodeproj */;
+				},
+				{
 					ProductGroup = 8137A0D71E16121D00B5F150 /* Products */;
 					ProjectRef = C8677EC627EE4885A6D18BEC /* SplashScreen.xcodeproj */;
 				},
@@ -740,6 +763,13 @@
 			fileType = archive.ar;
 			path = libRNFS.a;
 			remoteRef = 8152AAF61E7D12A400A5E086 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		816357881EE8DEF600A5F716 /* libRNKeyboardEvents.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKeyboardEvents.a;
+			remoteRef = 816357871EE8DEF600A5F716 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		816E4B4B1E1DF67600E2A92A /* libCodePush.a */ = {

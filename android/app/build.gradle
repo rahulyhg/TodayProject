@@ -64,7 +64,20 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
-
+//project.ext.react = [
+//           bundleAssetName: "index.android.bundle",
+//           entryFile: "index.android.js",
+//           bundleInDebug: false,
+//           bundleInRelease: true,
+//           root: "../../",
+//           jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
+//           jsBundleDirRelease: "$buildDir/intermediates/assets/release",
+//           resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
+//           resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
+//           inputExcludes: ["android/**", "ios/**"],
+//           nodeExecutableAndArgs: ["node"],
+//           extraPackagerArgs: []
+//]
 apply from: "../../node_modules/react-native/react.gradle"
 //apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
@@ -92,7 +105,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "2.1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -105,10 +118,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        releaseConfig {
+            keyPassword 'weichuang521'
+            storeFile file('/Users/weichuang/Documents/file/my_svn_all/apks/weichuang.keystore')
+            keyAlias 'weichuang.keystore'
+            storePassword 'weichuang521'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.releaseConfig
         }
     }
     // applicationVariants are e.g. debug, release
@@ -127,6 +149,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
+    compile project(':react-native-fs')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

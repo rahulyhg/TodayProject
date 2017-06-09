@@ -646,7 +646,50 @@ class RNUtils{
             succCallbackFn();
         });
     }
-
+    //
+    static appVersonGe(wellVerson){
+        var aPPVersions = "1.0.0";
+        if(YrcnApp.appInfo && YrcnApp.appInfo.appV ){
+            aPPVersions = YrcnApp.appInfo.appV || "9.9.9";
+        }
+        var arr = aPPVersions.split(".");
+        var appV = 0;
+        var appV2 = 0;
+        if(arr.length >= 3){
+            appV = arr[0] * 1000000 + arr[1]*10000 + arr[2]*100;
+        }
+        var arr2 = wellVerson.split(".");
+        if(arr2.length >= 3){
+            appV2 = arr2[0] * 1000000 + arr2[1]*10000 + arr2[2]*100;
+        }
+        if(appV >= appV2){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //
+    static appIOSVersonGe(wellVerson){
+        var aPPVersions = "1.0.0";
+        if(YrcnApp.Platform.isIOS && YrcnApp.appInfo && YrcnApp.appInfo.appV ){
+            aPPVersions = YrcnApp.appInfo.appV || "9.9.9";
+        }
+        var arr = aPPVersions.split(".");
+        var appV = 0;
+        var appV2 = 0;
+        if(arr.length >= 3){
+            appV = arr[0] * 1000000 + arr[1]*10000 + arr[2]*100;
+        }
+        var arr2 = wellVerson.split(".");
+        if(arr2.length >= 3){
+            appV2 = arr2[0] * 1000000 + arr2[1]*10000 + arr2[2]*100;
+        }
+        if(appV >= appV2){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 module.exports = RNUtils;
 //

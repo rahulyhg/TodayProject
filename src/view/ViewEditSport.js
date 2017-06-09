@@ -65,7 +65,7 @@ var ViewEditSport = React.createClass({
         return (
             <View style={styles.container}>
                 <ViewHeader title={this.props.title} onPressLeft={this._onPressLeft} leftText="完成" rightText="配置" onPressRight={this._onPressSetting}/>
-                <FormBox>
+                <FormBox handleKeyboard="1" heightStyle={{height:Dimensions.get('window').height-74}}>
                     {_this.state.typeArray.map(function(d){
                         //console.log(d);
                         return (

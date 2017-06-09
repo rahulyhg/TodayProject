@@ -32,4 +32,17 @@ Successfully added the "today-android" app, along with the following default dep
 │ Staging    │ U2kIDCmIe3M9XzDhIEOdmDGPctmv12d41da1-a78b-47b4-b475-4f3305ad1642 │
 
 
+react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.jsbundle --platform android --assets-dest ./android/app/src/main/res/ --dev false
 
+react-native bundle --entry-file index.android.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res/ --dev false
+
+
+
+adb reverse tcp:8081 tcp:8081
+
+
+
+E/ReactNativeJS: undefined is not a function (evaluating 'Math.random().toFixed(8).slice(2)')
+grep 'Math.random().toFixed(8).slice(2)' node_modules/*.js
+
+npm install event-target-shim@2.0.0 --save

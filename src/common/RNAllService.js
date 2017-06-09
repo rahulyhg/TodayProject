@@ -119,7 +119,7 @@ var requestThreadPool = {
                                 'credentials': 'include'
                             }
                         }
-                        //console.log(SERVER_ROOT_PATH+_this.fetchObj.params.path)
+                        console.log(SERVER_ROOT_PATH+_this.fetchObj.params.path)
                         //console.log(fetchParam2)
                         fetch(SERVER_ROOT_PATH+_this.fetchObj.params.path, fetchParam2)
                             .then((response) => response.text())
@@ -241,28 +241,26 @@ class RNAllService{
                         "Content-Type": "application/x-www-form-urlencoded"
                     }
                 }
-                //console.log(SERVER_ROOT_PATH+gtObj.params.path)
+                console.log("2======"+SERVER_ROOT_PATH+gtObj.params.path)
+                //console.log("2======"+XMLHttpRequest)
+                //console.log("2======"+XMLHttpRequest)
+                //console.log("2======"+XMLHttpRequest)
+                //console.log("2======"+XMLHttpRequest)
+                //console.log("2======"+XMLHttpRequest)
+                //console.log("2======"+XMLHttpRequest)
+                console.log("2======"+fetch)
+                //console.log("2======"+XMLHttpRequest)
                 //console.log(fetchParam2)
                 fetch(SERVER_ROOT_PATH+gtObj.params.path, fetchParam2)
                     .then((response) => response.text())
                     .then((responseText) => {
-                        //console.log("responseText="+responseText);
+                        console.log("responseText="+responseText);
                         var responseJsonObj = JSON.parse(responseText);
                         if(responseJsonObj.RES_RESULT=="SUCCESS"){
                             gtObj.succCallbackFn(responseJsonObj.RES_DATA);
                         }else if(responseJsonObj.RES_RESULT=="FAILED"){
                             gtObj.failCallbackFn(responseJsonObj.RES_MSG);
                         }else {
-                            //console.warn("请求失败："+responseJsonObj.RES_MSG);
-                            ////RNUtils.alert("请求网络异常");
-                            //Alert.alert("温馨提示","请求网络异常",[
-                            //    {
-                            //        text:"好的",
-                            //        onPress:function(){
-                            //
-                            //        }
-                            //    }
-                            //]);
                             failCallbackFn(responseJsonObj.RES_MSG);
                         }
                     })
@@ -277,6 +275,7 @@ class RNAllService{
                             }
                         ]);
                     });
+                //fetch("http://www.baidu.com").then((response) => response.text());
             }
         }
     }

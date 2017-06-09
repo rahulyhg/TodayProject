@@ -3,7 +3,7 @@
  */
 'use strict';
 //
-import React,{Component} from 'react';
+import React,{Component,XMLHttpRequest} from 'react';
 //import {AppRegistry,Text} from 'react-native';
 import {
     AppRegistry,
@@ -24,6 +24,15 @@ import codePush from 'react-native-code-push'
 import YrcnApp from './src/common/YrcnApp.js';
 import ViewRoot from './src/view/ViewRoot.js';
 import {NavigatorRoot} from './src/navigator';
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
+console.log("2======"+XMLHttpRequest)
 //
 class YrcnAppProject extends Component {
     componentDidMount() {
@@ -38,6 +47,17 @@ class YrcnAppProject extends Component {
             <ViewRoot />
         );
     }
+    //render(){
+    //    return (
+    //        <View>
+    //            <Text>aaaaaaaaaaaaa</Text>
+    //            <Text>aaaaaaaaaaaaa</Text>
+    //            <Text>aaaaaaaaaaaaa</Text>
+    //            <Text>aaaaaaaaaaaaa</Text>
+    //            <Text>aaaaaaaaaaaaa</Text>
+    //        </View>
+    //    );
+    //}
 }
 //启动项目
 AppRegistry.registerComponent('YrcnAppProject', () => YrcnAppProject);

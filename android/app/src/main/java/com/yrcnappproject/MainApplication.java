@@ -3,12 +3,13 @@ package com.yrcnappproject;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
+import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.yrcnappproject.rn.modules.RNUtilsReactPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 //import com.microsoft.codepush.react.CodePush;
 
@@ -18,15 +19,23 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+//    @Override
+//    protected String getJSBundleFile() {
+//      return CodePush.getJSBundleFile();
+//    }
+
     @Override
     public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+//      return BuildConfig.DEBUG;
+      return  false;
     }
 
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
               new RNUtilsReactPackage(),
               new ImagePickerPackage(),
               new SplashScreenReactPackage()
