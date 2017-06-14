@@ -25,18 +25,11 @@ import YrcnApp from './src/common/YrcnApp.js';
 import ViewRoot from './src/view/ViewRoot.js';
 import {NavigatorRoot} from './src/navigator';
 console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
-console.log("2======"+XMLHttpRequest)
+console.log("3======"+fetch)
 //
 class YrcnAppProject extends Component {
     componentDidMount() {
-        //codePush.sync()
+        codePush.sync()
         SplashScreen.hide();//关闭启动屏幕
         //AppState.addEventListener("change", (newState) => {
         //    newState === "active" && codePush.sync();

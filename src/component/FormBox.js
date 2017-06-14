@@ -82,8 +82,8 @@ var FormBox = React.createClass({
             //KeyboardEventEmitter.off(KeyboardEvents.KeyboardWillHideEvent, this.resetKeyboardSpace);
         }
         if(this.props.handleKeyboard == '1'){
-            Keyboard.removeListener('keyboardDidShow');
-            Keyboard.removeListener('keyboardDidHide');
+            Keyboard.removeAllListeners('keyboardDidShow');
+            Keyboard.removeAllListeners('keyboardDidHide');
         }
     },
     //

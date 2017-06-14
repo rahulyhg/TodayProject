@@ -56,6 +56,7 @@ var ScrollViewAddTodayType = React.createClass({
     },
     render: function(){
         var _this = this;
+        _this._vars.param.content = "";
         return (
             <View style={styles.container}>
                 <ViewHeader title="显示设置" onPressLeft={this._onPressLeft}/>
@@ -89,6 +90,7 @@ var ScrollViewAddTodayType = React.createClass({
             }
             todayContentTypesObj.list.push(typeObj);
             RNUtils.setJsonTodayContentTypes(todayContentTypesObj,function(){
+                _this._vars.param.content = "";
                 RNUtils.alert("新增成功",function(){
                     //_this.props.prevView.refreshView();
                     //_this.props.parent_navigator.pop();

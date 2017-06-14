@@ -30,7 +30,7 @@ var TabBarIndex = React.createClass({
     getInitialState: function(){
         var _this = this;
         return {
-            selectedTab: 'todayIcon',
+            selectedTab: _this.props.selectedTab||'todayIcon',
         };
     },
     render: function(){

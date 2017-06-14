@@ -14,6 +14,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.yrcnappproject.rn.utils.DeviceUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,11 @@ public class RNUtilsModule extends ReactContextBaseJavaModule {
         retMap.putString("appV","2.1.0");
         retMap.putString("appBundleV","2.1.0");
         retMap.putString("isOpenNotification","1");
+        retMap.putString("phoneModel", DeviceUtils.getPhoneModel());
+        retMap.putString("localPhoneModel", DeviceUtils.getPhoneBrand());
+        retMap.putString("deviceName", "android");
+        retMap.putString("phoneVersion", DeviceUtils.getBuildVersion());
+//        retMap.putString("uuid_01", DeviceUtils.getDeviceId(reactContext);
 //        retMap.putString("appUpgrade","0");
 //        retMap.putString("appUpgradeVersion","");
 //        retMap.putString("appUpgradeMust","0");

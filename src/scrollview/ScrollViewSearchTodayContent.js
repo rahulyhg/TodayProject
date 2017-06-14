@@ -20,6 +20,7 @@ import {
     ScrollView,
     TouchableHighlight,
     DatePickerIOS,
+    DatePickerAndroid,
 } from 'react-native';
 //这是一个三方组件 github地址:https://github.com/eyaleizenberg/react-native-custom-action-sheet
 var CustomActionSheet = require('react-native-custom-action-sheet');
@@ -68,7 +69,7 @@ class ScrollViewSearchTodayContent extends Component{
         var _this = this;
         //
         let datePickerModal = (   //日期选择器组件 (根据标记赋值为 选择器 或 空)
-            this.state.datePickerModalVisible ?
+            this.state.datePickerModalVisible && YrcnApp.Platform.isIOS?
                 <CustomActionSheet
                     modalVisible={this.state.datePickerModalVisible}
                     onCancel={()=>this._showDatePicker()}>
@@ -227,11 +228,38 @@ class ScrollViewSearchTodayContent extends Component{
         });
 
     }
-    _showDatePicker(showDate) { //切换显隐标记
-        this.setState({
-            datePickerModalVisible: !this.state.datePickerModalVisible,
-            showDate: showDate
-        });
+    async _showDatePicker(showDate) { //切换显隐标记
+        if(YrcnApp.Platform.isIOS){
+            this.setState({
+                datePickerModalVisible: !this.state.datePickerModalVisible,
+                showDate: showDate
+            });
+        }else{
+            try {
+                var date = null;
+                if(showDate == "begin"){
+                    date = moment(this.state.beginDateVal).toDate();
+                }else{
+                    date = moment(this.state.endDateVal).toDate();
+                }
+                const {action, year, month, day} = await DatePickerAndroid.open({
+                    date: date
+                });
+                if (action !== DatePickerAndroid.dismissedAction) {
+                    console.log(year);
+                    console.log(month);
+                    console.log(day);
+                    var d = moment(new Date(year,month,day));
+                    if(showDate == "begin"){
+                        this.setState({beginDateVal:d.format("YYYY-MM-DD")});
+                    }else{
+                        this.setState({endDateVal:d.format("YYYY-MM-DD")});
+                    }
+                }
+            } catch (msg) {
+                console.warn('Cannot open date picker', msg);
+            }
+        }
     }
     _onDateChange(date) {  //改变日期state
         if(this.state.showDate == "begin"){
